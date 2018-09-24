@@ -32,8 +32,7 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = UIColor.init(red: 66.0/255.0, green: 139.0/255.0, blue: 202.0/255.0, alpha: 1.0)
-        UserDefaults.standard.setValue(url, forKey: "Link")
-        
+        UserDefaults.standard.setValue(url, forKey: "Link") 
         
         if isInternetAvailable() == true{
             fetchData()

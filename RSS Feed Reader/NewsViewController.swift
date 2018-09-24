@@ -33,13 +33,12 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = UIColor.init(red: 66.0/255.0, green: 139.0/255.0, blue: 202.0/255.0, alpha: 1.0)
         UserDefaults.standard.setValue(url, forKey: "Link")
-        refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        refreshControl.tintColor = UIColor.white
-        tableView.addSubview(refreshControl)
-        
         if isInternetAvailable() == true{
             fetchData()
+            refreshControl = UIRefreshControl()
+            refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+            refreshControl.tintColor = UIColor.white
+            tableView.addSubview(refreshControl)
         } else {
             addSavedData()
         }

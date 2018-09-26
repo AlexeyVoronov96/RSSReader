@@ -6,7 +6,6 @@
 //  Copyright © 2018 Алексей Воронов. All rights reserved.
 //
 
-import Foundation
 import SystemConfiguration
 
 func isInternetAvailable() -> Bool

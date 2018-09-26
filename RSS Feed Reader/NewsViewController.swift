@@ -55,19 +55,9 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
         let feedParser = FeedParser()
         feedParser.parseFeed(url: self.url!) { (rssItems) in
             self.rssItems = rssItems
-        OperationQueue.main.addOperation {
-            self.tableView.reloadSections(IndexSet(integer: 0), with: .none)
-        }
-        }
-    }
-    
-    func addSavedData(){
-        let data = UserDefaults.standard.value(forKey:self.url!) as? Data
-        let decodedData = try? PropertyListDecoder().decode(Array<RSSItem>.self, from: data!)
-        self.rssItems = decodedData
-        OperationQueue.main.addOperation {
-            self.tableView.reloadSections(IndexSet(integer: 0), with: .none)
-        }
+            OperationQueue.main.addOperation {
+                self.tableView.reloadSections(IndexSet(integer: 0), with: .none)
+            }
         }
     }
     

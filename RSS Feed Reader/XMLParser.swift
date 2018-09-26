@@ -19,7 +19,6 @@ struct RSSItem: Codable {
 class FeedParser: NSObject, XMLParserDelegate {
     
     private var rssItems: [RSSItem] = []
-    let news = NewsViewController()
     private var currentElement = ""
     private var currentTitle: String = "" {
         didSet {

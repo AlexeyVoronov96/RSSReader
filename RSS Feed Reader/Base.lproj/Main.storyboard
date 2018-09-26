@@ -19,39 +19,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NNY-pe-INk">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="36"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
                                 <color key="backgroundColor" red="0.25882352939999997" green="0.5450980392" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
-                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nhG-4E-i62">
-                                <rect key="frame" x="0.0" y="36" width="414" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="RaK-p2-hcp"/>
+                                    <constraint firstAttribute="height" constant="30" id="JhM-GL-mCa"/>
                                 </constraints>
-                                <color key="barTintColor" red="0.25882352939999997" green="0.5450980392" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <textAttributes key="titleTextAttributes">
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </textAttributes>
-                                <items>
-                                    <navigationItem title="RSS Каналы" id="9tC-li-G6p">
-                                        <rightBarButtonItems>
-                                            <barButtonItem systemItem="add" id="2Db-Bv-AUl">
-                                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <connections>
-                                                    <action selector="pushAddAction:" destination="z4y-PR-a90" id="7Mq-U9-l6V"/>
-                                                </connections>
-                                            </barButtonItem>
-                                            <barButtonItem title="Изм." id="kcs-x0-k1S">
-                                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <connections>
-                                                    <action selector="pushEditAction:" destination="z4y-PR-a90" id="ag6-Hx-5d2"/>
-                                                </connections>
-                                            </barButtonItem>
-                                        </rightBarButtonItems>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kpZ-kL-KQx">
-                                <rect key="frame" x="0.0" y="80" width="414" height="816"/>
+                                <rect key="frame" x="0.0" y="74" width="414" height="822"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="75" id="Wui-BB-272" customClass="ChannelsTableViewCell" customModule="RSS_Feed_Reader" customModuleProvider="target">
@@ -99,6 +74,35 @@
                                     <outlet property="delegate" destination="z4y-PR-a90" id="0ao-3Z-HKi"/>
                                 </connections>
                             </tableView>
+                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nhG-4E-i62">
+                                <rect key="frame" x="0.0" y="30" width="414" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="RaK-p2-hcp"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="pfl-rN-Z72"/>
+                                </constraints>
+                                <color key="barTintColor" red="0.25882352939999997" green="0.5450980392" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="RSS Каналы" id="9tC-li-G6p">
+                                        <rightBarButtonItems>
+                                            <barButtonItem systemItem="add" id="2Db-Bv-AUl">
+                                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <connections>
+                                                    <action selector="pushAddAction:" destination="z4y-PR-a90" id="7Mq-U9-l6V"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem title="Изм." id="kcs-x0-k1S">
+                                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <connections>
+                                                    <action selector="pushEditAction:" destination="z4y-PR-a90" id="ag6-Hx-5d2"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </rightBarButtonItems>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -106,7 +110,7 @@
                             <constraint firstItem="NNY-pe-INk" firstAttribute="leading" secondItem="F0Q-RP-Kaf" secondAttribute="leading" id="CbU-vL-2eC"/>
                             <constraint firstItem="nhG-4E-i62" firstAttribute="trailing" secondItem="OHi-gJ-oBh" secondAttribute="trailing" id="Fpj-V2-QcP"/>
                             <constraint firstItem="kpZ-kL-KQx" firstAttribute="leading" secondItem="OHi-gJ-oBh" secondAttribute="leading" id="NPI-dF-sku"/>
-                            <constraint firstItem="OHi-gJ-oBh" firstAttribute="top" secondItem="NNY-pe-INk" secondAttribute="bottom" constant="8" symbolic="YES" id="PWQ-Ur-KpI"/>
+                            <constraint firstItem="OHi-gJ-oBh" firstAttribute="top" secondItem="NNY-pe-INk" secondAttribute="bottom" constant="14" id="PWQ-Ur-KpI"/>
                             <constraint firstItem="kpZ-kL-KQx" firstAttribute="top" secondItem="nhG-4E-i62" secondAttribute="bottom" id="Trj-bF-Knm"/>
                             <constraint firstItem="nhG-4E-i62" firstAttribute="top" secondItem="NNY-pe-INk" secondAttribute="bottom" id="W5S-FX-1iK"/>
                             <constraint firstItem="nhG-4E-i62" firstAttribute="leading" secondItem="OHi-gJ-oBh" secondAttribute="leading" id="gDv-ya-wGr"/>
@@ -135,28 +139,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V0H-Zx-19j">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="36"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
                                 <color key="backgroundColor" red="0.25882352939999997" green="0.5450980392" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="qDa-84-h3q"/>
+                                </constraints>
                             </view>
-                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6qZ-IM-spa">
-                                <rect key="frame" x="0.0" y="36" width="414" height="44"/>
-                                <color key="barTintColor" red="0.25882352939999997" green="0.5450980392" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <textAttributes key="titleTextAttributes">
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </textAttributes>
-                                <items>
-                                    <navigationItem title="News Feed" id="MAW-1F-auO">
-                                        <barButtonItem key="leftBarButtonItem" image="back" id="NeI-FJ-h7i">
-                                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <connections>
-                                                <action selector="backButtonAction:" destination="0BS-DD-d8h" id="QsK-LV-fhu"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EUx-J4-41Q">
-                                <rect key="frame" x="0.0" y="80" width="414" height="816"/>
+                                <rect key="frame" x="0.0" y="74" width="414" height="822"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="149" id="Ctf-AI-QX9" customClass="NewsTableViewCell" customModule="RSS_Feed_Reader" customModuleProvider="target">
@@ -218,12 +208,32 @@
                                     <outlet property="delegate" destination="0BS-DD-d8h" id="SAF-Ep-tCQ"/>
                                 </connections>
                             </tableView>
+                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6qZ-IM-spa">
+                                <rect key="frame" x="0.0" y="30" width="414" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="0vZ-ox-c0X"/>
+                                </constraints>
+                                <color key="barTintColor" red="0.25882352939999997" green="0.5450980392" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="News Feed" id="MAW-1F-auO">
+                                        <barButtonItem key="leftBarButtonItem" image="back" id="NeI-FJ-h7i">
+                                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <connections>
+                                                <action selector="backButtonAction:" destination="0BS-DD-d8h" id="QsK-LV-fhu"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="EUx-J4-41Q" firstAttribute="top" secondItem="6qZ-IM-spa" secondAttribute="bottom" id="17k-Si-XXz"/>
                             <constraint firstItem="6qZ-IM-spa" firstAttribute="top" secondItem="V0H-Zx-19j" secondAttribute="bottom" id="5qZ-ay-A2a"/>
-                            <constraint firstItem="I1L-Mr-df0" firstAttribute="top" secondItem="V0H-Zx-19j" secondAttribute="bottom" constant="8" symbolic="YES" id="EJX-mQ-mSB"/>
+                            <constraint firstItem="I1L-Mr-df0" firstAttribute="top" secondItem="V0H-Zx-19j" secondAttribute="bottom" constant="14" id="EJX-mQ-mSB"/>
                             <constraint firstItem="EUx-J4-41Q" firstAttribute="trailing" secondItem="I1L-Mr-df0" secondAttribute="trailing" id="Gry-cJ-h5E"/>
                             <constraint firstItem="V0H-Zx-19j" firstAttribute="top" secondItem="Qng-1d-XYQ" secondAttribute="top" id="Su7-sH-AHX"/>
                             <constraint firstItem="6qZ-IM-spa" firstAttribute="leading" secondItem="I1L-Mr-df0" secondAttribute="leading" id="Tf5-Xi-VBm"/>
@@ -255,13 +265,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3kQ-zc-stH">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="36"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
                                 <color key="backgroundColor" red="0.25882352939999997" green="0.5450980392" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="UZV-ZE-7cq"/>
+                                </constraints>
                             </view>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bbF-hF-Mu2">
+                                <rect key="frame" x="0.0" y="74" width="414" height="788"/>
+                                <color key="backgroundColor" red="0.25882352939999997" green="0.5450980392" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZA6-7c-6Zl">
-                                <rect key="frame" x="0.0" y="36" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="30" width="414" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="LhY-d4-jax"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="fXS-1G-rhp"/>
                                 </constraints>
                                 <color key="barTintColor" red="0.25882352939999997" green="0.5450980392" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textAttributes key="titleTextAttributes">
@@ -278,15 +296,11 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bbF-hF-Mu2">
-                                <rect key="frame" x="0.0" y="80" width="414" height="782"/>
-                                <color key="backgroundColor" red="0.25882352939999997" green="0.5450980392" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="3kQ-zc-stH" secondAttribute="trailing" id="13L-NA-6jR"/>
-                            <constraint firstItem="xmn-J7-5Pf" firstAttribute="top" secondItem="3kQ-zc-stH" secondAttribute="bottom" constant="8" symbolic="YES" id="1GG-76-aJT"/>
+                            <constraint firstItem="xmn-J7-5Pf" firstAttribute="top" secondItem="3kQ-zc-stH" secondAttribute="bottom" constant="14" id="1GG-76-aJT"/>
                             <constraint firstItem="bbF-hF-Mu2" firstAttribute="bottom" secondItem="xmn-J7-5Pf" secondAttribute="bottom" id="JgN-GF-MOU"/>
                             <constraint firstItem="bbF-hF-Mu2" firstAttribute="leading" secondItem="xmn-J7-5Pf" secondAttribute="leading" id="LQR-sD-4Jm"/>
                             <constraint firstItem="bbF-hF-Mu2" firstAttribute="trailing" secondItem="xmn-J7-5Pf" secondAttribute="trailing" id="NMD-Zo-yXV"/>

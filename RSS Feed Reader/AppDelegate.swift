@@ -18,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let defaults = UserDefaults.standard
         let defaultValue = ["Link" : ""]
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         defaults.register(defaults: defaultValue)
         return true
     }

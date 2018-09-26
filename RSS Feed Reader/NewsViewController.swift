@@ -33,6 +33,7 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = UIColor.init(red: 66.0/255.0, green: 139.0/255.0, blue: 202.0/255.0, alpha: 1.0)
         UserDefaults.standard.setValue(url, forKey: "Link")
+        
         if isInternetAvailable() == true{
             fetchData()
             refreshControl = UIRefreshControl()
@@ -54,6 +55,16 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
         let feedParser = FeedParser()
         feedParser.parseFeed(url: self.url!) { (rssItems) in
             self.rssItems = rssItems
+        OperationQueue.main.addOperation {
+            self.tableView.reloadSections(IndexSet(integer: 0), with: .none)
+        }
+        }
+    }
+    
+    func addSavedData(){
+        let data = UserDefaults.standard.value(forKey:self.url!) as? Data
+        let decodedData = try? PropertyListDecoder().decode(Array<RSSItem>.self, from: data!)
+        self.rssItems = decodedData
         OperationQueue.main.addOperation {
             self.tableView.reloadSections(IndexSet(integer: 0), with: .none)
         }

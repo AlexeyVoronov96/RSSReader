@@ -48,11 +48,6 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @objc func refresh(_ sender: Any) {
         fetchData()
-        let deadline = DispatchTime.now() + .milliseconds(1500)
-        DispatchQueue.main.asyncAfter(deadline: deadline) {
-            self.refreshControl.endRefreshing()
-        }
-        
     }
     
     public func fetchData() {
@@ -61,6 +56,7 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.rssItems = rssItems
             OperationQueue.main.addOperation {
                 self.tableView.reloadSections(IndexSet(integer: 0), with: .none)
+                 self.refreshControl.endRefreshing()
             }
         }
     }

@@ -17,6 +17,7 @@
 		AB42C9BF2152313600C3C367 /* XMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB42C9BE2152313600C3C367 /* XMLParser.swift */; };
 		AB42C9C32152316F00C3C367 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB42C9C22152316F00C3C367 /* NewsTableViewCell.swift */; };
 		AB42C9C52152415E00C3C367 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB42C9C42152415E00C3C367 /* WebViewController.swift */; };
+		AB524469215BF0880024A5BD /* ConnectionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB524468215BF0880024A5BD /* ConnectionChecker.swift */; };
 		AB9516CF215259820074FAC9 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9516CE215259820074FAC9 /* Model.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		AB42C9BE2152313600C3C367 /* XMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMLParser.swift; sourceTree = "<group>"; };
 		AB42C9C22152316F00C3C367 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		AB42C9C42152415E00C3C367 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		AB524468215BF0880024A5BD /* ConnectionChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionChecker.swift; sourceTree = "<group>"; };
 		AB9516CE215259820074FAC9 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -78,6 +80,7 @@
 				AB42C9BE2152313600C3C367 /* XMLParser.swift */,
 				AB42C9C22152316F00C3C367 /* NewsTableViewCell.swift */,
 				AB42C9C42152415E00C3C367 /* WebViewController.swift */,
+				AB524468215BF0880024A5BD /* ConnectionChecker.swift */,
 			);
 			path = "RSS Feed Reader";
 			sourceTree = "<group>";
@@ -153,6 +156,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB524469215BF0880024A5BD /* ConnectionChecker.swift in Sources */,
 				AB2451BA2152CC0100C77B19 /* ChannelsViewController.swift in Sources */,
 				AB1ACE13215384130070E578 /* ChannelsTableViewCell.swift in Sources */,
 				AB9516CF215259820074FAC9 /* Model.swift in Sources */,

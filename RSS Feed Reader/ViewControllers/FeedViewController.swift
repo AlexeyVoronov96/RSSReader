@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SystemConfiguration
 
 class FeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     

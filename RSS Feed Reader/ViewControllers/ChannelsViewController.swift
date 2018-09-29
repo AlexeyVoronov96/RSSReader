@@ -5,7 +5,6 @@
 //  Created by Алексей Воронов on 19/09/2018.
 //  Copyright © 2018 Алексей Воронов. All rights reserved.
 //
-
 import UIKit
 
 class ChannelsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
@@ -39,8 +38,8 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
             let newItem = alertController.textFields![0].text
             let newItem2 = alertController.textFields![1].text
             if (newItem2 != ""){
-            addItem(nameItem: newItem!, linkItem: newItem2!)
-            self.tableView.reloadData()
+                addItem(nameItem: newItem!, linkItem: newItem2!)
+                self.tableView.reloadData()
             }
         }
         
@@ -52,12 +51,12 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+        
         tableView.tableFooterView = UIView()
-        tableView.backgroundColor = UIColor.white
-
+        tableView.backgroundColor = UIColor.init(red: 233/255, green: 233/255, blue: 233/255, alpha: 1)
+        
     }
-
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -126,13 +125,13 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-            let currentItem = ToAddLinks[indexPath.row]
-            let newsVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "news") as! NewsViewController
-            newsVC.url = (currentItem["Link"]) as? String
-            newsVC.name = (currentItem["Name"]) as? String
-            self.present(newsVC, animated: true, completion: nil)
+        let currentItem = ToAddLinks[indexPath.row]
+        let feedVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "feed") as! FeedViewController
+        feedVC.url = (currentItem["Link"]) as? String
+        feedVC.name = (currentItem["Name"]) as? String
+        self.present(feedVC, animated: true, completion: nil)
     }
-
+    
     func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
         moveItem(fromIndex: fromIndexPath.row, toIndex: to.row)
         tableView.reloadData()
@@ -150,5 +149,5 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
     }
-    
+
 }

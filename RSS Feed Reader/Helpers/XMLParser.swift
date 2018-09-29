@@ -2,7 +2,7 @@
 //  XMLParser.swift
 //  RSS Feed Reader
 //
-//  Created by Алексей Воронов on 19/09/2018.
+//  Created by Алексей Воронов on 29/09/2018.
 //  Copyright © 2018 Алексей Воронов. All rights reserved.
 //
 
@@ -43,7 +43,7 @@ class FeedParser: NSObject, XMLParserDelegate {
     
     
     private var parserCompletionHandler: (([RSSItem]) -> Void)?
-
+    
     func parseFeed(url: String, completionHandler: (([RSSItem]) -> Void)?) {
         
         self.parserCompletionHandler = completionHandler
@@ -59,7 +59,7 @@ class FeedParser: NSObject, XMLParserDelegate {
             let parser = XMLParser(data: data)
             parser.delegate = self
             parser.parse()
-            }
+        }
         task.resume()
     }
     
@@ -86,8 +86,8 @@ class FeedParser: NSObject, XMLParserDelegate {
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         
         if elementName == "item" {
-                let rssItem = RSSItem(title: currentTitle, description: currentDescription, pubDate: currentPubDate, link: currentLink)
-                self.rssItems.append(rssItem)
+            let rssItem = RSSItem(title: currentTitle, description: currentDescription, pubDate: currentPubDate, link: currentLink)
+            self.rssItems.append(rssItem)
             let link = UserDefaults.standard.object(forKey: "Link") as? String
             UserDefaults.standard.set(try? PropertyListEncoder().encode(rssItems), forKey:link!)
         }

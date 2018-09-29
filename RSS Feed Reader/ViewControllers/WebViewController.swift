@@ -11,7 +11,7 @@ import UIKit
 class WebViewController: UIViewController {
     
     @IBOutlet weak var navigationBar: UINavigationBar!
-    @IBOutlet weak var webView: UIWebView!
+    @IBOutlet weak var webView: UIWebView! 
     
     @IBAction func backButtonAction(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -22,7 +22,6 @@ class WebViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         navigationBar.topItem?.title = name
         webView.loadRequest(URLRequest(url: URL(string: url!)!))
     }

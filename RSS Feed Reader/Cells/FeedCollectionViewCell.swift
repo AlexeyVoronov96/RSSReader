@@ -1,22 +1,17 @@
 //
-//  NewsTableViewCell.swift
+//  FeedCollectionViewCell.swift
 //  RSS Feed Reader
 //
-//  Created by Алексей Воронов on 19/09/2018.
+//  Created by Алексей Воронов on 29/09/2018.
 //  Copyright © 2018 Алексей Воронов. All rights reserved.
 //
 
 import UIKit
 
-class NewsTableViewCell: UITableViewCell {
-
+class FeedCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var TitleLabel: UILabel!
     @IBOutlet weak var DateLabel: UILabel!
-    @IBOutlet weak var DescriptionLabel: UILabel!{
-        didSet {
-            DescriptionLabel.numberOfLines = 3
-        }
-    }
+    @IBOutlet weak var DescriptionLabel: UILabel!
     
     
     var item: RSSItem! {
@@ -26,5 +21,4 @@ class NewsTableViewCell: UITableViewCell {
             DescriptionLabel.text = item.description
         }
     }
-    
 }

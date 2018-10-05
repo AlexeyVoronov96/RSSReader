@@ -7,8 +7,10 @@
 //
 
 import Foundation
+import RealmSwift
+import QuickPersist
 
-struct RSSItem: Codable {
+struct RSSItem {
     var title: String
     var description: String
     var pubDate: String
@@ -45,7 +47,6 @@ class FeedParser: NSObject, XMLParserDelegate {
     private var parserCompletionHandler: (([RSSItem]) -> Void)?
     
     func parseFeed(url: String, completionHandler: (([RSSItem]) -> Void)?) {
-        
         self.parserCompletionHandler = completionHandler
         let request = URLRequest(url: URL(string: url)!)
         let urlSession = URLSession.shared
@@ -88,8 +89,6 @@ class FeedParser: NSObject, XMLParserDelegate {
         if elementName == "item" {
             let rssItem = RSSItem(title: currentTitle, description: currentDescription, pubDate: currentPubDate, link: currentLink)
             self.rssItems.append(rssItem)
-            let link = UserDefaults.standard.object(forKey: "Link") as? String
-            UserDefaults.standard.set(try? PropertyListEncoder().encode(rssItems), forKey:link!)
         }
     }
     

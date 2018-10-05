@@ -10,7 +10,17 @@ import UIKit
 
 class ChannelsTableViewCell: UITableViewCell {
 
+    
     @IBOutlet weak var labelName: UILabel!
     @IBOutlet weak var labelLink: UILabel!
+    
+    func configure(with currentItem: Channels) {
+        if currentItem.name == nil{
+            labelName.text = "Безымянный канал"
+        } else {
+            labelName.text = currentItem.name
+        }
+        labelLink.text = currentItem.link
+    }
     
 }

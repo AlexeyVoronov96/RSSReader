@@ -1,5 +1,5 @@
 //
-//  ConnectionChecker.swift
+//  Checker.swift
 //  RSS Feed Reader
 //
 //  Created by Алексей Воронов on 26/09/2018.
@@ -7,6 +7,7 @@
 //
 
 import SystemConfiguration
+import UIKit
 
 func isInternetAvailable() -> Bool
 {
@@ -26,4 +27,12 @@ func isInternetAvailable() -> Bool
     let isReachable = flags.contains(.reachable)
     let needsConnection = flags.contains(.connectionRequired)
     return (isReachable && !needsConnection)
+}
+
+func validateUrl (stringURL : NSString) -> Bool {
+    let urlRegEx = "(http|https)://((\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*)+)+(/)?(\\?.*)?"
+    let predicate = NSPredicate(format:"SELF MATCHES %@", argumentArray:[urlRegEx])
+    _ = NSPredicate.withSubstitutionVariables(predicate)
+    
+    return predicate.evaluate(with: stringURL)
 }

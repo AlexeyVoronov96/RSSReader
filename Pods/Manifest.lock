@@ -7,11 +7,13 @@ PODS:
   - RealmSwift (3.10.0):
     - Realm (= 3.10.0)
   - Toast-Swift (4.0.0)
+  - WebBrowser (0.1.4)
 
 DEPENDENCIES:
   - QuickPersist (~> 1.0)
   - RealmSwift
   - Toast-Swift (~> 4.0.0)
+  - WebBrowser
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -19,13 +21,15 @@ SPEC REPOS:
     - Realm
     - RealmSwift
     - Toast-Swift
+    - WebBrowser
 
 SPEC CHECKSUMS:
   QuickPersist: 3f4d294ed7c51f57dac07892f0a8e15edb35d299
   Realm: 85ab9e4f779d66f6e9ffeb118dc25b7f130c96ac
   RealmSwift: 69121c8b86d0ae005fb779efdb10e606732e1c74
   Toast-Swift: 594b5c5e5129f15438e410207e43287f027b3c00
+  WebBrowser: 72ae8c342cc399d0cde0299ea297652d7e108336
 
-PODFILE CHECKSUM: 65ec13bdd44ebc4faf4647f0b758e411330029cd
+PODFILE CHECKSUM: b784bf70510a1eeec51d6ebeaa5b740ba9480785
 
 COCOAPODS: 1.6.0.beta.1

@@ -11,6 +11,7 @@ import Toast_Swift
 
 class ContainerViewController: UIViewController {
 
+    @IBOutlet var slideInView: UIView!
     @IBOutlet var blurView: UIVisualEffectView!
     @IBOutlet var blurViewConstraintRight: NSLayoutConstraint!
     @IBOutlet var blurViewConstraintLeft: NSLayoutConstraint!

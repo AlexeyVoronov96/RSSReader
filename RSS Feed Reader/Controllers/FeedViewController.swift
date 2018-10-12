@@ -8,6 +8,7 @@
 
 import UIKit
 import Toast_Swift
+import WebBrowser
 
 class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegate, UICollectionViewDelegateFlowLayout {
     
@@ -58,8 +59,8 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
             self.url = dict["link"] as? String
             self.navigationItem.title = dict["name"] as? String
             self.fetchData()
-            self.collectionView.setContentOffset(CGPoint(x: 0, y: -20 - (navigationController?.navigationBar.frame.height)!),
-                                                 animated: true)
+            self.collectionView.setContentOffset(CGPoint(x: 0, y: -115),
+                                                         animated: true)
         }
     }
     
@@ -123,10 +124,34 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
         }
     }
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let currentItem = self.rssItems![indexPath.row]
+        DispatchQueue.main.async {
+            if let url = URL(string: currentItem.link) {
+                let webBrowserViewController = WebBrowserViewController()
+                webBrowserViewController.delegate = self as? WebBrowserDelegate
+                
+                webBrowserViewController.onOpenExternalAppHandler = { [weak self] _ in
+                    guard let `self` = self else { return }
+                    self.navigationController?.popViewController(animated: true)
+                }
+                
+                webBrowserViewController.language = .english
+                webBrowserViewController.barTintColor = UIColor.init(red: 66/255, green: 139/255, blue: 202/255, alpha: 1)
+                webBrowserViewController.title = currentItem.title
+                webBrowserViewController.tintColor = UIColor.white
+                webBrowserViewController.loadURL(url)
+                webBrowserViewController.isShowURLInNavigationBarWhenLoading = false
+                webBrowserViewController.isShowPageTitleInNavigationBar = true
+                
+                self.navigationController?.pushViewController(webBrowserViewController, animated: true)
+            }
+        }
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         UIView.animate(withDuration: 0.1) {
             if let cell = collectionView.cellForItem(at: indexPath) as? FeedCollectionViewCell {
-                cell.transform = .init(scaleX: 0.95, y: 0.95)
                 cell.contentView.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
             }
         }
@@ -135,25 +160,9 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
     override func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         UIView.animate(withDuration: 0.1) {
             if let cell = collectionView.cellForItem(at: indexPath) as? FeedCollectionViewCell {
-                cell.transform = .identity
                 cell.contentView.backgroundColor = .clear
             }
         }
     }
         
-    override func prepare(for segue: UIStoryboardSegue,
-                          sender: Any?) {
-        if segue.identifier == "showMore" {
-            if let cell = sender as? FeedCollectionViewCell, let indexPath = collectionView.indexPath(for: cell) {
-                if isInternetAvailable() == true {
-                    let destination = segue.destination as! WebViewController
-                    let currentItem = self.rssItems![indexPath.row]
-                    destination.url = currentItem.link
-                    print(currentItem.link)
-                    destination.name = currentItem.title
-                }
-            }
-        }
-    }
-    
 }

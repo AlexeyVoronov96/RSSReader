@@ -95,6 +95,7 @@
                         <outlet property="mainViewConstraintLeft" destination="2gE-i9-0nf" id="Shs-BD-sw9"/>
                         <outlet property="mainViewConstraintRight" destination="Ngu-NI-yaL" id="Rfs-YK-NEs"/>
                         <outlet property="sideMenuConstraint" destination="kbh-ds-H8l" id="f13-Ng-VWC"/>
+                        <outlet property="slideInView" destination="7Xk-Rc-JlR" id="cgw-kz-G4i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZJs-gl-Nuq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -291,7 +292,6 @@
                                     <outlet property="dateLabel" destination="Lx1-cv-8Tw" id="Lhx-oi-Kw5"/>
                                     <outlet property="descriptionLabel" destination="RBt-m7-t6F" id="AC6-IO-6Bw"/>
                                     <outlet property="titleLabel" destination="hhF-da-ylD" id="vtR-Ws-54R"/>
-                                    <segue destination="PBM-Go-TSF" kind="show" identifier="showMore" id="el0-tb-iyP"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -305,38 +305,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gAl-s2-fKt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="402.89855072463769" y="643.52678571428567"/>
-        </scene>
-        <!--Web-страница-->
-        <scene sceneID="oyY-9a-Art">
-            <objects>
-                <viewController storyboardIdentifier="web" title="Web-страница" id="PBM-Go-TSF" customClass="WebViewController" customModule="RSS_Feed_Reader" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="HRI-JI-eso">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="756"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <webView contentMode="scaleToFill" scalesPageToFit="YES" suppressesIncrementalRendering="YES" paginationMode="leftToRight" translatesAutoresizingMaskIntoConstraints="NO" id="bbF-hF-Mu2">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="756"/>
-                                <color key="backgroundColor" red="0.25882352939999997" green="0.5450980392" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES" shipmentTrackingNumber="YES" flightNumber="YES" lookupSuggestion="YES"/>
-                            </webView>
-                        </subviews>
-                        <color key="backgroundColor" red="0.25882352939999997" green="0.5450980392" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="bbF-hF-Mu2" firstAttribute="top" secondItem="xmn-J7-5Pf" secondAttribute="top" id="1aq-qh-iMH"/>
-                            <constraint firstItem="bbF-hF-Mu2" firstAttribute="trailing" secondItem="xmn-J7-5Pf" secondAttribute="trailing" id="Xeo-ZG-cgV"/>
-                            <constraint firstItem="bbF-hF-Mu2" firstAttribute="leading" secondItem="xmn-J7-5Pf" secondAttribute="leading" id="bH9-ry-Kq1"/>
-                            <constraint firstItem="bbF-hF-Mu2" firstAttribute="bottom" secondItem="xmn-J7-5Pf" secondAttribute="bottom" constant="34" id="fVn-Tj-FOk"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="xmn-J7-5Pf"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="XQu-he-aB9"/>
-                    <connections>
-                        <outlet property="webView" destination="bbF-hF-Mu2" id="2qA-7W-GLv"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tsQ-Wt-8ah" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1502.8985507246377" y="643.52678571428567"/>
         </scene>
     </scenes>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

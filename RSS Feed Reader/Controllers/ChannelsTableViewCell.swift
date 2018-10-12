@@ -10,7 +10,6 @@ import UIKit
 
 class ChannelsTableViewCell: UITableViewCell {
 
-    
     @IBOutlet weak var labelName: UILabel!
     @IBOutlet weak var labelLink: UILabel!
     

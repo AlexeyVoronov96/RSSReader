@@ -26,11 +26,13 @@ class RealmService {
         }
     }
     
-    func update<T: Object>(_ object: T, with dictionary: [String: Any?]) {
+    func update<T: Object>(_ object: T,
+                           with dictionary: [String: Any?]) {
         do {
             try realm.write {
                 for (key, value) in dictionary {
-                    object.setValue(value, forKey: key)
+                    object.setValue(value,
+                                    forKey: key)
                 }
             }
         } catch {
@@ -49,19 +51,23 @@ class RealmService {
     }
     
     func post(_ error: Error) {
-        NotificationCenter.default.post(name: NSNotification.Name("RealmError"), object: error)
+        NotificationCenter.default.post(name: NSNotification.Name("RealmError"),
+                                        object: error)
     }
     
-    func observeRealmErrors(in vc: UIViewController, completion: @escaping (Error?) -> Void) {
+    func observeRealmErrors(in vc: UIViewController,
+                            completion: @escaping (Error?) -> Void) {
         NotificationCenter.default.addObserver(forName: NSNotification.Name("RealmError"),
-                                               object: nil,
-                                               queue: nil) { (notification) in
+                                                object: nil,
+                                                queue: nil) { (notification) in
                                                 completion(notification.object as? Error)
         }
     }
     
     func stopObservingErrors(in vc: UIViewController) {
-        NotificationCenter.default.removeObserver(vc, name: NSNotification.Name("RealmError"), object: nil)
+        NotificationCenter.default.removeObserver(vc,
+                                                  name: NSNotification.Name("RealmError"),
+                                                  object: nil)
     }
     
 }

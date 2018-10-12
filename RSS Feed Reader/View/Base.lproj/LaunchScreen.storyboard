@@ -21,27 +21,27 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XmR-6r-SiA">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="my_logo-2" translatesAutoresizingMaskIntoConstraints="NO" id="lbU-bY-2PG">
-                                        <rect key="frame" x="118" y="358.66666666666669" width="178" height="179.00000000000006"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="lbU-bY-2PG">
+                                        <rect key="frame" x="157" y="398" width="100" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="7sW-rs-lAM"/>
+                                            <constraint firstAttribute="width" constant="100" id="k5q-cO-D0f"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.25882352939999997" green="0.5450980392" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="lbU-bY-2PG" firstAttribute="centerY" secondItem="XmR-6r-SiA" secondAttribute="centerY" id="Ag8-OM-BUX"/>
-                                    <constraint firstItem="lbU-bY-2PG" firstAttribute="centerY" secondItem="XmR-6r-SiA" secondAttribute="centerY" id="YKV-xw-Qne"/>
-                                    <constraint firstItem="lbU-bY-2PG" firstAttribute="centerX" secondItem="XmR-6r-SiA" secondAttribute="centerX" id="f3F-Eq-Q97"/>
-                                    <constraint firstItem="lbU-bY-2PG" firstAttribute="centerY" secondItem="XmR-6r-SiA" secondAttribute="centerY" id="vfQ-wi-tTh"/>
-                                    <constraint firstItem="lbU-bY-2PG" firstAttribute="centerX" secondItem="XmR-6r-SiA" secondAttribute="centerX" id="wwH-jR-uYB"/>
-                                    <constraint firstItem="lbU-bY-2PG" firstAttribute="centerX" secondItem="XmR-6r-SiA" secondAttribute="centerX" id="zUk-Nu-SqC"/>
+                                    <constraint firstItem="lbU-bY-2PG" firstAttribute="centerY" secondItem="XmR-6r-SiA" secondAttribute="centerY" id="H9Z-4O-45h"/>
+                                    <constraint firstItem="lbU-bY-2PG" firstAttribute="centerX" secondItem="XmR-6r-SiA" secondAttribute="centerX" id="byC-vK-9dm"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="XmR-6r-SiA" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="EMV-3h-esS"/>
-                            <constraint firstItem="XmR-6r-SiA" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Hi0-F1-XkN"/>
-                            <constraint firstItem="XmR-6r-SiA" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="nug-1g-VgT"/>
-                            <constraint firstAttribute="bottom" secondItem="XmR-6r-SiA" secondAttribute="bottom" id="tTV-Im-FDW"/>
+                            <constraint firstAttribute="bottom" secondItem="XmR-6r-SiA" secondAttribute="bottom" id="8Wz-Zc-NeZ"/>
+                            <constraint firstItem="XmR-6r-SiA" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Jnq-Ha-IBk"/>
+                            <constraint firstItem="XmR-6r-SiA" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="cf7-zS-xSM"/>
+                            <constraint firstItem="XmR-6r-SiA" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="gM9-t3-Hz9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -52,6 +52,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="my_logo-2" width="178" height="179"/>
+        <image name="logo" width="170.66667175292969" height="170.66667175292969"/>
     </resources>
 </document>

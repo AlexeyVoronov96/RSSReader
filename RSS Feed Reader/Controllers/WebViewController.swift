@@ -17,8 +17,11 @@ class WebViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = name
-        webView.loadRequest(URLRequest(url: URL(string: url!)!))
+        self.extendedLayoutIncludesOpaqueBars = true
+        self.navigationItem.title = self.name
+        DispatchQueue.main.async {
+            self.webView.loadRequest(URLRequest(url: URL(string: self.url!)!))
+        }
     }
 
 }

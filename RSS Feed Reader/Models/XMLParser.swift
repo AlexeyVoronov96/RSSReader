@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import RealmSwift
-import QuickPersist
 
 struct RSSItem {
     var title: String
@@ -16,7 +14,6 @@ struct RSSItem {
     var pubDate: String
     var link: String
 }
-
 
 class FeedParser: NSObject, XMLParserDelegate {
     
@@ -46,7 +43,8 @@ class FeedParser: NSObject, XMLParserDelegate {
     
     private var parserCompletionHandler: (([RSSItem]) -> Void)?
     
-    func parseFeed(url: String, completionHandler: (([RSSItem]) -> Void)?) {
+    func parseFeed(url: String,
+                   completionHandler: (([RSSItem]) -> Void)?) {
         self.parserCompletionHandler = completionHandler
         let request = URLRequest(url: URL(string: url)!)
         let urlSession = URLSession.shared
@@ -64,7 +62,11 @@ class FeedParser: NSObject, XMLParserDelegate {
         task.resume()
     }
     
-    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+    func parser(_ parser: XMLParser,
+                didStartElement elementName: String,
+                namespaceURI: String?,
+                qualifiedName qName: String?,
+                attributes attributeDict: [String : String] = [:]) {
         currentElement = elementName
         if currentElement == "item" {
             currentTitle = ""
@@ -74,7 +76,8 @@ class FeedParser: NSObject, XMLParserDelegate {
         }
     }
     
-    func parser(_ parser: XMLParser, foundCharacters string: String) {
+    func parser(_ parser: XMLParser,
+                foundCharacters string: String) {
         switch currentElement {
         case "title": currentTitle += string
         case "description": currentDescription += string
@@ -84,10 +87,15 @@ class FeedParser: NSObject, XMLParserDelegate {
         }
     }
     
-    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        
+    func parser(_ parser: XMLParser,
+                didEndElement elementName: String,
+                namespaceURI: String?,
+                qualifiedName qName: String?) {
         if elementName == "item" {
-            let rssItem = RSSItem(title: currentTitle, description: currentDescription, pubDate: currentPubDate, link: currentLink)
+            let rssItem = RSSItem(title: currentTitle,
+                                  description: currentDescription,
+                                  pubDate: currentPubDate,
+                                  link: currentLink)
             self.rssItems.append(rssItem)
         }
     }
@@ -96,7 +104,8 @@ class FeedParser: NSObject, XMLParserDelegate {
         parserCompletionHandler?(rssItems)
     }
     
-    func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
+    func parser(_ parser: XMLParser,
+                parseErrorOccurred parseError: Error) {
         print(parseError.localizedDescription)
     }
     

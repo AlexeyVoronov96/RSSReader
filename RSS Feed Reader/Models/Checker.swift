@@ -9,14 +9,13 @@
 import SystemConfiguration
 import UIKit
 
-func isInternetAvailable() -> Bool
-{
+func isInternetAvailable() -> Bool {
     var zeroAddress = sockaddr_in()
     zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
     zeroAddress.sin_family = sa_family_t(AF_INET)
-    
     let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
-        $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
+        $0.withMemoryRebound(to: sockaddr.self,
+                             capacity: 1) {zeroSockAddress in
             SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
         }
     }
@@ -31,8 +30,8 @@ func isInternetAvailable() -> Bool
 
 func validateUrl (stringURL : NSString) -> Bool {
     let urlRegEx = "(http|https)://((\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*)+)+(/)?(\\?.*)?"
-    let predicate = NSPredicate(format:"SELF MATCHES %@", argumentArray:[urlRegEx])
+    let predicate = NSPredicate(format:"SELF MATCHES %@",
+                                argumentArray:[urlRegEx])
     _ = NSPredicate.withSubstitutionVariables(predicate)
-    
     return predicate.evaluate(with: stringURL)
 }

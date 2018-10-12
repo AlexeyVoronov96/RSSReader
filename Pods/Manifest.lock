@@ -1,0 +1,31 @@
+PODS:
+  - QuickPersist (1.0.1):
+    - RealmSwift
+  - Realm (3.10.0):
+    - Realm/Headers (= 3.10.0)
+  - Realm/Headers (3.10.0)
+  - RealmSwift (3.10.0):
+    - Realm (= 3.10.0)
+  - Toast-Swift (4.0.0)
+
+DEPENDENCIES:
+  - QuickPersist (~> 1.0)
+  - RealmSwift
+  - Toast-Swift (~> 4.0.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - QuickPersist
+    - Realm
+    - RealmSwift
+    - Toast-Swift
+
+SPEC CHECKSUMS:
+  QuickPersist: 3f4d294ed7c51f57dac07892f0a8e15edb35d299
+  Realm: 85ab9e4f779d66f6e9ffeb118dc25b7f130c96ac
+  RealmSwift: 69121c8b86d0ae005fb779efdb10e606732e1c74
+  Toast-Swift: 594b5c5e5129f15438e410207e43287f027b3c00
+
+PODFILE CHECKSUM: 65ec13bdd44ebc4faf4647f0b758e411330029cd
+
+COCOAPODS: 1.6.0.beta.1

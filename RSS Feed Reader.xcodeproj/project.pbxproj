@@ -18,6 +18,7 @@
 		AB95780E215F97C900E3E1E6 /* ChannelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB95780D215F97C900E3E1E6 /* ChannelsViewController.swift */; };
 		ABBAA03E2167CC28001B765A /* AlertControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBAA03D2167CC28001B765A /* AlertControllers.swift */; };
 		ABBAA0402167D5A7001B765A /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBAA03F2167D5A7001B765A /* RealmService.swift */; };
+		ABD4B3D0216AA5E300D58DC9 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD4B3CF216AA5E300D58DC9 /* ContainerViewController.swift */; };
 		ABF34900215F45AC00FFF76B /* XMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF348FF215F45AC00FFF76B /* XMLParser.swift */; };
 		ABF34907215F70DC00FFF76B /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF34906215F70DC00FFF76B /* FeedViewController.swift */; };
 		ABF34909215F71B200FFF76B /* FeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF34908215F71B200FFF76B /* FeedCollectionViewCell.swift */; };
@@ -39,6 +40,7 @@
 		AB95780D215F97C900E3E1E6 /* ChannelsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelsViewController.swift; sourceTree = "<group>"; };
 		ABBAA03D2167CC28001B765A /* AlertControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControllers.swift; sourceTree = "<group>"; };
 		ABBAA03F2167D5A7001B765A /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
+		ABD4B3CF216AA5E300D58DC9 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		ABF348FF215F45AC00FFF76B /* XMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMLParser.swift; sourceTree = "<group>"; };
 		ABF34906215F70DC00FFF76B /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		ABF34908215F71B200FFF76B /* FeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -111,11 +113,12 @@
 		ABEBB17A215F9ECA00171A07 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				ABD4B3CF216AA5E300D58DC9 /* ContainerViewController.swift */,
 				AB95780D215F97C900E3E1E6 /* ChannelsViewController.swift */,
-				ABF34906215F70DC00FFF76B /* FeedViewController.swift */,
-				AB42C9C42152415E00C3C367 /* WebViewController.swift */,
 				AB1ACE12215384130070E578 /* ChannelsTableViewCell.swift */,
+				ABF34906215F70DC00FFF76B /* FeedViewController.swift */,
 				ABF34908215F71B200FFF76B /* FeedCollectionViewCell.swift */,
+				AB42C9C42152415E00C3C367 /* WebViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -123,10 +126,10 @@
 		ABEBB17C215F9F1800171A07 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				AB9516CE215259820074FAC9 /* ChannelsData.swift */,
+				ABBAA03D2167CC28001B765A /* AlertControllers.swift */,
 				AB524468215BF0880024A5BD /* Checker.swift */,
 				ABF348FF215F45AC00FFF76B /* XMLParser.swift */,
-				ABBAA03D2167CC28001B765A /* AlertControllers.swift */,
+				AB9516CE215259820074FAC9 /* ChannelsData.swift */,
 				ABBAA03F2167D5A7001B765A /* RealmService.swift */,
 			);
 			path = Models;
@@ -276,6 +279,7 @@
 				AB42C9A92151A67300C3C367 /* AppDelegate.swift in Sources */,
 				ABF34909215F71B200FFF76B /* FeedCollectionViewCell.swift in Sources */,
 				ABF34907215F70DC00FFF76B /* FeedViewController.swift in Sources */,
+				ABD4B3D0216AA5E300D58DC9 /* ContainerViewController.swift in Sources */,
 				AB42C9C52152415E00C3C367 /* WebViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -58,7 +58,7 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
             self.url = dict["link"] as? String
             self.navigationItem.title = dict["name"] as? String
             self.fetchData()
-            self.collectionView.setContentOffset(CGPoint(x: 0, y: -110),
+            self.collectionView.setContentOffset(CGPoint(x: 0, y: -20 - (navigationController?.navigationBar.frame.height)!),
                                                  animated: true)
         }
     }

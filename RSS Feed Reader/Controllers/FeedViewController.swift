@@ -8,7 +8,7 @@
 
 import UIKit
 import Toast_Swift
-import WebBrowser
+import SafariServices
 
 class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegate, UICollectionViewDelegateFlowLayout {
     
@@ -126,33 +126,16 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let currentItem = self.rssItems![indexPath.row]
-        DispatchQueue.main.async {
-            if let url = URL(string: currentItem.link) {
-                let webBrowserViewController = WebBrowserViewController()
-                webBrowserViewController.delegate = self as? WebBrowserDelegate
-                
-                webBrowserViewController.onOpenExternalAppHandler = { [weak self] _ in
-                    guard let `self` = self else { return }
-                    self.navigationController?.popViewController(animated: true)
-                }
-                
-                webBrowserViewController.language = .english
-                webBrowserViewController.barTintColor = UIColor.init(red: 66/255, green: 139/255, blue: 202/255, alpha: 1)
-                webBrowserViewController.title = currentItem.title
-                webBrowserViewController.tintColor = UIColor.white
-                webBrowserViewController.loadURL(url)
-                webBrowserViewController.isShowURLInNavigationBarWhenLoading = false
-                webBrowserViewController.isShowPageTitleInNavigationBar = true
-                
-                self.navigationController?.pushViewController(webBrowserViewController, animated: true)
-            }
-        }
+        let svc = SFSafariViewController(url: NSURL(string: currentItem.link)! as URL)
+        svc.preferredBarTintColor = UIColor.init(red: 66/255, green: 139/255, blue: 202/255, alpha: 1)
+        svc.preferredControlTintColor = UIColor.white
+        self.present(svc, animated: true, completion: nil)
     }
     
     override func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         UIView.animate(withDuration: 0.1) {
             if let cell = collectionView.cellForItem(at: indexPath) as? FeedCollectionViewCell {
-                cell.contentView.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
+                cell.contentView.backgroundColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1)
             }
         }
     }

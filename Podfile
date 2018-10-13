@@ -7,7 +7,6 @@ target 'RSS Feed Reader' do
 pod 'RealmSwift'
 pod 'Toast-Swift', '~> 4.0.0'
 pod 'QuickPersist', '~> 1.0'
-pod 'WebBrowser'
 
   # Pods for RSS Feed Reader
 

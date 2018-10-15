@@ -82,4 +82,26 @@ class AlertService {
                    completion: nil)
     }
     
+    static func shareAlert(in vc: FeedViewController, indexPath: IndexPath) {
+        let currentItem = vc.rssItems![indexPath.row]
+        let alert = UIAlertController(title: "Выберите действие", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Открыть в Safari", style: .default, handler: { action in
+            UIApplication.shared.open(URL(string: currentItem.link)!)
+        }))
+        alert.addAction(UIAlertAction(title: "Скопировать", style: .default, handler: { action in
+            let copiedItem = currentItem.title + "\n\n" + currentItem.description + "\n\n" + currentItem.link
+            UIPasteboard.general.string = copiedItem
+        }))
+        alert.addAction(UIAlertAction(title: "Поделиться", style: .default, handler: { action in
+            let objectsToShare = [currentItem.title, "\n", currentItem.description,"\n", currentItem.link]
+            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+            vc.present(activityVC, animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: nil))
+        
+        vc.present(alert,
+                   animated: true,
+                   completion: nil)
+    }
+    
 }

@@ -143,18 +143,26 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
         print(currentItem.link!)
         destination.name = currentItem.name
         if currentItem.name == nil {
-            currentItem.name = "Безымянный канал"
-        }
-        let dictionary = ["name": currentItem.name!,
-                          "link": currentItem.link!]
-        print(dictionary)
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "notificationName"),
-                                        object: nil,
-                                        userInfo: dictionary)
+            let dictionary = ["name": "Лента новостей",
+                              "link": currentItem.link!]
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "notificationName"),
+                                            object: nil,
+                                            userInfo: dictionary)
+            UserDefaults.standard.set(currentItem.link!,
+                                      forKey: "link")
+            UserDefaults.standard.set("Лента новостей",
+                                      forKey: "name")
+        } else {
+            let dictionary = ["name": currentItem.name!,
+                              "link": currentItem.link!]
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "notificationName"),
+                                            object: nil,
+                                            userInfo: dictionary)
             UserDefaults.standard.set(currentItem.link!,
                                       forKey: "link")
             UserDefaults.standard.set(currentItem.name!,
                                       forKey: "name")
+        }
             NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"),
                                             object: nil)
     }

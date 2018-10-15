@@ -12,7 +12,7 @@ import SafariServices
 
 class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegate, UICollectionViewDelegateFlowLayout {
     
-    private var rssItems: [RSSItem]?
+    var rssItems: [RSSItem]?
     var refreshControl: UIRefreshControl!
     var url: String?
     var name: String?
@@ -51,6 +51,11 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
             let w = collectionView.frame.width - 16
             flowLayout.estimatedItemSize = CGSize(width: w, height: 200)
         }
+        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(gestureRecognizer: )))
+        lpgr.minimumPressDuration = 0.5
+        lpgr.delaysTouchesBegan = true
+        lpgr.delegate = self
+        self.collectionView.addGestureRecognizer(lpgr)
     }
     
     @objc func changeFeed(_ notification: NSNotification) {
@@ -61,6 +66,15 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
             self.fetchData()
             self.collectionView.setContentOffset(CGPoint(x: 0, y: -115),
                                                          animated: true)
+        }
+    }
+    
+    @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        let p = gestureRecognizer.location(in: collectionView)
+        let indexPath = collectionView.indexPathForItem(at: p)
+        if gestureRecognizer.state == UIGestureRecognizer.State.began {
+            AlertService.shareAlert(in: self, indexPath: indexPath!)
+            return
         }
     }
     
@@ -87,6 +101,7 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
     
     public func addSavedData() {
         OperationQueue.main.addOperation {
+            
             self.collectionView.reloadData()
         }
     }
@@ -117,25 +132,39 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
         return size
     }
     
-    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        cell.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+    override func collectionView(_ collectionView: UICollectionView,
+                                 willDisplay cell: UICollectionViewCell,
+                                 forItemAt indexPath: IndexPath) {
+        cell.transform = CGAffineTransform(scaleX: 0.8,
+                                           y: 0.8)
         UIView.animate(withDuration: 0.25) {
-            cell.transform = CGAffineTransform(scaleX: 1, y: 1)
+            cell.transform = CGAffineTransform(scaleX: 1,
+                                               y: 1)
         }
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    override func collectionView(_ collectionView: UICollectionView,
+                                 didSelectItemAt indexPath: IndexPath) {
         let currentItem = self.rssItems![indexPath.row]
         let svc = SFSafariViewController(url: NSURL(string: currentItem.link)! as URL)
-        svc.preferredBarTintColor = UIColor.init(red: 66/255, green: 139/255, blue: 202/255, alpha: 1)
+        svc.preferredBarTintColor = UIColor.init(red: 66/255,
+                                                 green: 139/255,
+                                                 blue: 202/255,
+                                                 alpha: 1)
         svc.preferredControlTintColor = UIColor.white
-        self.present(svc, animated: true, completion: nil)
+        self.present(svc,
+                     animated: true,
+                     completion: nil)
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+    override func collectionView(_ collectionView: UICollectionView,
+                                 didHighlightItemAt indexPath: IndexPath) {
         UIView.animate(withDuration: 0.1) {
             if let cell = collectionView.cellForItem(at: indexPath) as? FeedCollectionViewCell {
-                cell.contentView.backgroundColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1)
+                cell.contentView.backgroundColor = UIColor(red: 0.85,
+                                                           green: 0.85,
+                                                           blue: 0.85,
+                                                           alpha: 1)
             }
         }
     }

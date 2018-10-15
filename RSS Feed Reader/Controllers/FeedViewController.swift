@@ -73,13 +73,17 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
         let p = gestureRecognizer.location(in: collectionView)
         let indexPath = collectionView.indexPathForItem(at: p)
         if gestureRecognizer.state == UIGestureRecognizer.State.began {
-            AlertService.shareAlert(in: self, indexPath: indexPath!)
+            if let index = indexPath {
+            AlertService.shareAlert(in: self,
+                                    indexPath: index)
+            }
             return
         }
     }
     
     @objc func refresh(_ sender: Any) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1),
+                                      execute: {
             self.fetchData()
         })
     }

@@ -85,7 +85,7 @@ class AlertService {
     
     static func shareAlert(in vc: FeedViewController, indexPath: IndexPath) {
         let currentItem = vc.rssItems![indexPath.row]
-        let alert = UIAlertController(title: nil, message: "Выберите действие",
+        let alert = UIAlertController(title: nil, message: nil,
                                       preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Открыть в Safari",
                                       style: .default,

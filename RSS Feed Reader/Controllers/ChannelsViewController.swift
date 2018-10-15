@@ -67,13 +67,6 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ChannelsTableViewCell
         let currentItem = items[indexPath.row]
         cell.configure(with: currentItem)
-        if tableView.isEditing {
-            cell.labelName.alpha = 0.4
-            cell.labelLink.alpha = 0.4
-        } else {
-            cell.labelName.alpha = 1
-            cell.labelLink.alpha = 1
-        }
         return cell
     }
     

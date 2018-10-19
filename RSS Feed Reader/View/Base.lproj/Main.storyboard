@@ -149,7 +149,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EsQ-Kq-kRf">
-                                                    <rect key="frame" x="15.999999999999996" y="17" width="51.666666666666657" height="27"/>
+                                                    <rect key="frame" x="16.333333333333332" y="17" width="51.666666666666671" height="27"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="27" id="Kgq-EG-hfQ"/>
                                                     </constraints>
@@ -158,7 +158,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Link" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SN8-Es-2cm">
-                                                    <rect key="frame" x="16" y="49" width="16" height="15"/>
+                                                    <rect key="frame" x="16.333333333333336" y="49" width="28.333333333333336" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -172,6 +172,7 @@
                                                 <constraint firstItem="EsQ-Kq-kRf" firstAttribute="leading" secondItem="9Xp-F1-wHz" secondAttribute="leadingMargin" id="eOz-Xj-bvR"/>
                                                 <constraint firstItem="SN8-Es-2cm" firstAttribute="top" secondItem="EsQ-Kq-kRf" secondAttribute="bottom" constant="5" id="hUC-tz-AgC"/>
                                                 <constraint firstAttribute="bottom" secondItem="SN8-Es-2cm" secondAttribute="bottom" constant="11" id="ova-sE-COe"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="EsQ-Kq-kRf" secondAttribute="trailing" constant="20" symbolic="YES" id="wDW-eO-54H"/>
                                                 <constraint firstItem="EsQ-Kq-kRf" firstAttribute="leading" secondItem="9Xp-F1-wHz" secondAttribute="leading" constant="16" id="yvs-hQ-Cg8"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -199,20 +200,12 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Каналы:" largeTitleDisplayMode="always" id="Zsm-bg-thB">
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="add" id="R2C-9G-5t2">
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <action selector="pushAddAction:" destination="z4y-PR-a90" id="6XI-rW-t4g"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Изм." id="9nJ-eu-7Rg">
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <action selector="pushEditAction:" destination="z4y-PR-a90" id="p6I-ZZ-Oal"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="R2C-9G-5t2">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="pushAddAction:" destination="z4y-PR-a90" id="6XI-rW-t4g"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -222,7 +215,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TE0-64-Nq4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-704" y="644"/>
+            <point key="canvasLocation" x="-704.34782608695662" y="643.52678571428567"/>
         </scene>
         <!--Лента-->
         <scene sceneID="t6v-bJ-TdA">

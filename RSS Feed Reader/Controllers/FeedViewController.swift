@@ -14,8 +14,7 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
     
     var rssItems: [RSSItem]?
     var refreshControl: UIRefreshControl!
-    var url: String?
-    var name: String?
+    var url: String?, name: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,9 +42,9 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
         NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"),
                                         object: nil)
         NotificationCenter.default.addObserver(self,
-                                                selector: #selector(self.changeFeed(_:)),
-                                                name: NSNotification.Name(rawValue: "notificationName"),
-                                                object: nil)
+                                               selector: #selector(self.changeFeed(_:)),
+                                               name: NSNotification.Name(rawValue: "notificationName"),
+                                               object: nil)
         if let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout,
             let collectionView = collectionView {
             let w = collectionView.frame.width - 16
@@ -65,7 +64,7 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
             self.navigationItem.title = dict["name"] as? String
             self.fetchData()
             self.collectionView.setContentOffset(CGPoint(x: 0, y: -115),
-                                                         animated: true)
+                                                 animated: true)
         }
     }
     
@@ -74,8 +73,8 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
         let indexPath = collectionView.indexPathForItem(at: p)
         if gestureRecognizer.state == UIGestureRecognizer.State.began {
             if let index = indexPath {
-            AlertService.shareAlert(in: self,
-                                    indexPath: index)
+                AlertService.shareAlert(in: self,
+                                        indexPath: index)
             }
             return
         }
@@ -180,5 +179,14 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
             }
         }
     }
-        
+    
+    func takeScreenShot(scene: FeedCollectionViewCell) {
+        let bounds = scene.bounds
+        UIGraphicsBeginImageContext(bounds.size)
+        scene.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
+    }
+    
 }

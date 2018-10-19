@@ -24,14 +24,6 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.backgroundColor = UIColor.white
     }
     
-    @IBAction func pushEditAction(_ sender: Any) {
-        tableView.setEditing(!tableView.isEditing,
-                             animated: true)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.tableView.reloadData()
-        }
-    }
-    
     @IBAction func pushAddAction(_ sender: Any) {
         AlertService.addAlert(in: self) { (name, link) in
             let channelsData = Channels(name: name, link: link)
@@ -71,11 +63,6 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView,
-                   canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView,
                    editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .none
     }
@@ -83,11 +70,6 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView,
                    shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
-    }
-    
-    func tableView(_ tableView: UITableView,
-                   moveRowAt fromIndexPath: IndexPath,
-                             to: IndexPath) {
     }
     
     func tableView(_ tableView: UITableView,

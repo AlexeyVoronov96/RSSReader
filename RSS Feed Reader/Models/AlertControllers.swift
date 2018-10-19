@@ -85,12 +85,18 @@ class AlertService {
     
     static func shareAlert(in vc: FeedViewController, indexPath: IndexPath) {
         let currentItem = vc.rssItems![indexPath.row]
-        let alert = UIAlertController(title: nil, message: nil,
+        let cell = vc.collectionView.cellForItem(at: indexPath) as? FeedCollectionViewCell
+        let alert = UIAlertController(title: currentItem.title, message: nil,
                                       preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Открыть в Safari",
                                       style: .default,
                                       handler: { action in
             UIApplication.shared.open(URL(string: currentItem.link)!)
+        }))
+        alert.addAction(UIAlertAction(title: "Сохранить в Фото",
+                        style: .default,
+                        handler: { action in
+           vc.takeScreenShot(scene: cell!)
         }))
         alert.addAction(UIAlertAction(title: "Скопировать",
                                       style: .default,
@@ -115,7 +121,6 @@ class AlertService {
         alert.addAction(UIAlertAction(title: "Отмена",
                                       style: .cancel,
                                       handler: nil))
-        
         vc.present(alert,
                    animated: true,
                    completion: nil)

@@ -73,10 +73,13 @@ class FeedParser: NSObject, XMLParserDelegate {
             currentDescription = ""
             currentPubDate = ""
             currentLink = ""
+            if self.imgs.count != self.rssItems.count {
+                self.imgs.append("")
+            }
         }
         if currentElement == "enclosure" {
             if let urlString = attributeDict["url"] {
-                    imgs.append(urlString as String)
+                imgs.append(urlString as String)
             }
         }
     }
@@ -98,11 +101,10 @@ class FeedParser: NSObject, XMLParserDelegate {
                 qualifiedName qName: String?) {
         if elementName == "item" {
             let rssItem = RSSItem(title: currentTitle,
-                                  description: currentDescription,
+                                  description: currentDescription.html2String,
                                   pubDate: currentPubDate,
                                   link: currentLink)
             self.rssItems.append(rssItem)
-            print(rssItems)
         }
     }
     

@@ -18,6 +18,7 @@
 		ABBAA03E2167CC28001B765A /* AlertControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBAA03D2167CC28001B765A /* AlertControllers.swift */; };
 		ABBAA0402167D5A7001B765A /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBAA03F2167D5A7001B765A /* RealmService.swift */; };
 		ABD4B3D0216AA5E300D58DC9 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD4B3CF216AA5E300D58DC9 /* ContainerViewController.swift */; };
+		ABEB48C7217D32CD003009C4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEB48C6217D32CD003009C4 /* Colors.swift */; };
 		ABF34900215F45AC00FFF76B /* XMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF348FF215F45AC00FFF76B /* XMLParser.swift */; };
 		ABF34907215F70DC00FFF76B /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF34906215F70DC00FFF76B /* FeedViewController.swift */; };
 		ABF34909215F71B200FFF76B /* FeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF34908215F71B200FFF76B /* FeedCollectionViewCell.swift */; };
@@ -39,6 +40,7 @@
 		ABBAA03D2167CC28001B765A /* AlertControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControllers.swift; sourceTree = "<group>"; };
 		ABBAA03F2167D5A7001B765A /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		ABD4B3CF216AA5E300D58DC9 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		ABEB48C6217D32CD003009C4 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		ABF348FF215F45AC00FFF76B /* XMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMLParser.swift; sourceTree = "<group>"; };
 		ABF34906215F70DC00FFF76B /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		ABF34908215F71B200FFF76B /* FeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				ABF348FF215F45AC00FFF76B /* XMLParser.swift */,
 				AB9516CE215259820074FAC9 /* ChannelsData.swift */,
 				ABBAA03F2167D5A7001B765A /* RealmService.swift */,
+				ABEB48C6217D32CD003009C4 /* Colors.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ABBAA03E2167CC28001B765A /* AlertControllers.swift in Sources */,
+				ABEB48C7217D32CD003009C4 /* Colors.swift in Sources */,
 				AB524469215BF0880024A5BD /* Checker.swift in Sources */,
 				ABF34900215F45AC00FFF76B /* XMLParser.swift in Sources */,
 				AB1ACE13215384130070E578 /* ChannelsTableViewCell.swift in Sources */,

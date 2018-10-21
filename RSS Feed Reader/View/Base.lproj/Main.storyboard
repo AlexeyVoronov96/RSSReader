@@ -306,8 +306,19 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="WLg-cg-4bG"/>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="Bat-Iw-gL1" id="ZRT-Ly-qsv"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gAl-s2-fKt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="Bat-Iw-gL1">
+                    <connections>
+                        <outlet property="delegate" destination="yPA-vb-dqs" id="WVV-wV-uIg"/>
+                        <outlet property="searchContentsController" destination="yPA-vb-dqs" id="RfL-D5-tqw"/>
+                        <outlet property="searchResultsDataSource" destination="yPA-vb-dqs" id="Adw-Sh-QRf"/>
+                        <outlet property="searchResultsDelegate" destination="yPA-vb-dqs" id="Ur1-gG-gj1"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="402.89855072463769" y="643.52678571428567"/>
         </scene>

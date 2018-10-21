@@ -85,6 +85,7 @@ class AlertService {
     
     static func shareAlert(in vc: FeedViewController, indexPath: IndexPath) {
         let currentItem = vc.rssItems![indexPath.row]
+        let image = vc.imgs[indexPath.row]
         let cell = vc.collectionView.cellForItem(at: indexPath) as? FeedCollectionViewCell
         let alert = UIAlertController(title: currentItem.title, message: nil,
                                       preferredStyle: .actionSheet)
@@ -93,30 +94,56 @@ class AlertService {
                                       handler: { action in
             UIApplication.shared.open(URL(string: currentItem.link)!)
         }))
-        alert.addAction(UIAlertAction(title: "Сохранить в Фото",
+        alert.addAction(UIAlertAction(title: "Сохранить новость в Фото",
                         style: .default,
                         handler: { action in
            vc.takeScreenShot(scene: cell!)
         }))
+        if image != "" {
+            alert.addAction(UIAlertAction(title: "Сохранить изображение",
+                                          style: .default,
+                                          handler: { action in
+                    let img = cell?.newsImage.image
+                                            UIImageWriteToSavedPhotosAlbum(img!, self, nil, nil)
+                }))
+        }
         alert.addAction(UIAlertAction(title: "Скопировать",
                                       style: .default,
                                       handler: { action in
-            let copiedItem = currentItem.title + "\n\n" + currentItem.description + "\n\n" + currentItem.link
-            UIPasteboard.general.string = copiedItem
+                let copiedItem = currentItem.title + "\n\n" + currentItem.description + "\n\n" + currentItem.link
+                UIPasteboard.general.string = copiedItem
         }))
         alert.addAction(UIAlertAction(title: "Поделиться",
                                       style: .default,
                                       handler: { action in
-            let objectsToShare = [currentItem.title,
-                                  "\n",
-                                  currentItem.description,
-                                  "\n",
-                                  currentItem.link]
-            let activityVC = UIActivityViewController(activityItems: objectsToShare,
-                                                      applicationActivities: nil)
-            vc.present(activityVC,
-                       animated: true,
-                       completion: nil)
+            if image != "" {
+                let img = cell?.newsImage.image
+                let objectsToShare = [currentItem.title,
+                                      "\n",
+                                      currentItem.description,
+                                      "\n",
+                                      img as Any,
+                                      "\n",
+                                      currentItem.link]
+                let activityVC = UIActivityViewController(activityItems: objectsToShare,
+                                                          applicationActivities: nil)
+                vc.present(activityVC,
+                           animated: true,
+                           completion: nil)
+            }
+            else{
+                let objectsToShare = [currentItem.title,
+                                      "\n",
+                                      currentItem.description,
+                                      "\n",
+                                      currentItem.link]
+                let activityVC = UIActivityViewController(activityItems: objectsToShare,
+                                                          applicationActivities: nil)
+                vc.present(activityVC,
+                           animated: true,
+                           completion: nil)
+                                        }
+           
         }))
         alert.addAction(UIAlertAction(title: "Отмена",
                                       style: .cancel,

@@ -97,14 +97,8 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
                 }
             }
         }
-        edit.backgroundColor = UIColor.init(red: 66/255,
-                                            green: 139/255,
-                                            blue: 202/255,
-                                            alpha: 1)
-        delete.backgroundColor = UIColor.init(red: 239/255,
-                                              green: 101/255,
-                                              blue: 101/255,
-                                              alpha: 1)
+        edit.backgroundColor = Colors().blue
+        delete.backgroundColor = Colors().red
         return [delete, edit]
     }
     
@@ -115,7 +109,6 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
         let destination = FeedViewController()
         let currentItem = items[indexPath.row]
         destination.url = currentItem.link
-        print(currentItem.link!)
         destination.name = currentItem.name
         if currentItem.name == nil {
             let dictionary = ["name": "Лента новостей",

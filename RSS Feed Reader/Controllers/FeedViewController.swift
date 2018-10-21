@@ -85,6 +85,8 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
     public func fetchData() {
         let feedParser = FeedParser()
         if self.url != nil {
+            self.rssItems?.removeAll()
+            collectionView.reloadData()
             feedParser.parseFeed(url: self.url!) { (rssItems) in
                 self.rssItems = rssItems
                 self.imgs = feedParser.imgs

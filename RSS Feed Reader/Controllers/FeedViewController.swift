@@ -9,23 +9,47 @@
 import UIKit
 import Toast_Swift
 import SafariServices
+import Kingfisher
 
 class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegate, UICollectionViewDelegateFlowLayout {
     
     var rssItems: [RSSItem]?
+    var imgs: [String] = []
     var refreshControl: UIRefreshControl!
     var url: String?, name: String?
+    var height: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.url = UserDefaults.standard.string(forKey: "link")
         self.name = UserDefaults.standard.string(forKey: "name")
         self.extendedLayoutIncludesOpaqueBars = true
+        setTitle()
+        loadFeed()
+        addLongPress()
+        NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"),
+                                        object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.changeFeed(_:)),
+                                               name: NSNotification.Name(rawValue: "notificationName"),
+                                               object: nil)
+        
+        if let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout,
+            let collectionView = collectionView {
+            let w = collectionView.frame.width - 16
+            flowLayout.estimatedItemSize = CGSize(width: w, height: 200)
+        }
+    }
+    
+    func setTitle() {
         if name == nil {
             self.navigationItem.title = "Лента новостей"
         } else {
             self.navigationItem.title = name
         }
+    }
+    
+    func loadFeed() {
         if isInternetAvailable() == true {
             fetchData()
             refreshControl = UIRefreshControl()
@@ -39,22 +63,6 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
                                 duration: 3.0,
                                 position: .bottom)
         }
-        NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"),
-                                        object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.changeFeed(_:)),
-                                               name: NSNotification.Name(rawValue: "notificationName"),
-                                               object: nil)
-        if let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout,
-            let collectionView = collectionView {
-            let w = collectionView.frame.width - 16
-            flowLayout.estimatedItemSize = CGSize(width: w, height: 200)
-        }
-        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(gestureRecognizer: )))
-        lpgr.minimumPressDuration = 0.5
-        lpgr.delaysTouchesBegan = true
-        lpgr.delegate = self
-        self.collectionView.addGestureRecognizer(lpgr)
     }
     
     @objc func changeFeed(_ notification: NSNotification) {
@@ -94,12 +102,26 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
         } else {
             feedParser.parseFeed(url: self.url!) { (rssItems) in
                 self.rssItems = rssItems
+                if feedParser.imgs.isEmpty{
+                    self.imgs.removeAll()
+                } else {
+                    self.imgs = feedParser.imgs
+                    print(self.imgs)
+                }
                 OperationQueue.main.addOperation {
                     self.collectionView.reloadData()
                     self.refreshControl.endRefreshing()
                 }
             }
         }
+    }
+    
+    func addLongPress() {
+        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(gestureRecognizer: )))
+        lpgr.minimumPressDuration = 0.5
+        lpgr.delaysTouchesBegan = true
+        lpgr.delegate = self
+        self.collectionView.addGestureRecognizer(lpgr)
     }
     
     public func addSavedData() {
@@ -124,15 +146,15 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
         if let item = rssItems?[indexPath.item] {
             cell.item = item
         }
+        if (self.imgs.isEmpty) {
+            cell.heightConstraint.constant = 0
+        } else {
+            cell.heightConstraint.constant = cell.newsImage.frame.width / 16 * 9
+            let url = URL(string: imgs[indexPath.row] )!
+            cell.newsImage.kf.indicatorType = .activity
+            cell.newsImage.kf.setImage(with: url, options: [.forceRefresh])
+        }
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = CGSize(width: (view.frame.width - 16),
-                          height: 170)
-        return size
     }
     
     override func collectionView(_ collectionView: UICollectionView,

@@ -18,6 +18,7 @@ struct RSSItem {
 class FeedParser: NSObject, XMLParserDelegate {
     
     private var rssItems: [RSSItem] = []
+    var imgs: [String] = []
     private var currentElement = ""
     private var currentTitle: String = "" {
         didSet {
@@ -39,7 +40,6 @@ class FeedParser: NSObject, XMLParserDelegate {
             currentLink = currentLink.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         }
     }
-    
     
     private var parserCompletionHandler: (([RSSItem]) -> Void)?
     
@@ -74,6 +74,11 @@ class FeedParser: NSObject, XMLParserDelegate {
             currentPubDate = ""
             currentLink = ""
         }
+        if currentElement == "enclosure" {
+            if let urlString = attributeDict["url"] {
+                    imgs.append(urlString as String)
+            }
+        }
     }
     
     func parser(_ parser: XMLParser,
@@ -97,6 +102,7 @@ class FeedParser: NSObject, XMLParserDelegate {
                                   pubDate: currentPubDate,
                                   link: currentLink)
             self.rssItems.append(rssItem)
+            print(rssItems)
         }
     }
     

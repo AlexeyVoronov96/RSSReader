@@ -13,7 +13,8 @@ class FeedCollectionViewCell: UICollectionViewCell {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
-    
+    @IBOutlet var newsImage: UIImageView!
+    @IBOutlet var heightConstraint: NSLayoutConstraint!
     
     var item: RSSItem! {
         didSet {
@@ -24,13 +25,18 @@ class FeedCollectionViewCell: UICollectionViewCell {
     }
     
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        setNeedsLayout()
-        layoutIfNeeded()
-        let size = contentView.systemLayoutSizeFitting(layoutAttributes.size)
-        var frame = layoutAttributes.frame
-        frame.size.height = ceil(size.height)
-        layoutAttributes.frame = frame
-        return layoutAttributes
+        let autoLayoutAttributes = super.preferredLayoutAttributesFitting(layoutAttributes)
+        
+        // Specify you want _full width_
+        let targetSize = CGSize(width: layoutAttributes.frame.width, height: 0)
+        
+        // Calculate the size (height) using Auto Layout
+        let autoLayoutSize = contentView.systemLayoutSizeFitting(targetSize, withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.defaultLow)
+        let autoLayoutFrame = CGRect(origin: autoLayoutAttributes.frame.origin, size: autoLayoutSize)
+        
+        // Assign the new size to the layout attributes
+        autoLayoutAttributes.frame = autoLayoutFrame
+        return autoLayoutAttributes
     }
     
 }

@@ -17,7 +17,6 @@ class AlertService {
     static func addAlert(in vc: ChannelsViewController,
                          completion: @escaping (String?, String?) -> Void) {
         let alertController = UIAlertController(title: "Добавить новый канал", message: nil, preferredStyle: .alert)
-        
         alertController.addTextField { (nameTextField) in
             nameTextField.placeholder = "Введите название канала"
             nameTextField.clearButtonMode = .whileEditing
@@ -93,18 +92,21 @@ class AlertService {
                                       style: .default,
                                       handler: { action in
             UIApplication.shared.open(URL(string: currentItem.link)!)
+            vc.activityIndicator.removeFromSuperview()
         }))
         alert.addAction(UIAlertAction(title: "Сохранить новость в Фото",
                         style: .default,
                         handler: { action in
-           vc.takeScreenShot(scene: cell!)
+            vc.takeScreenShot(scene: cell!)
+            vc.activityIndicator.removeFromSuperview()
         }))
         if image != "" {
             alert.addAction(UIAlertAction(title: "Сохранить изображение",
                                           style: .default,
                                           handler: { action in
                     let img = cell?.newsImage.image
-                                            UIImageWriteToSavedPhotosAlbum(img!, self, nil, nil)
+                    UIImageWriteToSavedPhotosAlbum(img!, self, nil, nil)
+                    vc.activityIndicator.removeFromSuperview()
                 }))
         }
         alert.addAction(UIAlertAction(title: "Скопировать",
@@ -112,6 +114,7 @@ class AlertService {
                                       handler: { action in
                 let copiedItem = currentItem.title + "\n\n" + currentItem.description + "\n\n" + currentItem.link
                 UIPasteboard.general.string = copiedItem
+                vc.activityIndicator.removeFromSuperview()
         }))
         alert.addAction(UIAlertAction(title: "Поделиться",
                                       style: .default,
@@ -127,6 +130,7 @@ class AlertService {
                                       currentItem.link]
                 let activityVC = UIActivityViewController(activityItems: objectsToShare,
                                                           applicationActivities: nil)
+                vc.activityIndicator.removeFromSuperview()
                 vc.present(activityVC,
                            animated: true,
                            completion: nil)
@@ -139,6 +143,7 @@ class AlertService {
                                       currentItem.link]
                 let activityVC = UIActivityViewController(activityItems: objectsToShare,
                                                           applicationActivities: nil)
+                vc.activityIndicator.removeFromSuperview()
                 vc.present(activityVC,
                            animated: true,
                            completion: nil)
@@ -147,7 +152,9 @@ class AlertService {
         }))
         alert.addAction(UIAlertAction(title: "Отмена",
                                       style: .cancel,
-                                      handler: nil))
+                                      handler: { action in
+            vc.activityIndicator.removeFromSuperview()
+        }))
         vc.present(alert,
                    animated: true,
                    completion: nil)

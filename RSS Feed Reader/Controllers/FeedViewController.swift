@@ -18,6 +18,7 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
     var refreshControl: UIRefreshControl!
     var url: String?, name: String?
     var height: Int = 0
+    let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,8 +28,14 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
         setTitle()
         loadFeed()
         addLongPress()
-        NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"),
-                                        object: nil)
+        setActivityIndicator()
+        if self.url == nil {
+            NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"),
+                                            object: nil)
+        } else {
+            ContainerViewController().sideMenuOpen = false
+        }
+        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.changeFeed(_:)),
                                                name: NSNotification.Name(rawValue: "notificationName"),
@@ -49,9 +56,16 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
         }
     }
     
+    func setActivityIndicator() {
+        collectionView.addSubview(activityIndicator)
+        let barButton = UIBarButtonItem(customView: activityIndicator)
+        self.navigationItem.setRightBarButton(barButton, animated: true)
+        activityIndicator.startAnimating()
+    }
+    
     func loadFeed() {
         if isInternetAvailable() == true {
-            fetchData()
+            fetchData(feedChanged: true)
             refreshControl = UIRefreshControl()
             collectionView.refreshControl = refreshControl
             refreshControl.addTarget(self,
@@ -67,31 +81,36 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
     
     @objc func changeFeed(_ notification: NSNotification) {
         if let dict = notification.userInfo as NSDictionary? {
+            setActivityIndicator()
             self.url = dict["link"] as? String
             self.navigationItem.title = dict["name"] as? String
-            self.fetchData()
-            self.collectionView.setContentOffset(CGPoint(x: 0, y: -115),
-                                                 animated: true)
+            self.fetchData(feedChanged: true)
         }
     }
     
     @objc func refresh(_ sender: Any) {
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1),
                                       execute: {
-            self.fetchData()
+            self.fetchData(feedChanged: false)
         })
     }
     
-    public func fetchData() {
+    public func fetchData(feedChanged: Bool) {
         let feedParser = FeedParser()
         if self.url != nil {
-            self.rssItems?.removeAll()
-            collectionView.reloadData()
             feedParser.parseFeed(url: self.url!) { (rssItems) in
                 self.rssItems = rssItems
                 self.imgs = feedParser.imgs
                 OperationQueue.main.addOperation {
-                    self.collectionView.reloadData()
+                    if feedChanged == false {
+                       self.collectionView.reloadData()
+                    } else {
+                        UIView.transition(with: self.collectionView, duration: 1, options: .transitionCurlDown, animations: {
+                            //Do the data reload here
+                            self.collectionView.reloadData()
+                        }, completion: nil)
+                    }
+                    self.activityIndicator.removeFromSuperview()
                     self.refreshControl.endRefreshing()
                 }
             }
@@ -144,8 +163,8 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
             cell.item = item
         }
         if imgs[indexPath.row] != "" {
-        cell.heightConstraint.constant = cell.newsImage.frame.width / 16 * 9
-        let url = URL(string: imgs[indexPath.row] )!
+        cell.heightConstraint.constant = cell.newsImage.frame.height
+        let url = URL(string: imgs[indexPath.row])!
         cell.newsImage.kf.indicatorType = .activity
         cell.newsImage.kf.setImage(with: url,
                                    options: [.forceRefresh])
@@ -253,3 +272,5 @@ extension String {
         return html2AttributedString?.string ?? ""
     }
 }
+
+

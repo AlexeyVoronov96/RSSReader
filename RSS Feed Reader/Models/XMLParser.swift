@@ -100,7 +100,7 @@ class FeedParser: NSObject, XMLParserDelegate {
                 namespaceURI: String?,
                 qualifiedName qName: String?) {
         if elementName == "item" {
-            let rssItem = RSSItem(title: currentTitle,
+            let rssItem = RSSItem(title: currentTitle.html2String,
                                   description: currentDescription.html2String,
                                   pubDate: currentPubDate,
                                   link: currentLink)

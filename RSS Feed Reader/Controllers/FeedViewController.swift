@@ -84,6 +84,11 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
             setActivityIndicator()
             self.url = dict["link"] as? String
             self.navigationItem.title = dict["name"] as? String
+            self.rssItems?.removeAll()
+            UIView.transition(with: self.collectionView, duration: 1, options: .transitionCurlUp, animations: {
+                //Do the data reload here
+                self.collectionView.reloadData()
+            }, completion: nil)
             self.fetchData(feedChanged: true)
         }
     }
@@ -163,7 +168,7 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
             cell.item = item
         }
         if imgs[indexPath.row] != "" {
-        cell.heightConstraint.constant = cell.newsImage.frame.height
+        cell.heightConstraint.constant = cell.newsImage.frame.width / 16 * 9
         let url = URL(string: imgs[indexPath.row])!
         cell.newsImage.kf.indicatorType = .activity
         cell.newsImage.kf.setImage(with: url,
@@ -172,17 +177,6 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
            cell.heightConstraint.constant = 0
         }
         return cell
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView,
-                                 willDisplay cell: UICollectionViewCell,
-                                 forItemAt indexPath: IndexPath) {
-        cell.transform = CGAffineTransform(scaleX: 0.8,
-                                           y: 0.8)
-        UIView.animate(withDuration: 0.25) {
-            cell.transform = CGAffineTransform(scaleX: 1,
-                                               y: 1)
-        }
     }
     
     override func collectionView(_ collectionView: UICollectionView,

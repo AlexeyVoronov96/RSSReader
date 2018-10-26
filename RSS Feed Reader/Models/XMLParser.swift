@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import QuickPersist
+import RealmSwift
 
 struct RSSItem {
     var title: String
@@ -18,7 +20,10 @@ struct RSSItem {
 class FeedParser: NSObject, XMLParserDelegate {
     
     private var rssItems: [RSSItem] = []
+    var feed: FeedsList?
+    var message: Feed?
     var imgs: [String] = []
+    var url: String = ""
     private var currentElement = ""
     private var currentTitle: String = "" {
         didSet {
@@ -105,6 +110,9 @@ class FeedParser: NSObject, XMLParserDelegate {
                                   pubDate: currentPubDate,
                                   link: currentLink)
             self.rssItems.append(rssItem)
+            let newMessage = Feed.addFeed(title: currentTitle.html2String, desc: currentDescription.html2String, pubDate: currentPubDate, link: currentLink, inFeed: self.feed)
+            CoreDataManager.sharedInstance.saveContext()
+            print(newMessage)
         }
     }
     

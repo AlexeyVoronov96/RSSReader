@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,7 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         Thread.sleep(forTimeInterval: 2.0)
         UINavigationBar.appearance().shadowImage = UIImage()
-        
+        print(CoreDataManager.sharedInstance.persistentContainer.persistentStoreDescriptions)
+//        let feed = FeedsList.newFeed(name: "123", link: "https://developer.apple.com/news/rss/news.rss")
+//        _ = feed.addFeed(title: "Hi", desc: "How r u?", pubDate: "Im fine", link: "thanks")
+//        CoreDataManager.sharedInstance.saveContext()
+//        feed.addFeed().title = "Привет"
+//        feed.addFeed().desc = "Как дела?"
+//        feed.addFeed().pubDate = "Hi"
+//        feed.addFeed().link = "How are you?"
+//        CoreDataManager.sharedInstance.saveContext()
 
         return true
     }
@@ -41,11 +50,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
+        CoreDataManager.sharedInstance.saveContext()
     }
     
     // MARK: - Core Data stack
-
-
-
+    
+    
 }
+
 

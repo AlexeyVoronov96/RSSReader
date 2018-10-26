@@ -20,6 +20,7 @@ class ContainerViewController: UIViewController {
     @IBOutlet var mainViewConstraintRight: NSLayoutConstraint!
     @IBOutlet var mainViewConstraintLeft: NSLayoutConstraint!
     var sideMenuOpen = false
+    var tapGesture = UITapGestureRecognizer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +37,17 @@ class ContainerViewController: UIViewController {
                                                   action: #selector(handleGesture))
         swipeRight.direction = .right
         self.view.addGestureRecognizer(swipeRight)
+        
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.mainViewTapped(_:)))
+        blurView.addGestureRecognizer(tapGesture)
+        blurView.isUserInteractionEnabled = true
+    }
+    
+    @objc func mainViewTapped(_ sender: UITapGestureRecognizer) {
+        
+        sideMenuOpen = true
+        NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"),
+                                        object: nil)
     }
     
     @objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
@@ -69,8 +81,8 @@ class ContainerViewController: UIViewController {
                 self.sideMenuConstraint.constant = 0
                 self.mainViewConstraintRight.constant = 0
                 self.mainViewConstraintLeft.constant -= 240
-                self.blurViewConstraintLeft.constant = 0
-                self.blurViewConstraintRight.constant += 240
+                self.blurViewConstraintLeft.constant -= 240
+                self.blurViewConstraintRight.constant = 0
             }
         }
         UIView.animate(withDuration: 0.3) {

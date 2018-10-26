@@ -14,19 +14,26 @@ import Kingfisher
 class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegate, UICollectionViewDelegateFlowLayout {
     
     var rssItems: [RSSItem]?
+    var feed: FeedsList?
     var imgs: [String] = []
     var refreshControl: UIRefreshControl!
     var url: String?, name: String?
     var height: Int = 0
     let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.addFolder(_:)),
+                                               name: NSNotification.Name(rawValue: "currentChannel"),
+                                               object: nil)
         self.url = UserDefaults.standard.string(forKey: "link")
         self.name = UserDefaults.standard.string(forKey: "name")
         self.extendedLayoutIncludesOpaqueBars = true
-        setTitle()
-        loadFeed()
+        if self.url != "" {
+            setTitle()
+            loadFeed()
+        }
         addLongPress()
         setActivityIndicator()
         if self.url == nil {
@@ -35,7 +42,7 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
         } else {
             ContainerViewController().sideMenuOpen = false
         }
-        
+
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.changeFeed(_:)),
                                                name: NSNotification.Name(rawValue: "notificationName"),
@@ -46,6 +53,12 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
             let w = collectionView.frame.width - 16
             flowLayout.estimatedItemSize = CGSize(width: w, height: 200)
         }
+    }
+    
+    @IBAction func openSlideInMenu(_ sender: Any) {
+        ContainerViewController().sideMenuOpen = false
+        NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"),
+                                        object: nil)
     }
     
     func setTitle() {
@@ -79,17 +92,36 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
         }
     }
     
+    @objc func addFolder(_ notification: NSNotification) {
+        if let channel = notification.object {
+            self.feed = (channel as! FeedsList)
+            print(self.feed!)
+        }
+    }
+    
     @objc func changeFeed(_ notification: NSNotification) {
         if let dict = notification.userInfo as NSDictionary? {
-            setActivityIndicator()
-            self.url = dict["link"] as? String
-            self.navigationItem.title = dict["name"] as? String
-            self.rssItems?.removeAll()
-            UIView.transition(with: self.collectionView, duration: 1, options: .transitionCurlUp, animations: {
-                //Do the data reload here
-                self.collectionView.reloadData()
-            }, completion: nil)
-            self.fetchData(feedChanged: true)
+            if self.url != nil {
+                if self.url != dict["link"] as? String {
+                    self.setActivityIndicator()
+                    self.url = dict["link"] as? String
+                    self.navigationItem.title = dict["name"] as? String
+                    self.rssItems?.removeAll()
+                    UIView.transition(with: self.collectionView, duration: 1, options: .transitionCurlUp, animations: {
+                        //Do the data reload here
+                        self.collectionView.reloadData()
+                    }, completion: nil)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1),
+                                                  execute: {
+                                                    self.fetchData(feedChanged: true)
+                    })
+                }
+            } else {
+                self.setActivityIndicator()
+                self.url = dict["link"] as? String
+                self.navigationItem.title = dict["name"] as? String
+                self.fetchData(feedChanged: true)
+            }
         }
     }
     
@@ -103,12 +135,13 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
     public func fetchData(feedChanged: Bool) {
         let feedParser = FeedParser()
         if self.url != nil {
+            feedParser.feed = self.feed
             feedParser.parseFeed(url: self.url!) { (rssItems) in
                 self.rssItems = rssItems
                 self.imgs = feedParser.imgs
                 OperationQueue.main.addOperation {
                     if feedChanged == false {
-                       self.collectionView.reloadData()
+                            self.collectionView.reloadData()
                     } else {
                         UIView.transition(with: self.collectionView, duration: 1, options: .transitionCurlDown, animations: {
                             //Do the data reload here
@@ -151,30 +184,46 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
     
     override func collectionView(_ collectionView: UICollectionView,
                                  numberOfItemsInSection section: Int) -> Int {
+        if isInternetAvailable() == true {
         guard let rssItems = rssItems else {
             return 0
         }
         return rssItems.count
+        } else {
+            if feed!.feed!.count != 0 {
+            return feed!.feed!.count
+            } else {
+                return 0
+            }
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView,
                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell",
                                                       for: indexPath) as! FeedCollectionViewCell
-        if imgs.count != rssItems?.count {
-            imgs.append("")
-        }
-        if let item = rssItems?[indexPath.item] {
-            cell.item = item
-        }
-        if imgs[indexPath.row] != "" {
-        cell.heightConstraint.constant = cell.newsImage.frame.width / 16 * 9
-        let url = URL(string: imgs[indexPath.row])!
-        cell.newsImage.kf.indicatorType = .activity
-        cell.newsImage.kf.setImage(with: url,
-                                   options: [.forceRefresh])
+        if isInternetAvailable() == true {
+            if imgs.count != rssItems?.count {
+                imgs.append("")
+            }
+            if let item = rssItems?[indexPath.item] {
+                cell.item = item
+            }
+            if imgs[indexPath.row] != "" {
+                let url = URL(string: imgs[indexPath.row])!
+                cell.newsImage.kf.indicatorType = .activity
+                cell.newsImage.kf.setImage(with: url)
+                cell.heightConstraint.constant = cell.newsImage.frame.width / 16 * 9
+            } else {
+               cell.heightConstraint.constant = 0
+            }
         } else {
-           cell.heightConstraint.constant = 0
+            let messageInCell = self.feed!.messagesSorted[indexPath.row]
+            print(messageInCell)
+            cell.heightConstraint.constant = 0
+            cell.titleLabel.text = messageInCell.title
+            cell.descriptionLabel.text = messageInCell.desc
+            cell.dateLabel.text = messageInCell.pubDate
         }
         return cell
     }
@@ -208,15 +257,6 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
                 cell.contentView.backgroundColor = .clear
             }
         }
-    }
-    
-    func takeScreenShot(scene: FeedCollectionViewCell) {
-        let bounds = scene.bounds
-        UIGraphicsBeginImageContext(bounds.size)
-        scene.layer.render(in: UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
     }
     
 }
@@ -264,6 +304,22 @@ extension String {
     }
     var html2String: String {
         return html2AttributedString?.string ?? ""
+    }
+}
+
+extension UIView {
+    
+    // Convert a uiview to uiimage
+    func captureView() -> UIImage {
+        // Gradually increase the number for high resolution.
+        let scale = UIScreen.main.scale
+        UIGraphicsBeginImageContextWithOptions(bounds.size, true, scale)
+        
+        layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image:UIImage  = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        return image
     }
 }
 

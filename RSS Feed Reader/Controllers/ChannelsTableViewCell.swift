@@ -13,13 +13,13 @@ class ChannelsTableViewCell: UITableViewCell {
     @IBOutlet weak var labelName: UILabel!
     @IBOutlet weak var labelLink: UILabel!
     
-    func configure(with currentItem: Channels) {
-        if currentItem.name == nil{
+    func configure(with currentChannel: FeedsList) {
+        if currentChannel.name == nil{
             labelName.text = "Безымянный канал"
         } else {
-            labelName.text = currentItem.name
+            labelName.text = currentChannel.name
         }
-        labelLink.text = currentItem.link
+        labelLink.text = currentChannel.link
     }
     
 }

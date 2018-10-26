@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.30.1" systemVersion="18B73a" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Feed" representedClassName="Feed" syncable="YES">
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pubDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="feedsList" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="FeedsList" inverseName="feed" inverseEntity="FeedsList" syncable="YES"/>
+    </entity>
+    <entity name="FeedsList" representedClassName="FeedsList" syncable="YES">
+        <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="feed" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Feed" inverseName="feedsList" inverseEntity="Feed" syncable="YES"/>
+    </entity>
+    <entity name="SavedMessages" representedClassName="SavedMessages" syncable="YES">
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pubDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="FeedsList" positionX="-36" positionY="9" width="128" height="90"/>
+        <element name="Feed" positionX="0" positionY="45" width="128" height="120"/>
+        <element name="SavedMessages" positionX="27" positionY="72" width="128" height="120"/>
+    </elements>
+</model>

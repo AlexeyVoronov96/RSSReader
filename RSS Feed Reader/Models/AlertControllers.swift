@@ -46,7 +46,7 @@ class AlertService {
     }
     
     static func updateAlert(in vc: ChannelsViewController,
-                            channelsData: Channels,
+                            channelsData: FeedsList,
                             completion: @escaping (String?, String?) -> Void) {
         let alertController = UIAlertController(title: "Изменить канал",
                                                 message: nil,
@@ -97,7 +97,8 @@ class AlertService {
         alert.addAction(UIAlertAction(title: "Сохранить новость в Фото",
                         style: .default,
                         handler: { action in
-            vc.takeScreenShot(scene: cell!)
+            let image = cell?.captureView()
+            UIImageWriteToSavedPhotosAlbum(image!, self, nil, nil)
             vc.activityIndicator.removeFromSuperview()
         }))
         if image != "" {

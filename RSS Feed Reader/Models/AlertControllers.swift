@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class AlertService {
     
@@ -70,15 +71,17 @@ class AlertService {
         vc.present(alertController, animated: true, completion: nil)
     }
     
-    static func shareAlert(in vc: FeedViewController, indexPath: IndexPath) {
+    static func shareAlert(in vc: FeedViewController, indexPath: IndexPath, message: [SavedMessages]) {
         let currentItem = vc.rssItems![indexPath.row]
         let image = vc.imgs[indexPath.row]
         let cell = vc.collectionView.cellForItem(at: indexPath) as? FeedCollectionViewCell
         let alert = UIAlertController(title: currentItem.title, message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Add to favourites".localize(), style: .default, handler: { action in
-            _ = SavedMessages.newMessage(title: currentItem.title, desc: currentItem.description, pubDate: currentItem.pubDate, link: currentItem.link, image: image)
-            CoreDataManager.sharedInstance.saveContext()
-        }))
+        if message.index(where: { ($0.title! == currentItem.title) && ($0.desc! == currentItem.description) && ($0.link! == currentItem.link) }) == nil {
+            alert.addAction(UIAlertAction(title: "Add to favourites".localize(), style: .default, handler: { action in
+                _ = SavedMessages.newMessage(title: currentItem.title, desc: currentItem.description, pubDate: currentItem.pubDate, link: currentItem.link, image: image)
+                CoreDataManager.sharedInstance.saveContext()
+            }))
+        }
         alert.addAction(UIAlertAction(title: "Open in Safari".localize(), style: .default, handler: { action in
             UIApplication.shared.open(URL(string: currentItem.link)!)
             vc.activityIndicator.removeFromSuperview()
@@ -163,6 +166,33 @@ class AlertService {
                 vc.present(activityVC, animated: true, completion: nil)
             }
             
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel".localize(), style: .cancel, handler: { action in
+        }))
+        vc.present(alert, animated: true, completion: nil)
+    }
+    
+    static func clearFavouritesAlert(in vc: FavoritesCollectionViewController) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Clear favourites".localize(), style: .destructive, handler: {action in
+            let fetchRequest = NSFetchRequest<SavedMessages>(entityName: "SavedMessages")
+            fetchRequest.returnsObjectsAsFaults = false
+            
+            do
+            {
+                let results = try CoreDataManager.sharedInstance.managedObjectContext.fetch(fetchRequest as! NSFetchRequest<NSFetchRequestResult>)
+                for managedObject in results
+                {
+                    let managedObjectData:NSManagedObject = managedObject as! NSManagedObject
+                    CoreDataManager.sharedInstance.managedObjectContext.delete(managedObjectData)
+                }
+            } catch let error as NSError {
+                print("Detele all data error : \(error) \(error.userInfo)")
+            }
+            CoreDataManager.sharedInstance.saveContext()
+            UIView.transition(with: vc.collectionView, duration: 1, options: .transitionCurlUp, animations: {
+                vc.collectionView.reloadData()
+            }, completion: nil)
         }))
         alert.addAction(UIAlertAction(title: "Cancel".localize(), style: .cancel, handler: { action in
         }))

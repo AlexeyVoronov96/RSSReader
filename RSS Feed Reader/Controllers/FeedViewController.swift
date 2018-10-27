@@ -156,7 +156,7 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
         let indexPath = collectionView.indexPathForItem(at: p)
         if gestureRecognizer.state == UIGestureRecognizer.State.began {
             if let index = indexPath {
-                AlertService.shareAlert(in: self, indexPath: index)
+                AlertService.shareAlert(in: self, indexPath: index, message: message)
             }
             return
         }

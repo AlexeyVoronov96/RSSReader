@@ -48,7 +48,6 @@ class FeedParser: NSObject, XMLParserDelegate {
     
     func parseFeed(url: String, completionHandler: (([RSSItem]) -> Void)?) {
         self.parserCompletionHandler = completionHandler
-        CoreDataManager.sharedInstance.saveContext()
         let request = URLRequest(url: URL(string: url)!)
         let urlSession = URLSession.shared
         let task = urlSession.dataTask(with: request){  (data, response, error) in
@@ -97,8 +96,8 @@ class FeedParser: NSObject, XMLParserDelegate {
         if elementName == "item" {
             let rssItem = RSSItem(title: currentTitle.html2String, description: currentDescription.html2String, pubDate: currentPubDate, link: currentLink)
             self.rssItems.append(rssItem)
-            _ = Feed.addFeed(title: currentTitle.html2String, desc: currentDescription.html2String, pubDate: currentPubDate, link: currentLink, inFeed: self.feed)
-            CoreDataManager.sharedInstance.saveContext()
+//            _ = Feed.addFeed(title: currentTitle.html2String, desc: currentDescription.html2String, pubDate: currentPubDate, link: currentLink, inFeed: self.feed)
+//            CoreDataManager.sharedInstance.saveContext()
         }
     }
     

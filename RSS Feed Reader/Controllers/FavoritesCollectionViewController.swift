@@ -31,9 +31,9 @@ class FavoritesCollectionViewController: UICollectionViewController, UICollectio
     }
     
     @IBAction func removeAllAction(_ sender: Any) {
-        self.deleteAllData()
-        CoreDataManager.sharedInstance.saveContext()
-        self.collectionView.reloadData()
+        if message.count > 0 {
+            AlertService.clearFavouritesAlert(in: self)
+        }
     }
     
     func addLongPress() {
@@ -141,23 +141,5 @@ class FavoritesCollectionViewController: UICollectionViewController, UICollectio
     
     }
     */
-    
-    func deleteAllData()
-    {
-        let fetchRequest = NSFetchRequest<SavedMessages>(entityName: "SavedMessages")
-        fetchRequest.returnsObjectsAsFaults = false
-        
-        do
-        {
-            let results = try CoreDataManager.sharedInstance.managedObjectContext.fetch(fetchRequest as! NSFetchRequest<NSFetchRequestResult>)
-            for managedObject in results
-            {
-                let managedObjectData:NSManagedObject = managedObject as! NSManagedObject
-                CoreDataManager.sharedInstance.managedObjectContext.delete(managedObjectData)
-            }
-        } catch let error as NSError {
-            print("Detele all data error : \(error) \(error.userInfo)")
-        }
-    }
 
 }

@@ -24,17 +24,12 @@ class ContainerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(toggleSideMenu),
-                                               name: NSNotification.Name("ToggleSideMenu"),
-                                               object: nil)
-        let swipeLeft = UISwipeGestureRecognizer(target: self,
-                                                 action: #selector(handleGesture))
+        NotificationCenter.default.addObserver(self, selector: #selector(toggleSideMenu), name: NSNotification.Name("ToggleSideMenu"), object: nil)
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
         swipeLeft.direction = .left
         self.view.addGestureRecognizer(swipeLeft)
         
-        let swipeRight = UISwipeGestureRecognizer(target: self,
-                                                  action: #selector(handleGesture))
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
         swipeRight.direction = .right
         self.view.addGestureRecognizer(swipeRight)
         
@@ -46,20 +41,17 @@ class ContainerViewController: UIViewController {
     @objc func mainViewTapped(_ sender: UITapGestureRecognizer) {
         
         sideMenuOpen = true
-        NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"),
-                                        object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
     }
     
     @objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
         if gesture.direction == UISwipeGestureRecognizer.Direction.right {
             sideMenuOpen = false
-            NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"),
-                                            object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
         }
         else if gesture.direction == UISwipeGestureRecognizer.Direction.left {
             sideMenuOpen = true
-            NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"),
-                                            object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
         }
     }
     

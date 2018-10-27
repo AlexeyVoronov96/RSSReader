@@ -21,8 +21,7 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func closeSlideMenu(_ sender: Any) {
         ContainerViewController().sideMenuOpen = true
-        NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"),
-                                        object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
     }
     
     @IBAction func pushAddAction(_ sender: Any) {
@@ -33,9 +32,7 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
                     CoreDataManager.sharedInstance.saveContext()
                     self.tableView.reloadData()
                 } else {
-                    self.view.makeToast("Неверный URL",
-                                        duration: 3.0,
-                                        position: .bottom)
+                    self.view.makeToast("Invalide URL".localize(), duration: 3.0, position: .bottom)
                 }
             }
         }
@@ -45,8 +42,7 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
         return 1
     }
     
-    func tableView(_ tableView: UITableView,
-                   numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if channels.count != 0{
             return channels.count
         } else {
@@ -54,35 +50,30 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    func tableView(_ tableView: UITableView,
-                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ChannelsTableViewCell
         let currentChannel = channels[indexPath.row]
         cell.configure(with: currentChannel)
         return cell
     }
     
-    func tableView(_ tableView: UITableView,
-                   editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .none
     }
     
-    func tableView(_ tableView: UITableView,
-                   shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
     }
     
-    func tableView(_ tableView: UITableView,
-                   editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let currentChannel = channels[indexPath.row]
-        let delete = UITableViewRowAction(style: .destructive, title: "Удалить") { (action, indexPath) in
+        let delete = UITableViewRowAction(style: .destructive, title: "Delete".localize()) { (action, indexPath) in
             CoreDataManager.sharedInstance.managedObjectContext.delete(currentChannel)
             CoreDataManager.sharedInstance.saveContext()
             self.tableView.deleteRows(at: [indexPath], with: .fade)
         }
 
-        let edit = UITableViewRowAction(style: .normal,
-                                        title: "Изменить") { (action, indexPath) in
+        let edit = UITableViewRowAction(style: .normal, title: "Change".localize()) { (action, indexPath) in
             AlertService.updateAlert(in: self, channelsData: currentChannel) { (name, link) in
                 if link != nil && validateUrl(stringURL: link! as NSString) == true {
                     currentChannel.name = name
@@ -90,9 +81,7 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
                     CoreDataManager.sharedInstance.saveContext()
                     self.tableView.reloadData()
                 } else {
-                    self.view.makeToast("Неверный URL",
-                                        duration: 3.0,
-                                        position: .bottom)
+                    self.view.makeToast("Invalide URL".localize(), duration: 3.0, position: .bottom)
                 }
             }
         }
@@ -101,36 +90,20 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
         return [delete, edit]
     }
     
-    func tableView(_ tableView: UITableView,
-                   didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath,
-                              animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let currentChannel = channels[indexPath.row]
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "currentChannel"),
-                                        object: currentChannel)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "currentChannel"), object: currentChannel)
         if currentChannel.name == nil {
-            let dictionary = ["name": "Лента новостей",
-                              "link": currentChannel.link!]
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "notificationName"),
-                                            object: nil,
-                                            userInfo: dictionary)
-            UserDefaults.standard.set(currentChannel.link!,
-                                      forKey: "link")
-            UserDefaults.standard.set("Лента новостей",
-                                      forKey: "name")
+            let dictionary = ["name": "Feed list".localize(), "link": currentChannel.link!]
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "notificationName"), object: nil, userInfo: dictionary)
         } else {
-            let dictionary = ["name": currentChannel.name!,
-                              "link": currentChannel.link!]
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "notificationName"),
-                                            object: nil,
-                                            userInfo: dictionary)
-            UserDefaults.standard.set(currentChannel.link!,
-                                      forKey: "link")
-            UserDefaults.standard.set(currentChannel.name!,
-                                      forKey: "name")
+            let dictionary = ["name": currentChannel.name!, "link": currentChannel.link!]
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "notificationName"), object: nil, userInfo: dictionary)
         }
-            NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"),
-                                            object: nil)
+        UserDefaults.standard.set(currentChannel.link!, forKey: "link")
+        UserDefaults.standard.set(currentChannel.name!, forKey: "name")
+        NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
     }
     
 }

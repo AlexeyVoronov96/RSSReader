@@ -15,7 +15,7 @@ class ChannelsTableViewCell: UITableViewCell {
     
     func configure(with currentChannel: FeedsList) {
         if currentChannel.name == nil{
-            labelName.text = "Безымянный канал"
+            labelName.text = "Unnamed channel".localize()
         } else {
             labelName.text = currentChannel.name
         }

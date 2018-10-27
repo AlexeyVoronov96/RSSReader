@@ -25,7 +25,7 @@ public class FeedsList: NSManagedObject {
 //        feedSorted = [feed]
 //    }
     
-    func addFeed(title: String, desc: String, pubDate: String, link: String) -> Feed {
+    func addFeed() -> Feed {
         let feed = Feed(context: CoreDataManager.sharedInstance.managedObjectContext)
         feed.feedsList = self
         return feed

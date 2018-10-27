@@ -22,7 +22,6 @@ public class Feed: NSManagedObject {
         if let inFeed = inFeed {
             feed.feedsList = inFeed
         }
-        
         return feed
     }
 }

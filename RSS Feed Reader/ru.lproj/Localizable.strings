@@ -1,0 +1,27 @@
+/* 
+  Localized.strings
+  RSS Feed Reader
+
+  Created by Алексей Воронов on 27/10/2018.
+  Copyright © 2018 Алексей Воронов. All rights reserved.
+*/
+
+"Add new channel" = "Добавить канал";
+"Channel name" = "Название канала";
+"Channel link" = "Ссылка на канал";
+"Add" = "Добавить";
+"Cancel" = "Отмена";
+"Change channel" = "Изменить канал";
+"Change" = "Изменить";
+"Add to favourites" = "Добавить в избранное";
+"Open in Safari" = "Открыть в Safari";
+"Save message to Photos" = "Сохранить новость в Фото";
+"Save image" = "Сохранить изображение";
+"Copy" = "Скопировать";
+"Share" = "Поделиться";
+"Invalide URL" = "Неверный URL";
+"Delete" = "Удалить";
+"Feed list" = "Лента новостей";
+"Unnamed channel" = "Безымянный канал";
+"Connection error" = "Подключение отсутствует";
+"Unable to download data, check your internet connection or the correct URL entered" = "Невозможно загрузить данные, проверьте подключение к интернету или правильность введенного  URL";

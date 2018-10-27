@@ -31,6 +31,15 @@ var messages: [Feed] {
     return []
 }
 
+var message: [SavedMessages] {
+    let request = NSFetchRequest<SavedMessages>(entityName: "SavedMessages")
+    let array = try? CoreDataManager.sharedInstance.managedObjectContext.fetch(request)
+    if array != nil {
+        return array!.reversed()
+    }
+    return []
+}
+
 class CoreDataManager {
     
     static let sharedInstance = CoreDataManager()

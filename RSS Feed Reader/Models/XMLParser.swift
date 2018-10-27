@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import QuickPersist
-import RealmSwift
 
 struct RSSItem {
     var title: String
@@ -48,9 +46,9 @@ class FeedParser: NSObject, XMLParserDelegate {
     
     private var parserCompletionHandler: (([RSSItem]) -> Void)?
     
-    func parseFeed(url: String,
-                   completionHandler: (([RSSItem]) -> Void)?) {
+    func parseFeed(url: String, completionHandler: (([RSSItem]) -> Void)?) {
         self.parserCompletionHandler = completionHandler
+        CoreDataManager.sharedInstance.saveContext()
         let request = URLRequest(url: URL(string: url)!)
         let urlSession = URLSession.shared
         let task = urlSession.dataTask(with: request){  (data, response, error) in
@@ -67,11 +65,7 @@ class FeedParser: NSObject, XMLParserDelegate {
         task.resume()
     }
     
-    func parser(_ parser: XMLParser,
-                didStartElement elementName: String,
-                namespaceURI: String?,
-                qualifiedName qName: String?,
-                attributes attributeDict: [String : String] = [:]) {
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         currentElement = elementName
         if currentElement == "item" {
             currentTitle = ""
@@ -89,8 +83,7 @@ class FeedParser: NSObject, XMLParserDelegate {
         }
     }
     
-    func parser(_ parser: XMLParser,
-                foundCharacters string: String) {
+    func parser(_ parser: XMLParser, foundCharacters string: String) {
         switch currentElement {
         case "title": currentTitle += string
         case "description": currentDescription += string
@@ -100,19 +93,12 @@ class FeedParser: NSObject, XMLParserDelegate {
         }
     }
     
-    func parser(_ parser: XMLParser,
-                didEndElement elementName: String,
-                namespaceURI: String?,
-                qualifiedName qName: String?) {
+    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" {
-            let rssItem = RSSItem(title: currentTitle.html2String,
-                                  description: currentDescription.html2String,
-                                  pubDate: currentPubDate,
-                                  link: currentLink)
+            let rssItem = RSSItem(title: currentTitle.html2String, description: currentDescription.html2String, pubDate: currentPubDate, link: currentLink)
             self.rssItems.append(rssItem)
-            let newMessage = Feed.addFeed(title: currentTitle.html2String, desc: currentDescription.html2String, pubDate: currentPubDate, link: currentLink, inFeed: self.feed)
+            _ = Feed.addFeed(title: currentTitle.html2String, desc: currentDescription.html2String, pubDate: currentPubDate, link: currentLink, inFeed: self.feed)
             CoreDataManager.sharedInstance.saveContext()
-            print(newMessage)
         }
     }
     

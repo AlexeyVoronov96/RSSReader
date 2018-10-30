@@ -5,7 +5,7 @@
         <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pubDate" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="feedsList" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="FeedsList" inverseName="feed" inverseEntity="FeedsList" syncable="YES"/>
+        <relationship name="feedsList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FeedsList" inverseName="feed" inverseEntity="FeedsList" syncable="YES"/>
     </entity>
     <entity name="FeedsList" representedClassName="FeedsList" syncable="YES">
         <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
@@ -20,8 +20,8 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="FeedsList" positionX="-36" positionY="9" width="128" height="90"/>
-        <element name="Feed" positionX="0" positionY="45" width="128" height="120"/>
-        <element name="SavedMessages" positionX="27" positionY="72" width="128" height="120"/>
+        <element name="Feed" positionX="-54" positionY="9" width="128" height="120"/>
+        <element name="FeedsList" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="SavedMessages" positionX="-36" positionY="27" width="128" height="120"/>
     </elements>
 </model>

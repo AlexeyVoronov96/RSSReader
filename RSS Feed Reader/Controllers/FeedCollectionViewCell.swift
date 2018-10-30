@@ -24,6 +24,14 @@ class FeedCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    var savedItem: Feed! {
+        didSet {
+            titleLabel.text = savedItem.title
+            descriptionLabel.text = savedItem.desc
+            dateLabel.text = savedItem.pubDate
+        }
+    }
+    
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
         let autoLayoutAttributes = super.preferredLayoutAttributesFitting(layoutAttributes)
         

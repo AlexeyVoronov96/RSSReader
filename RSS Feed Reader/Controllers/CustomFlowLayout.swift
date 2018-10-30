@@ -45,7 +45,7 @@ final class CustomFlowLayout: UICollectionViewFlowLayout {
 private final class SeparatorView: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = Colors().blue
+        self.backgroundColor = Colors.color.blue
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -10,6 +10,8 @@ import UIKit
 import Toast_Swift
 
 class ContainerViewController: UIViewController {
+    
+    static let containerController = ContainerViewController()
 
     @IBOutlet var slideInView: UIView!
     @IBOutlet var blurView: UIVisualEffectView!
@@ -21,10 +23,13 @@ class ContainerViewController: UIViewController {
     @IBOutlet var mainViewConstraintLeft: NSLayoutConstraint!
     var sideMenuOpen = false
     var tapGesture = UITapGestureRecognizer()
+    var toast: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(toggleSideMenu), name: NSNotification.Name("ToggleSideMenu"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(toastText(_:)), name: NSNotification.Name(rawValue: "toast"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showToast), name: NSNotification.Name("showToast"), object: nil)
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
         swipeLeft.direction = .left
         self.view.addGestureRecognizer(swipeLeft)
@@ -32,14 +37,9 @@ class ContainerViewController: UIViewController {
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
         swipeRight.direction = .right
         self.view.addGestureRecognizer(swipeRight)
-        
-        tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.mainViewTapped(_:)))
-        blurView.addGestureRecognizer(tapGesture)
-        blurView.isUserInteractionEnabled = true
     }
     
     @objc func mainViewTapped(_ sender: UITapGestureRecognizer) {
-        
         sideMenuOpen = true
         NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
     }
@@ -55,26 +55,54 @@ class ContainerViewController: UIViewController {
         }
     }
     
+    @objc func showToast() {
+        var style = ToastStyle()
+        style.messageColor = Colors.color.blue
+        style.backgroundColor = Colors.color.white
+        ToastManager.shared.isTapToDismissEnabled = true
+        self.view.makeToast(self.toast.localize(), duration: 3.0, position: .bottom, style: style)
+    }
+    
+    @objc func toastText(_ notification: NSNotification) {
+        if let toast = notification.object {
+            self.toast = toast as! String
+        }
+    }
+    
     @objc func toggleSideMenu() {
-        if sideMenuOpen {
-            sideMenuOpen = false
-            UIView.animate(withDuration: 0.3) {
-                self.blurView.alpha = 0
-                self.sideMenuConstraint.constant = -240
-                self.mainViewConstraintLeft.constant = 0
-                self.mainViewConstraintRight.constant = 0
-                self.blurViewConstraintLeft.constant = 0
-                self.blurViewConstraintRight.constant = 0
+        
+        switch sideMenuOpen {
+        case true:
+            do {
+                self.sideMenuOpen = false
+                UIView.animate(withDuration: 0.3) {
+                    self.mainView.alpha = 1
+                    self.sideMenuConstraint.constant = -240
+                    self.mainViewConstraintLeft.constant = 0
+                    self.mainViewConstraintRight.constant = 0
+                    self.blurViewConstraintLeft.constant = 0
+                    self.blurViewConstraintRight.constant = 0
+                    self.mainView.layer.transform = CATransform3DMakeScale(1, 1, 1)
+                    self.mainView.layer.cornerRadius = 0
+                    self.mainView.layer.masksToBounds = true
+                    self.mainView.isUserInteractionEnabled = true
+                }
             }
-        } else {
-            sideMenuOpen = true
-            UIView.animate(withDuration: 0.3) {
-                self.blurView.alpha = 1
-                self.sideMenuConstraint.constant = 0
-                self.mainViewConstraintRight.constant = 0
-                self.mainViewConstraintLeft.constant -= 240
-                self.blurViewConstraintLeft.constant -= 240
-                self.blurViewConstraintRight.constant = 0
+        case false:
+            do {
+                self.sideMenuOpen = true
+                UIView.animate(withDuration: 0.3) {
+                    self.mainView.alpha = 0.7
+                    self.sideMenuConstraint.constant = 0
+                    self.mainViewConstraintRight.constant = 0
+                    self.mainViewConstraintLeft.constant -= 240
+                    self.blurViewConstraintLeft.constant -= 240
+                    self.blurViewConstraintRight.constant = 0
+                    self.mainView.layer.transform = CATransform3DMakeScale(0.9, 0.9, 0.9)
+                    self.mainView.layer.cornerRadius = 15
+                    self.mainView.layer.masksToBounds = true
+                    self.mainView.isUserInteractionEnabled = false
+                }
             }
         }
         UIView.animate(withDuration: 0.3) {

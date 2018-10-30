@@ -2,7 +2,7 @@
 //  FeedsList+CoreDataClass.swift
 //  RSS Feed Reader
 //
-//  Created by Алексей Воронов on 25/10/2018.
+//  Created by Алексей Воронов on 29/10/2018.
 //  Copyright © 2018 Алексей Воронов. All rights reserved.
 //
 //
@@ -19,12 +19,6 @@ public class FeedsList: NSManagedObject {
         return feed
     }
     
-//    func addFeed(title: String, desc: String, pubDate: String, link: String){
-//        let feed = Feed(context: CoreDataManager.sharedInstance.managedObjectContext)
-//        var feedSorted = self.messagesSorted
-//        feedSorted = [feed]
-//    }
-    
     func addFeed() -> Feed {
         let feed = Feed(context: CoreDataManager.sharedInstance.managedObjectContext)
         feed.feedsList = self
@@ -35,5 +29,4 @@ public class FeedsList: NSManagedObject {
         let sortDescriptor = NSSortDescriptor(key: "pubDate", ascending: false)
         return self.feed?.sortedArray(using: [sortDescriptor]) as! [Feed]
     }
-    
 }

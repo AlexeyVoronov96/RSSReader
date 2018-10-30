@@ -27,3 +27,4 @@
 "Unable to download data, check your internet connection or the correct URL entered" = "Невозможно загрузить данные, проверьте подключение к интернету или правильность введенного  URL";
 "Remove from favourites" = "Удалить из избранного";
 "Clear favourites" = "Очистить избранное";
+"Channel already exists" = "Канал уже существует";

@@ -17,6 +17,10 @@ struct RSSItem {
 
 class FeedParser: NSObject, XMLParserDelegate {
     
+    static let parse = FeedParser()
+    
+    var i: Int = 0
+    
     private var rssItems: [RSSItem] = []
     var feed: FeedsList?
     var message: Feed?
@@ -84,8 +88,8 @@ class FeedParser: NSObject, XMLParserDelegate {
     
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         switch currentElement {
-        case "title": currentTitle += string
-        case "description": currentDescription += string
+        case "title": currentTitle += string.html2String
+        case "description": currentDescription += string.html2String
         case "pubDate": currentPubDate += string
         case "link": currentLink += string
         default: break
@@ -94,10 +98,13 @@ class FeedParser: NSObject, XMLParserDelegate {
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" {
-            let rssItem = RSSItem(title: currentTitle.html2String, description: currentDescription.html2String, pubDate: currentPubDate, link: currentLink)
-            self.rssItems.append(rssItem)
-//            _ = Feed.addFeed(title: currentTitle.html2String, desc: currentDescription.html2String, pubDate: currentPubDate, link: currentLink, inFeed: self.feed)
-//            CoreDataManager.sharedInstance.saveContext()
+            DispatchQueue.main.sync {
+                let rssItem = RSSItem(title: self.currentTitle, description: self.currentDescription, pubDate: self.currentPubDate, link: self.currentLink)
+                self.rssItems.append(rssItem)
+                _ = Feed.addFeed(title: self.currentTitle, desc: self.currentDescription, pubDate: self.currentPubDate, link: self.currentLink, inFeed: self.feed)
+                CoreDataManager.sharedInstance.saveContext()
+            }
+            
         }
     }
     

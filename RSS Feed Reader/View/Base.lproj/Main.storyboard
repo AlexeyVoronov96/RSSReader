@@ -13,9 +13,8 @@
         <!--Main Screen Nav Controller-->
         <scene sceneID="gVy-My-8HG">
             <objects>
-                <navigationController id="ht7-B6-tdm" userLabel="Main Screen Nav Controller" colorLabel="IBBuiltInLabel-Blue" sceneMemberID="viewController">
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" largeTitles="YES" id="Ycd-S1-yde">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ht7-B6-tdm" userLabel="Main Screen Nav Controller" colorLabel="IBBuiltInLabel-Blue" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" largeTitles="YES" id="Ycd-S1-yde">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.25882352939999997" green="0.5450980392" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -111,12 +110,13 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" largeTitles="YES" id="eww-25-8IG">
                         <rect key="frame" x="0.0" y="44" width="240" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.25850743059999998" green="0.54374879600000003" blue="0.79247683290000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.25850743059999998" green="0.54374879600000003" blue="0.79247683290000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="0.25850743059999998" green="0.54374879600000003" blue="0.79247683290000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                         <textAttributes key="largeTitleTextAttributes">
-                            <color key="textColor" red="0.25850743059999998" green="0.54374879600000003" blue="0.79247683290000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                     </navigationBar>
                     <connections>
@@ -138,29 +138,29 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kpZ-kL-KQx">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="774"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="separatorColor" red="0.3294117647" green="0.58823529409999997" blue="0.81176470590000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="separatorColor" red="0.25882352941176467" green="0.27843137254901962" blue="0.792156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="16" minY="0.0" maxX="17" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" rowHeight="75" id="Wui-BB-272" customClass="ChannelsTableViewCell" customModule="RSS_Feed_Reader" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="Cell" rowHeight="75" id="Wui-BB-272" customClass="ChannelsTableViewCell" customModule="RSS_Feed_Reader" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="240" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Wui-BB-272" id="9Xp-F1-wHz">
-                                            <rect key="frame" x="0.0" y="0.0" width="206" height="75"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="75"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EsQ-Kq-kRf">
-                                                    <rect key="frame" x="16.333333333333339" y="17" width="51.666666666666657" height="32"/>
+                                                    <rect key="frame" x="16" y="17" width="30" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="32" id="Kgq-EG-hfQ"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
-                                                    <color key="textColor" red="0.25882352939999997" green="0.5450980392" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Link" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SN8-Es-2cm">
-                                                    <rect key="frame" x="16.333333333333336" y="52" width="21.666666666666664" height="12"/>
+                                                    <rect key="frame" x="16" y="52" width="50" height="12"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -176,6 +176,7 @@
                                                 <constraint firstItem="EsQ-Kq-kRf" firstAttribute="leading" secondItem="9Xp-F1-wHz" secondAttribute="leading" constant="16" id="yvs-hQ-Cg8"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.25850743059999998" green="0.54374879600000003" blue="0.79247683290000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="separatorInset" minX="16" minY="0.0" maxX="17" maxY="0.0"/>
                                         <connections>
                                             <outlet property="labelLink" destination="SN8-Es-2cm" id="XOH-c4-QeS"/>
@@ -189,7 +190,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.25850743059999998" green="0.54374879600000003" blue="0.79247683290000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="kpZ-kL-KQx" firstAttribute="bottom" secondItem="OHi-gJ-oBh" secondAttribute="bottom" id="GM7-zC-YBc"/>
                             <constraint firstItem="kpZ-kL-KQx" firstAttribute="leading" secondItem="OHi-gJ-oBh" secondAttribute="leading" id="Xig-Fe-Ub5"/>
@@ -201,13 +202,13 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Channels:" largeTitleDisplayMode="always" id="Zsm-bg-thB">
                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="w1P-hr-vYU">
-                            <color key="tintColor" red="0.25850743059999998" green="0.54374879600000003" blue="0.79247683290000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="closeSlideMenu:" destination="z4y-PR-a90" id="niR-kz-X6B"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="R2C-9G-5t2">
-                            <color key="tintColor" red="0.25850743059999998" green="0.54374879600000003" blue="0.79247683290000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="pushAddAction:" destination="z4y-PR-a90" id="6XI-rW-t4g"/>
                             </connections>
@@ -306,7 +307,7 @@
                             <outlet property="delegate" destination="yPA-vb-dqs" id="ZBb-i6-MGZ"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="WLg-cg-4bG">
+                    <navigationItem key="navigationItem" title="Feed List" id="WLg-cg-4bG">
                         <barButtonItem key="leftBarButtonItem" systemItem="bookmarks" id="Zx2-uc-clZ">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
@@ -315,7 +316,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="favorites" id="bMy-QT-54g">
                             <connections>
-                                <segue destination="gCc-vQ-wKF" kind="show" id="ckb-bH-ON9"/>
+                                <action selector="openFavourites:" destination="yPA-vb-dqs" id="7Ij-1N-oMx"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -327,12 +328,12 @@
         <!--Избранное-->
         <scene sceneID="rWI-oK-ap2">
             <objects>
-                <collectionViewController title="Лента" automaticallyAdjustsScrollViewInsets="NO" id="gCc-vQ-wKF" userLabel="Избранное" customClass="FavoritesCollectionViewController" customModule="RSS_Feed_Reader" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController title="Лента" id="gCc-vQ-wKF" userLabel="Избранное" customClass="FavoritesCollectionViewController" customModule="RSS_Feed_Reader" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" springLoaded="YES" id="lLc-gj-CR8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="756"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.25882352939999997" green="0.5450980392" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <collectionViewLayout key="collectionViewLayout" id="7Me-s5-wM4" customClass="CustomFlowLayout" customModule="RSS_Feed_Reader" customModuleProvider="target"/>
+                        <collectionViewLayout key="collectionViewLayout" id="TZa-I9-poW" customClass="CustomFlowLayout" customModule="RSS_Feed_Reader" customModuleProvider="target"/>
                         <cells>
                             <collectionViewCell autoresizesSubviews="NO" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" reuseIdentifier="Cell" id="3uI-7C-yVX" customClass="FavoritesCollectionViewCell" customModule="RSS_Feed_Reader" customModuleProvider="target">
                                 <rect key="frame" x="13" y="0.0" width="388" height="304"/>
@@ -409,6 +410,11 @@
                     </collectionView>
                     <navigationItem key="navigationItem" title="Favourites" id="Unw-7i-Rlt">
                         <barButtonItem key="backBarButtonItem" title="Feed List" id="48Q-If-QoE"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="WIN-Wm-S05">
+                            <connections>
+                                <action selector="doneAction:" destination="gCc-vQ-wKF" id="T1a-HQ-3Gq"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="trash" id="T35-8H-6Oh">
                             <connections>
                                 <action selector="removeAllAction:" destination="gCc-vQ-wKF" id="nYu-OA-Dkp"/>
@@ -418,7 +424,35 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fqY-ed-cZE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1164" y="643"/>
+            <point key="canvasLocation" x="1218.840579710145" y="643.52678571428567"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="o3i-3t-465">
+            <objects>
+                <navigationController storyboardIdentifier="Favorites" automaticallyAdjustsScrollViewInsets="NO" id="0oG-Cg-qqO" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" largeTitles="YES" id="5fq-Nb-eYj">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.25850743059999998" green="0.54374879600000003" blue="0.79247683290000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.25850743059999998" green="0.54374879600000003" blue="0.79247683290000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="textShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="textShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="gCc-vQ-wKF" kind="relationship" relationship="rootViewController" id="IIq-Di-VXc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5cD-ic-dBw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1219" y="-126"/>
         </scene>
     </scenes>
     <resources>

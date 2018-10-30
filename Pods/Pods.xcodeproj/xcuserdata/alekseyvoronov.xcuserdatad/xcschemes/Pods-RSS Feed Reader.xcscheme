@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1010"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AA27B091890C45A2FBC1C1C5C41AAF66"
+               BlueprintIdentifier = "97184DD4D68A2ED2F95FA39E1F17CE81"
                BuildableName = "Pods_RSS_Feed_Reader.framework"
                BlueprintName = "Pods-RSS Feed Reader"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "AA27B091890C45A2FBC1C1C5C41AAF66"
+            BlueprintIdentifier = "97184DD4D68A2ED2F95FA39E1F17CE81"
             BuildableName = "Pods_RSS_Feed_Reader.framework"
             BlueprintName = "Pods-RSS Feed Reader"
             ReferencedContainer = "container:Pods.xcodeproj">

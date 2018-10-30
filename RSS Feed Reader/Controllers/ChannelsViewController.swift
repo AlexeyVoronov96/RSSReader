@@ -6,21 +6,23 @@
 //  Copyright © 2018 Алексей Воронов. All rights reserved.
 //
 import UIKit
-import Toast_Swift
 
-class ChannelsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
+class ChannelsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    static let channelsController = ChannelsViewController()
     
     @IBOutlet weak var tableView: UITableView!
     var feed: FeedsList?
+    var toast: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
-        tableView.backgroundColor = UIColor.white
+        tableView.backgroundColor = Colors.color.blue
     }
     
     @IBAction func closeSlideMenu(_ sender: Any) {
-        ContainerViewController().sideMenuOpen = true
+        ContainerViewController.containerController.sideMenuOpen = true
         NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
     }
     
@@ -28,11 +30,23 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
         AlertService.addAlert(in: self) { (name, link) in
             DispatchQueue.main.async {
                 if link != nil && validateUrl(stringURL: link! as NSString) == true {
-                    _ = FeedsList.newFeed(name: name!, link: link!)
-                    CoreDataManager.sharedInstance.saveContext()
-                    self.tableView.reloadData()
+                    if channels.index(where: { ($0.link! == link) }) == nil {
+                        if name != nil {
+                            _ = FeedsList.newFeed(name: name!, link: link!)
+                        } else {
+                            _ = FeedsList.newFeed(name: "Unnamed channel".localize(), link: link!)
+                        }
+                        CoreDataManager.sharedInstance.saveContext()
+                        self.tableView.reloadData()
+                    } else {
+                        self.toast = "Channel already exists"
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toast"), object: self.toast)
+                        NotificationCenter.default.post(name: NSNotification.Name("showToast"), object: nil)
+                    }
                 } else {
-                    self.view.makeToast("Invalide URL".localize(), duration: 3.0, position: .bottom)
+                    self.toast = "Invalide URL"
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toast"), object: self.toast)
+                    NotificationCenter.default.post(name: NSNotification.Name("showToast"), object: nil)
                 }
             }
         }
@@ -76,33 +90,71 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
         let edit = UITableViewRowAction(style: .normal, title: "Change".localize()) { (action, indexPath) in
             AlertService.updateAlert(in: self, channelsData: currentChannel) { (name, link) in
                 if link != nil && validateUrl(stringURL: link! as NSString) == true {
-                    currentChannel.name = name
+                    if name != nil {
+                        currentChannel.name = name
+                    } else {
+                        currentChannel.name = "Unnamed channel".localize()
+                    }
                     currentChannel.link = link
                     CoreDataManager.sharedInstance.saveContext()
                     self.tableView.reloadData()
                 } else {
-                    self.view.makeToast("Invalide URL".localize(), duration: 3.0, position: .bottom)
+                    self.toast = "Invalide URL"
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toast"), object: self.toast)
+                    NotificationCenter.default.post(name: NSNotification.Name("showToast"), object: nil)
                 }
             }
         }
-        edit.backgroundColor = Colors().blue
-        delete.backgroundColor = Colors().red
+        edit.backgroundColor = Colors.color.blue
+        delete.backgroundColor = Colors.color.blue
         return [delete, edit]
+    }
+    
+    @available(iOS 11.0, *)
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let currentChannel = channels[indexPath.row]
+        
+        let delete =  UIContextualAction(style: .destructive, title: "Delete".localize(), handler: { (action,view,completionHandler ) in
+            CoreDataManager.sharedInstance.managedObjectContext.delete(currentChannel)
+            CoreDataManager.sharedInstance.saveContext()
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+            completionHandler(true)
+        })
+        
+        let edit = UIContextualAction(style: .normal, title: "Change".localize(), handler: { (action,view,completionHandler ) in
+            AlertService.updateAlert(in: self, channelsData: currentChannel) { (name, link) in
+                if link != nil && validateUrl(stringURL: link! as NSString) == true {
+                    if name != nil {
+                        currentChannel.name = name
+                    } else {
+                        currentChannel.name = "Unnamed channel".localize()
+                    }
+                    currentChannel.link = link
+                    CoreDataManager.sharedInstance.saveContext()
+                    self.tableView.reloadData()
+                } else {
+                    self.toast = "Invalide URL"
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toast"), object: self.toast)
+                    NotificationCenter.default.post(name: NSNotification.Name("showToast"), object: nil)
+                }
+            }
+            completionHandler(true)
+        })
+        edit.image = UIImage(named: "edit")
+        edit.backgroundColor = Colors.color.blue
+        delete.image = UIImage(named: "delete")
+        delete.backgroundColor = Colors.color.blue
+        let confrigation = UISwipeActionsConfiguration(actions: [delete, edit])
+        
+        return confrigation
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let currentChannel = channels[indexPath.row]
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "currentChannel"), object: currentChannel)
-        if currentChannel.name == nil {
-            let dictionary = ["name": "Feed list".localize(), "link": currentChannel.link!]
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "notificationName"), object: nil, userInfo: dictionary)
-        } else {
-            let dictionary = ["name": currentChannel.name!, "link": currentChannel.link!]
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "notificationName"), object: nil, userInfo: dictionary)
-        }
-        UserDefaults.standard.set(currentChannel.link!, forKey: "link")
-        UserDefaults.standard.set(currentChannel.name!, forKey: "name")
+        let dictionary = ["name": currentChannel.name!, "link": currentChannel.link!]
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "notificationName"), object: nil, userInfo: dictionary)
         NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
     }
     

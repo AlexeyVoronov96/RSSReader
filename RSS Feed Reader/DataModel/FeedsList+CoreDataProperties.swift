@@ -2,7 +2,7 @@
 //  FeedsList+CoreDataProperties.swift
 //  RSS Feed Reader
 //
-//  Created by Алексей Воронов on 25/10/2018.
+//  Created by Алексей Воронов on 29/10/2018.
 //  Copyright © 2018 Алексей Воронов. All rights reserved.
 //
 //
@@ -17,8 +17,8 @@ extension FeedsList {
         return NSFetchRequest<FeedsList>(entityName: "FeedsList")
     }
 
-    @NSManaged public var name: String?
     @NSManaged public var link: String?
+    @NSManaged public var name: String?
     @NSManaged public var feed: NSSet?
 
 }

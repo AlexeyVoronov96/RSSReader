@@ -14,9 +14,6 @@ class ContainerViewController: UIViewController {
     static let containerController = ContainerViewController()
 
     @IBOutlet var slideInView: UIView!
-    @IBOutlet var blurView: UIVisualEffectView!
-    @IBOutlet var blurViewConstraintRight: NSLayoutConstraint!
-    @IBOutlet var blurViewConstraintLeft: NSLayoutConstraint!
     @IBOutlet var mainView: UIView!
     @IBOutlet weak var sideMenuConstraint: NSLayoutConstraint!
     @IBOutlet var mainViewConstraintRight: NSLayoutConstraint!
@@ -80,8 +77,6 @@ class ContainerViewController: UIViewController {
                     self.sideMenuConstraint.constant = -240
                     self.mainViewConstraintLeft.constant = 0
                     self.mainViewConstraintRight.constant = 0
-                    self.blurViewConstraintLeft.constant = 0
-                    self.blurViewConstraintRight.constant = 0
                     self.mainView.layer.transform = CATransform3DMakeScale(1, 1, 1)
                     self.mainView.layer.cornerRadius = 0
                     self.mainView.layer.masksToBounds = true
@@ -96,8 +91,6 @@ class ContainerViewController: UIViewController {
                     self.sideMenuConstraint.constant = 0
                     self.mainViewConstraintRight.constant = 0
                     self.mainViewConstraintLeft.constant -= 240
-                    self.blurViewConstraintLeft.constant -= 240
-                    self.blurViewConstraintRight.constant = 0
                     self.mainView.layer.transform = CATransform3DMakeScale(0.9, 0.9, 0.9)
                     self.mainView.layer.cornerRadius = 15
                     self.mainView.layer.masksToBounds = true

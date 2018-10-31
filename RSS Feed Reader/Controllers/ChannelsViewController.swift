@@ -118,6 +118,7 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
             CoreDataManager.sharedInstance.managedObjectContext.delete(currentChannel)
             CoreDataManager.sharedInstance.saveContext()
             self.tableView.deleteRows(at: [indexPath], with: .fade)
+            NotificationCenter.default.post(name: NSNotification.Name("deleteChannel"), object: nil)
             completionHandler(true)
         })
         
@@ -154,7 +155,7 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
         let currentChannel = channels[indexPath.row]
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "currentChannel"), object: currentChannel)
         let dictionary = ["name": currentChannel.name!, "link": currentChannel.link!]
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "notificationName"), object: nil, userInfo: dictionary)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "sendChannelStats"), object: nil, userInfo: dictionary)
         NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
     }
     

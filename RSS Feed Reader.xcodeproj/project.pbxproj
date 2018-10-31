@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,7 +13,7 @@
 		AB42C9B02151A67400C3C367 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB42C9AF2151A67400C3C367 /* Assets.xcassets */; };
 		AB42C9B32151A67400C3C367 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB42C9B12151A67400C3C367 /* LaunchScreen.storyboard */; };
 		AB524469215BF0880024A5BD /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB524468215BF0880024A5BD /* Checker.swift */; };
-		AB5336322183A4BD00247ED2 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5336312183A4BD00247ED2 /* Extentions.swift */; };
+		AB5336322183A4BD00247ED2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5336312183A4BD00247ED2 /* Extensions.swift */; };
 		AB5336372183BEE400247ED2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB5336392183BEE400247ED2 /* Localizable.strings */; };
 		AB53363C2183D2DB00247ED2 /* FavoritesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB53363B2183D2DB00247ED2 /* FavoritesCollectionViewController.swift */; };
 		AB53363E2183D6AE00247ED2 /* FavoritesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB53363D2183D6AE00247ED2 /* FavoritesCollectionViewCell.swift */; };
@@ -36,6 +36,18 @@
 		C0A1702D2BC6DE0660D5DA84 /* Pods_RSS_Feed_Reader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF8FC32A144EBB825931E9A2 /* Pods_RSS_Feed_Reader.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXBuildRule section */
+		AB3A74282188DE2300F5926E /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = image.png;
+			isEditable = 1;
+			outputFiles = (
+			);
+			script = "# copypng\n";
+		};
+/* End PBXBuildRule section */
+
 /* Begin PBXFileReference section */
 		97C7BAAEAC8024DFED4CCBA0 /* Pods-RSS Feed Reader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSS Feed Reader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RSS Feed Reader/Pods-RSS Feed Reader.debug.xcconfig"; sourceTree = "<group>"; };
 		AB1ACE12215384130070E578 /* ChannelsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelsTableViewCell.swift; sourceTree = "<group>"; };
@@ -46,7 +58,7 @@
 		AB42C9B22151A67400C3C367 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AB42C9B42151A67400C3C367 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB524468215BF0880024A5BD /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
-		AB5336312183A4BD00247ED2 /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
+		AB5336312183A4BD00247ED2 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		AB5336332183BCFE00247ED2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		AB5336342183BCFE00247ED2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		AB5336382183BEE400247ED2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -131,14 +143,14 @@
 		ABB09F9E2180F6C100720F8F /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
-				AB9780F621864E4700F59270 /* SavedMessages+CoreDataClass.swift */,
-				AB9780F721864E4700F59270 /* SavedMessages+CoreDataProperties.swift */,
-				AB9780EA21864DBB00F59270 /* Feed+CoreDataClass.swift */,
-				AB9780EB21864DBB00F59270 /* Feed+CoreDataProperties.swift */,
+				AB9780E721864CC000F59270 /* AppData.xcdatamodeld */,
+				ABE38A092181156400DC5C34 /* CoreDataManager.swift */,
 				AB9780EC21864DBB00F59270 /* FeedsList+CoreDataClass.swift */,
 				AB9780ED21864DBB00F59270 /* FeedsList+CoreDataProperties.swift */,
-				ABE38A092181156400DC5C34 /* CoreDataManager.swift */,
-				AB9780E721864CC000F59270 /* AppData.xcdatamodeld */,
+				AB9780EA21864DBB00F59270 /* Feed+CoreDataClass.swift */,
+				AB9780EB21864DBB00F59270 /* Feed+CoreDataProperties.swift */,
+				AB9780F621864E4700F59270 /* SavedMessages+CoreDataClass.swift */,
+				AB9780F721864E4700F59270 /* SavedMessages+CoreDataProperties.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -174,7 +186,7 @@
 				AB524468215BF0880024A5BD /* Checker.swift */,
 				ABF348FF215F45AC00FFF76B /* XMLParser.swift */,
 				ABEB48C6217D32CD003009C4 /* Colors.swift */,
-				AB5336312183A4BD00247ED2 /* Extentions.swift */,
+				AB5336312183A4BD00247ED2 /* Extensions.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -202,6 +214,7 @@
 				CA40F53D4ECBB4B8B6AEDF47 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
+				AB3A74282188DE2300F5926E /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -234,7 +247,7 @@
 				};
 			};
 			buildConfigurationList = AB42C9A02151A67300C3C367 /* Build configuration list for PBXProject "RSS Feed Reader" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -334,7 +347,7 @@
 				AB53363E2183D6AE00247ED2 /* FavoritesCollectionViewCell.swift in Sources */,
 				AB9780F121864DBB00F59270 /* Feed+CoreDataProperties.swift in Sources */,
 				AB9780F821864E4700F59270 /* SavedMessages+CoreDataClass.swift in Sources */,
-				AB5336322183A4BD00247ED2 /* Extentions.swift in Sources */,
+				AB5336322183A4BD00247ED2 /* Extensions.swift in Sources */,
 				AB42C9A92151A67300C3C367 /* AppDelegate.swift in Sources */,
 				AB9780F021864DBB00F59270 /* Feed+CoreDataClass.swift in Sources */,
 				ABF34909215F71B200FFF76B /* FeedCollectionViewCell.swift in Sources */,

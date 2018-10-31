@@ -9,6 +9,7 @@
 import UIKit
 import SafariServices
 import Kingfisher
+import MediaPlayer
 
 class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegate {
     
@@ -36,11 +37,13 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.addFeed(_:)), name: NSNotification.Name(rawValue: "currentChannel"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.changeFeed(_:)), name: NSNotification.Name(rawValue: "notificationName"), object: nil)
-        self.extendedLayoutIncludesOpaqueBars = true
+        NotificationCenter.default.addObserver(self, selector: #selector(self.changeFeed(_:)), name: NSNotification.Name(rawValue: "sendChannelStats"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.deleteChannel(_:)), name: NSNotification.Name(rawValue: "deleteChannel"), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
+        
+        extendedLayoutIncludesOpaqueBars = true
         
         setTitle()
-        NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
         addLongPress()
         
         if let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout,
@@ -55,6 +58,25 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
             self.navigationItem.title = "Feed list".localize()
         } else {
             self.navigationItem.title = name
+        }
+    }
+    
+    func addLongPress() {
+        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(gestureRecognizer: )))
+        lpgr.minimumPressDuration = 0.5
+        lpgr.delaysTouchesBegan = true
+        lpgr.delegate = self
+        self.collectionView.addGestureRecognizer(lpgr)
+    }
+    
+    @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        let p = gestureRecognizer.location(in: collectionView)
+        let indexPath = collectionView.indexPathForItem(at: p)
+        if gestureRecognizer.state == UIGestureRecognizer.State.began {
+            if let index = indexPath {
+                AlertService.shareAlert(in: self, indexPath: index, message: message, feed: self.feed!)
+            }
+            return
         }
     }
     
@@ -115,14 +137,24 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
         }
     }
     
+    @objc func deleteChannel(_ notification: NSNotification) {
+        self.name = nil
+        self.url = nil
+        self.rssItems?.removeAll()
+        self.setTitle()
+        UIView.transition(with: self.collectionView, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            self.collectionView.reloadData()
+        }, completion: nil)
+    }
+    
     func addSavedData() {
         toast = "Connection error"
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toast"), object: self.toast)
         NotificationCenter.default.post(name: NSNotification.Name("showToast"), object: nil)
-        collectionView.reloadData()
         DispatchQueue.main.async {
             self.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
+        self.collectionView.reloadData()
     }
     
     public func fetchData(feedChanged: Bool) {
@@ -144,9 +176,7 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
                     OperationQueue.main.addOperation {
                         if feedChanged == false {
                             self.refreshControl.endRefreshing()
-//                            UIView.transition(with: self.collectionView, duration: 0.5, options: .transitionCrossDissolve, animations: {
-                                self.collectionView.reloadData()
-//                            }, completion: nil)
+                            self.collectionView.reloadData()
                         } else {
                             UIView.transition(with: self.collectionView, duration: 0.5, options: .transitionCrossDissolve, animations: {
                                 self.collectionView.reloadData()
@@ -161,25 +191,6 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
         }
     }
     
-    func addLongPress() {
-        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(gestureRecognizer: )))
-        lpgr.minimumPressDuration = 0.5
-        lpgr.delaysTouchesBegan = true
-        lpgr.delegate = self
-        self.collectionView.addGestureRecognizer(lpgr)
-    }
-    
-    @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
-        let p = gestureRecognizer.location(in: collectionView)
-        let indexPath = collectionView.indexPathForItem(at: p)
-        if gestureRecognizer.state == UIGestureRecognizer.State.began {
-            if let index = indexPath {
-                AlertService.shareAlert(in: self, indexPath: index, message: message, feed: self.feed!)
-            }
-            return
-        }
-    }
-    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if isInternetAvailable() == true {
             guard let rssItems = rssItems else {
@@ -187,7 +198,7 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
             }
             return rssItems.count
         } else {
-            guard let feed = feed?.feed! else {
+            guard let feed = feed?.feed else {
                 return 0
             }
             return feed.count
@@ -197,8 +208,6 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! FeedCollectionViewCell
         if isInternetAvailable() == true {
-//            print("images: ", imgs[3])
-//            print("messages: ", rssItems![3])
             if imgs.count != rssItems?.count {
                 imgs.append("")
             }

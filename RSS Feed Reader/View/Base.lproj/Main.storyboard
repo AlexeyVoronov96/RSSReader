@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.30.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="atP-Fr-ql3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="atP-Fr-ql3">
     <device id="retina6_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.19.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -50,14 +50,6 @@
                                     <segue destination="ht7-B6-tdm" kind="embed" id="D6x-QI-cUl"/>
                                 </connections>
                             </containerView>
-                            <visualEffectView alpha="0.0" tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iAd-4o-l2B">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="e7Z-yY-fmO">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </view>
-                                <blurEffect style="dark"/>
-                            </visualEffectView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Xk-Rc-JlR">
                                 <rect key="frame" x="-240" y="0.0" width="240" height="896"/>
                                 <constraints>
@@ -72,29 +64,21 @@
                         <constraints>
                             <constraint firstItem="FRH-6G-z6h" firstAttribute="leading" secondItem="7Xk-Rc-JlR" secondAttribute="trailing" id="2gE-i9-0nf"/>
                             <constraint firstItem="FRH-6G-z6h" firstAttribute="trailing" secondItem="zh3-oE-IWC" secondAttribute="trailing" id="Bed-1C-ZvP"/>
-                            <constraint firstItem="iAd-4o-l2B" firstAttribute="trailing" secondItem="zh3-oE-IWC" secondAttribute="trailing" id="Bmj-p9-rh0"/>
                             <constraint firstItem="7Xk-Rc-JlR" firstAttribute="top" secondItem="Qqr-PP-7DF" secondAttribute="top" id="GJr-mL-tya"/>
-                            <constraint firstAttribute="bottom" secondItem="iAd-4o-l2B" secondAttribute="bottom" id="GtE-SS-LUq"/>
                             <constraint firstAttribute="trailing" secondItem="FRH-6G-z6h" secondAttribute="trailing" id="Ngu-NI-yaL"/>
-                            <constraint firstItem="iAd-4o-l2B" firstAttribute="top" secondItem="Qqr-PP-7DF" secondAttribute="top" id="Q0H-dm-kqv"/>
                             <constraint firstAttribute="bottom" secondItem="FRH-6G-z6h" secondAttribute="bottom" id="U9i-aj-0g4"/>
                             <constraint firstItem="FRH-6G-z6h" firstAttribute="top" secondItem="Qqr-PP-7DF" secondAttribute="top" id="ePc-xK-Sqe"/>
                             <constraint firstItem="7Xk-Rc-JlR" firstAttribute="leading" secondItem="zh3-oE-IWC" secondAttribute="leading" constant="-240" id="kbh-ds-H8l"/>
-                            <constraint firstItem="iAd-4o-l2B" firstAttribute="trailing" secondItem="zh3-oE-IWC" secondAttribute="trailing" id="oSq-qw-FC3"/>
                             <constraint firstAttribute="bottom" secondItem="7Xk-Rc-JlR" secondAttribute="bottom" id="pdg-Ya-cPk"/>
-                            <constraint firstItem="iAd-4o-l2B" firstAttribute="leading" secondItem="7Xk-Rc-JlR" secondAttribute="trailing" id="qBX-vf-5sk"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zh3-oE-IWC"/>
                     </view>
                     <connections>
-                        <outlet property="blurView" destination="iAd-4o-l2B" id="Ivy-34-qtA"/>
-                        <outlet property="blurViewConstraintLeft" destination="qBX-vf-5sk" id="cET-qp-f4p"/>
-                        <outlet property="blurViewConstraintRight" destination="Bmj-p9-rh0" id="QP0-W4-Z2l"/>
-                        <outlet property="mainView" destination="FRH-6G-z6h" id="oC0-xD-mSi"/>
-                        <outlet property="mainViewConstraintLeft" destination="2gE-i9-0nf" id="Shs-BD-sw9"/>
-                        <outlet property="mainViewConstraintRight" destination="Ngu-NI-yaL" id="Rfs-YK-NEs"/>
-                        <outlet property="sideMenuConstraint" destination="kbh-ds-H8l" id="f13-Ng-VWC"/>
-                        <outlet property="slideInView" destination="7Xk-Rc-JlR" id="cgw-kz-G4i"/>
+                        <outlet property="mainView" destination="FRH-6G-z6h" id="5d4-2G-sVE"/>
+                        <outlet property="mainViewConstraintLeft" destination="2gE-i9-0nf" id="yGh-OK-WG7"/>
+                        <outlet property="mainViewConstraintRight" destination="Ngu-NI-yaL" id="ztm-iz-aFE"/>
+                        <outlet property="sideMenuConstraint" destination="kbh-ds-H8l" id="PCB-oH-Zlb"/>
+                        <outlet property="slideInView" destination="7Xk-Rc-JlR" id="9FS-D8-5XF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZJs-gl-Nuq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -141,15 +125,15 @@
                                 <color key="separatorColor" red="0.25882352941176467" green="0.27843137254901962" blue="0.792156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="16" minY="0.0" maxX="17" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="Cell" rowHeight="75" id="Wui-BB-272" customClass="ChannelsTableViewCell" customModule="RSS_Feed_Reader" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="240" height="75"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="Cell" rowHeight="66" id="Wui-BB-272" customClass="ChannelsTableViewCell" customModule="RSS_Feed_Reader" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="240" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Wui-BB-272" id="9Xp-F1-wHz">
-                                            <rect key="frame" x="0.0" y="0.0" width="240" height="75"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="66"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EsQ-Kq-kRf">
-                                                    <rect key="frame" x="16" y="17" width="30" height="32"/>
+                                                    <rect key="frame" x="15.999999999999996" y="17" width="51.666666666666657" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="32" id="Kgq-EG-hfQ"/>
                                                     </constraints>
@@ -158,7 +142,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Link" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SN8-Es-2cm">
-                                                    <rect key="frame" x="16" y="52" width="50" height="12"/>
+                                                    <rect key="frame" x="16" y="52" width="224" height="3"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>

@@ -1,5 +1,5 @@
 //
-//  Extentions.swift
+//  Extensions.swift
 //  RSS Feed Reader
 //
 //  Created by Алексей Воронов on 27/10/2018.

@@ -201,7 +201,7 @@ class AlertService {
                 print("Detele all data error : \(error) \(error.userInfo)")
             }
             CoreDataManager.sharedInstance.saveContext()
-            UIView.transition(with: vc.collectionView, duration: 1, options: .transitionCurlUp, animations: {
+            UIView.transition(with: vc.collectionView, duration: 0.5, options: .transitionCrossDissolve, animations: {
                 vc.collectionView.reloadData()
             }, completion: nil)
         }))

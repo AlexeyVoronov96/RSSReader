@@ -9,7 +9,6 @@
 import UIKit
 import SafariServices
 import Kingfisher
-import MediaPlayer
 
 class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegate {
     
@@ -41,7 +40,7 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
         NotificationCenter.default.addObserver(self, selector: #selector(self.deleteChannel(_:)), name: NSNotification.Name(rawValue: "deleteChannel"), object: nil)
         NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
         
-        extendedLayoutIncludesOpaqueBars = true
+        self.extendedLayoutIncludesOpaqueBars = true
         
         setTitle()
         addLongPress()
@@ -49,7 +48,7 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
         if let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout,
             let collectionView = collectionView {
             let w = collectionView.frame.width - 16
-            flowLayout.estimatedItemSize = CGSize(width: w, height: 200)
+            flowLayout.estimatedItemSize = CGSize(width: w, height: 0)
         }
     }
     

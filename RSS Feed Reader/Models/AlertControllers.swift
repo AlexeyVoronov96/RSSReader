@@ -45,7 +45,11 @@ class AlertService {
     static func updateAlert(in vc: ChannelsViewController, channelsData: FeedsList, completion: @escaping (String?, String?) -> Void) {
         let alertController = UIAlertController(title: "Change channel".localize(), message: nil, preferredStyle: .alert)
         alertController.addTextField { (nameTextField) in
-            nameTextField.text = (channelsData.name)
+            if channelsData.name == "Unnamed channel".localize() {
+                nameTextField.text = ""
+            } else {
+                nameTextField.text = (channelsData.name)
+            }
             nameTextField.placeholder = "Channel name".localize()
             nameTextField.clearButtonMode = .whileEditing
         }

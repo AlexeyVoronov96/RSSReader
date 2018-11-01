@@ -10,7 +10,7 @@ import UIKit
 import SafariServices
 import Kingfisher
 
-class FavoritesCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate {
+class FavoritesCollectionViewController: UICollectionViewController, UIGestureRecognizerDelegate {
     
     var messages: SavedMessages?
     
@@ -19,7 +19,7 @@ class FavoritesCollectionViewController: UICollectionViewController, UICollectio
         if let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout,
             let collectionView = collectionView {
             let w = collectionView.frame.width - 16
-            flowLayout.estimatedItemSize = CGSize(width: w, height: 200)
+            flowLayout.estimatedItemSize = CGSize(width: w, height: 0)
         }
         
         addLongPress()

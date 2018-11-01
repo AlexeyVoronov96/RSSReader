@@ -25,7 +25,6 @@
 		AB9780F321864DBB00F59270 /* FeedsList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9780ED21864DBB00F59270 /* FeedsList+CoreDataProperties.swift */; };
 		AB9780F821864E4700F59270 /* SavedMessages+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9780F621864E4700F59270 /* SavedMessages+CoreDataClass.swift */; };
 		AB9780F921864E4700F59270 /* SavedMessages+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9780F721864E4700F59270 /* SavedMessages+CoreDataProperties.swift */; };
-		ABB09F842180EF1D00720F8F /* CustomFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB09F832180EF1D00720F8F /* CustomFlowLayout.swift */; };
 		ABBAA03E2167CC28001B765A /* AlertControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBAA03D2167CC28001B765A /* AlertControllers.swift */; };
 		ABD4B3D0216AA5E300D58DC9 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD4B3CF216AA5E300D58DC9 /* ContainerViewController.swift */; };
 		ABE38A0A2181156400DC5C34 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE38A092181156400DC5C34 /* CoreDataManager.swift */; };
@@ -72,7 +71,6 @@
 		AB9780ED21864DBB00F59270 /* FeedsList+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedsList+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		AB9780F621864E4700F59270 /* SavedMessages+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SavedMessages+CoreDataClass.swift"; sourceTree = "<group>"; };
 		AB9780F721864E4700F59270 /* SavedMessages+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SavedMessages+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		ABB09F832180EF1D00720F8F /* CustomFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFlowLayout.swift; sourceTree = "<group>"; };
 		ABBAA03D2167CC28001B765A /* AlertControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControllers.swift; sourceTree = "<group>"; };
 		ABD4B3CF216AA5E300D58DC9 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		ABE38A002181143F00DC5C34 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -174,7 +172,6 @@
 				ABF34908215F71B200FFF76B /* FeedCollectionViewCell.swift */,
 				AB53363B2183D2DB00247ED2 /* FavoritesCollectionViewController.swift */,
 				AB53363D2183D6AE00247ED2 /* FavoritesCollectionViewCell.swift */,
-				ABB09F832180EF1D00720F8F /* CustomFlowLayout.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -342,7 +339,6 @@
 				AB53363C2183D2DB00247ED2 /* FavoritesCollectionViewController.swift in Sources */,
 				AB9780E921864CC000F59270 /* AppData.xcdatamodeld in Sources */,
 				AB95780E215F97C900E3E1E6 /* ChannelsViewController.swift in Sources */,
-				ABB09F842180EF1D00720F8F /* CustomFlowLayout.swift in Sources */,
 				AB9780F221864DBB00F59270 /* FeedsList+CoreDataClass.swift in Sources */,
 				AB53363E2183D6AE00247ED2 /* FavoritesCollectionViewCell.swift in Sources */,
 				AB9780F121864DBB00F59270 /* Feed+CoreDataProperties.swift in Sources */,

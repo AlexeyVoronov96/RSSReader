@@ -51,21 +51,23 @@ class FeedParser: NSObject, XMLParserDelegate {
     private var parserCompletionHandler: (([RSSItem]) -> Void)?
     
     func parseFeed(url: String, completionHandler: (([RSSItem]) -> Void)?) {
-        self.parserCompletionHandler = completionHandler
-        let request = URLRequest(url: URL(string: url)!)
-        let urlSession = URLSession.shared
-        let task = urlSession.dataTask(with: request){  (data, response, error) in
-            guard let data = data else {
-                if let error = error{
-                    print(error.localizedDescription)
+        DispatchQueue.global().async {
+            self.parserCompletionHandler = completionHandler
+            let request = URLRequest(url: URL(string: url)!)
+            let urlSession = URLSession.shared
+            let task = urlSession.dataTask(with: request){  (data, response, error) in
+                guard let data = data else {
+                    if let error = error{
+                        print(error.localizedDescription)
+                    }
+                    return
                 }
-                return
+                let parser = XMLParser(data: data)
+                parser.delegate = self
+                parser.parse()
             }
-            let parser = XMLParser(data: data)
-            parser.delegate = self
-            parser.parse()
+            task.resume()
         }
-        task.resume()
     }
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
@@ -98,10 +100,12 @@ class FeedParser: NSObject, XMLParserDelegate {
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" {
+            DispatchQueue.main.sync {
                 let rssItem = RSSItem(title: self.currentTitle, description: self.currentDescription, pubDate: self.currentPubDate, link: self.currentLink)
                 self.rssItems.append(rssItem)
                 _ = Feed.addFeed(title: self.currentTitle, desc: self.currentDescription, pubDate: self.currentPubDate, link: self.currentLink, inFeed: self.feed)
                 CoreDataManager.sharedInstance.saveContext()
+            }
         }
     }
     

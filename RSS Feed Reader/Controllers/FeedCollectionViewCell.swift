@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class FeedCollectionViewCell: UICollectionViewCell {
     
@@ -21,6 +22,14 @@ class FeedCollectionViewCell: UICollectionViewCell {
             titleLabel.text = item.title
             dateLabel.text = item.pubDate
             descriptionLabel.text = item.description
+        }
+    }
+    
+    var image: String! {
+        didSet {
+            let url = URL(string: image)
+            newsImage.kf.indicatorType = .activity
+            newsImage.kf.setImage(with: url)
         }
     }
     

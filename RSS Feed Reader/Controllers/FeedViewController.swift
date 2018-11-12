@@ -8,7 +8,6 @@
 
 import UIKit
 import SafariServices
-import Kingfisher
 
 class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegate {
     
@@ -20,6 +19,22 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
     var refreshControl: UIRefreshControl!
     var url: String?, name: String?, toast: String?
     let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+    
+    func setTitle() {
+        guard name == nil else {
+            self.navigationItem.title = name
+            return
+        }
+        self.navigationItem.title = "Feed list".localize()
+    }
+    
+    func addLongPress() {
+        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(gestureRecognizer: )))
+        lpgr.minimumPressDuration = 0.5
+        lpgr.delaysTouchesBegan = true
+        lpgr.delegate = self
+        self.collectionView.addGestureRecognizer(lpgr)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,22 +67,6 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
         NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
     }
     
-    func setTitle() {
-        if name == nil {
-            self.navigationItem.title = "Feed list".localize()
-        } else {
-            self.navigationItem.title = name
-        }
-    }
-    
-    func addLongPress() {
-        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(gestureRecognizer: )))
-        lpgr.minimumPressDuration = 0.5
-        lpgr.delaysTouchesBegan = true
-        lpgr.delegate = self
-        self.collectionView.addGestureRecognizer(lpgr)
-    }
-    
     @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
         let p = gestureRecognizer.location(in: collectionView)
         let indexPath = collectionView.indexPathForItem(at: p)
@@ -94,14 +93,14 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
     }
     
     @objc func refresh(_ sender: Any) {
-        if isInternetAvailable() == true {
-            self.collectionView.reloadData()
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-                self.fetchData(feedChanged: false)
-            })
-        } else {
+        guard isInternetAvailable() else {
             self.refreshControl.endRefreshing()
+            return
         }
+        self.collectionView.reloadData()
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+            self.fetchData(feedChanged: false)
+        })
     }
     
     @objc func addFeed(_ notification: NSNotification) {
@@ -115,24 +114,24 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
             self.url = dict["link"] as? String
             self.navigationItem.title = dict["name"] as? String
             addRefresh()
-            if isInternetAvailable() == true {
-                self.setActivityIndicator()
-                if self.rssItems != nil {
-                    self.rssItems?.removeAll()
-                    UIView.transition(with: self.collectionView, duration: 0.5, options: .transitionCrossDissolve, animations: {
-                        self.collectionView.reloadData()
-                    }, completion: nil)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-                        self.fetchData(feedChanged: true)
-                    })
-                } else {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-                        self.fetchData(feedChanged: true)
-                    })
-                }
-            } else {
+            guard isInternetAvailable() else {
                 self.addSavedData()
+                return
             }
+            self.setActivityIndicator()
+            guard self.rssItems != nil else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+                    self.fetchData(feedChanged: true)
+                })
+                return
+            }
+            self.rssItems?.removeAll()
+            UIView.transition(with: self.collectionView, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                self.collectionView.reloadData()
+            }, completion: nil)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+                self.fetchData(feedChanged: true)
+            })
         }
     }
     
@@ -147,7 +146,7 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
     }
     
     func addSavedData() {
-        toast = "Connection error"
+        toast = "Connection error".localize()
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toast"), object: self.toast)
         NotificationCenter.default.post(name: NSNotification.Name("showToast"), object: nil)
         DispatchQueue.main.async {
@@ -157,35 +156,33 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
     }
     
     public func fetchData(feedChanged: Bool) {
-        if isInternetAvailable() == true {
-            DispatchQueue.main.async {
-                if self.feed?.feed?.count != nil {
-                    for message in self.feed!.feed! {
-                        CoreDataManager.sharedInstance.managedObjectContext.delete(message as! Feed)
-                    }
-                }
-            }
-            let feedParser = FeedParser()
-            if self.url != nil {
-                feedParser.feed = self.feed
-                feedParser.parseFeed(url: self.url!) { (rssItems) in
-                    self.rssItems = rssItems
-                    self.imgs = feedParser.imgs
-                    OperationQueue.main.addOperation {
-                        if feedChanged == false {
-                            self.refreshControl.endRefreshing()
-                            self.collectionView.reloadData()
-                        } else {
-                            UIView.transition(with: self.collectionView, duration: 0.5, options: .transitionCrossDissolve, animations: {
-                                self.collectionView.reloadData()
-                            }, completion: nil)
-                        }
-                        self.activityIndicator.removeFromSuperview()
-                    }
-                }
-            }
-        } else {
+        guard isInternetAvailable() else {
             refreshControl.endRefreshing()
+            return
+        }
+        DispatchQueue.main.async {
+            guard self.feed?.feed?.count != nil else { return }
+            for message in self.feed!.feed! {
+                CoreDataManager.sharedInstance.managedObjectContext.delete(message as! Feed)
+            }
+        }
+        guard self.url != nil else { return }
+        let feedParser = FeedParser()
+        feedParser.feed = self.feed
+        feedParser.parseFeed(url: self.url!) { (rssItems) in
+            self.rssItems = rssItems
+            self.imgs = feedParser.imgs
+            OperationQueue.main.addOperation {
+                if !feedChanged {
+                    self.refreshControl.endRefreshing()
+                    self.collectionView.reloadData()
+                } else {
+                    UIView.transition(with: self.collectionView, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                        self.collectionView.reloadData()
+                    }, completion: nil)
+                }
+                self.activityIndicator.removeFromSuperview()
+            }
         }
     }
     
@@ -194,42 +191,37 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
 extension FeedViewController {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if isInternetAvailable() == true {
-            guard let rssItems = rssItems else {
-                return 0
-            }
-            return rssItems.count
-        } else {
+        guard isInternetAvailable() else {
             guard let feed = feed?.feed else {
                 return 0
             }
             return feed.count
         }
+        guard let rssItems = rssItems else {
+            return 0
+        }
+        return rssItems.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! FeedCollectionViewCell
-        if isInternetAvailable() == true {
+        guard isInternetAvailable() else {
+            if let messageInCell = self.feed?.messagesSorted[indexPath.row] {
+                cell.savedItem = messageInCell
+            }
+            cell.heightConstraint.constant = 0
+            return cell
+        }
             if imgs.count != rssItems?.count {
                 imgs.append("")
             }
             if let item = rssItems?[indexPath.item] {
                 cell.item = item
             }
+            cell.heightConstraint.constant = (imgs[indexPath.row] == "") ? 0 : cell.newsImage.frame.width / 16 * 9
             if imgs[indexPath.row] != "" {
-                let url = URL(string: imgs[indexPath.row])
-                cell.newsImage.kf.indicatorType = .activity
-                cell.newsImage.kf.setImage(with: url)
-                cell.heightConstraint.constant = cell.newsImage.frame.width / 16 * 9
-            } else {
-                cell.heightConstraint.constant = 0
+                cell.image = imgs[indexPath.row]
             }
-        } else {
-            if let messageInCell = self.feed?.messagesSorted[indexPath.row] {
-                cell.savedItem = messageInCell
-            }
-            cell.heightConstraint.constant = 0
-        }
         return cell
     }
     

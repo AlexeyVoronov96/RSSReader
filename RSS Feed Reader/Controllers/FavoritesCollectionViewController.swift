@@ -8,9 +8,16 @@
 
 import UIKit
 import SafariServices
-import Kingfisher
 
 class FavoritesCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate {
+    
+    func addLongPress() {
+        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(gestureRecognizer: )))
+        lpgr.minimumPressDuration = 0.5
+        lpgr.delaysTouchesBegan = true
+        lpgr.delegate = self
+        self.collectionView.addGestureRecognizer(lpgr)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,17 +35,8 @@ class FavoritesCollectionViewController: UICollectionViewController, UICollectio
     }
     
     @IBAction func removeAllAction(_ sender: Any) {
-        if message.count != 0 {
-            AlertService.clearFavouritesAlert(in: self)
-        }
-    }
-    
-    func addLongPress() {
-        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(gestureRecognizer: )))
-        lpgr.minimumPressDuration = 0.5
-        lpgr.delaysTouchesBegan = true
-        lpgr.delegate = self
-        self.collectionView.addGestureRecognizer(lpgr)
+        guard message.count != 0 else { return }
+        AlertService.clearFavouritesAlert(in: self)
     }
     
     @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
@@ -52,40 +50,20 @@ class FavoritesCollectionViewController: UICollectionViewController, UICollectio
             return
         }
     }
-    
-    
 
 }
 
 extension FavoritesCollectionViewController {
     
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if message.count != 0 {
-            return message.count
-        } else {
-            return 0
-        }
+        guard message.count != 0 else { return 0 }
+        return message.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! FavoritesCollectionViewCell
         let currentMessage = message[indexPath.row]
-        if currentMessage.image == "" {
-            cell.heightConstraint.constant = 0
-        } else {
-            let url = URL(string: currentMessage.image!)!
-            cell.newsImage.kf.indicatorType = .activity
-            cell.newsImage.kf.setImage(with: url)
-            cell.heightConstraint.constant = cell.newsImage.frame.width / 16 * 9
-        }
-        
-        cell.titleLabel.text = currentMessage.title
-        cell.descriptionLabel.text = currentMessage.desc
-        cell.dateLabel.text = currentMessage.pubDate
+        cell.message = currentMessage
         return cell
     }
     

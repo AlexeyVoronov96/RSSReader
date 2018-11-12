@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class FavoritesCollectionViewCell: UICollectionViewCell {
     
@@ -15,6 +16,20 @@ class FavoritesCollectionViewCell: UICollectionViewCell {
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var newsImage: UIImageView!
     @IBOutlet var heightConstraint: NSLayoutConstraint!
+    
+    var message: SavedMessages! {
+        didSet {
+            heightConstraint.constant = (message.image == "") ? 0 : newsImage.frame.width / 16 * 9
+            if message.image != "" {
+                let url = URL(string: message.image!)!
+                newsImage.kf.indicatorType = .activity
+                newsImage.kf.setImage(with: url)
+            }
+            titleLabel.text = message.title
+            descriptionLabel.text = message.desc
+            dateLabel.text = message.pubDate
+        }
+    }
     
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
         let autoLayoutAttributes = super.preferredLayoutAttributesFitting(layoutAttributes)

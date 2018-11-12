@@ -29,25 +29,25 @@ class ChannelsViewController: UIViewController {
     @IBAction func pushAddAction(_ sender: Any) {
         AlertService.addAlert(in: self) { (name, link) in
             DispatchQueue.main.async {
-                if link != nil && validateUrl(stringURL: link! as NSString) == true {
-                    if channels.index(where: { ($0.link! == link) }) == nil {
-                        if name != nil {
-                            _ = FeedsList.newFeed(name: name!, link: link!)
-                        } else {
-                            _ = FeedsList.newFeed(name: "Unnamed channel".localize(), link: link!)
-                        }
-                        CoreDataManager.sharedInstance.saveContext()
-                        self.tableView.reloadData()
-                    } else {
-                        self.toast = "Channel already exists"
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toast"), object: self.toast)
-                        NotificationCenter.default.post(name: NSNotification.Name("showToast"), object: nil)
-                    }
-                } else {
-                    self.toast = "Invalide URL"
+                guard link != nil && validateUrl(stringURL: link! as NSString) else {
+                    self.toast = "Invalide URL".localize()
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toast"), object: self.toast)
                     NotificationCenter.default.post(name: NSNotification.Name("showToast"), object: nil)
+                    return
                 }
+                guard channels.index(where: { ($0.link! == link) }) == nil else {
+                    self.toast = "Channel already exists".localize()
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toast"), object: self.toast)
+                    NotificationCenter.default.post(name: NSNotification.Name("showToast"), object: nil)
+                    return
+                }
+                if name != nil {
+                    _ = FeedsList.newFeed(name: name!, link: link!)
+                } else {
+                    _ = FeedsList.newFeed(name: "Unnamed channel".localize(), link: link!)
+                }
+                CoreDataManager.sharedInstance.saveContext()
+                self.tableView.reloadData()
             }
         }
     }
@@ -74,20 +74,20 @@ extension ChannelsViewController: UITableViewDelegate {
         
         let edit = UITableViewRowAction(style: .normal, title: "Change".localize()) { (action, indexPath) in
             AlertService.updateAlert(in: self, channelsData: currentChannel) { (name, link) in
-                if link != nil && validateUrl(stringURL: link! as NSString) == true {
-                    if name != nil {
-                        currentChannel.name = name
-                    } else {
-                        currentChannel.name = "Unnamed channel".localize()
-                    }
-                    currentChannel.link = link
-                    CoreDataManager.sharedInstance.saveContext()
-                    self.tableView.reloadData()
-                } else {
-                    self.toast = "Invalide URL"
+                guard link != nil && validateUrl(stringURL: link! as NSString) else {
+                    self.toast = "Invalide URL".localize()
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toast"), object: self.toast)
                     NotificationCenter.default.post(name: NSNotification.Name("showToast"), object: nil)
+                    return
                 }
+                if name != nil {
+                    currentChannel.name = name
+                } else {
+                    currentChannel.name = "Unnamed channel".localize()
+                }
+                currentChannel.link = link
+                CoreDataManager.sharedInstance.saveContext()
+                self.tableView.reloadData()
             }
         }
         edit.backgroundColor = Colors.sharedInstance.blue
@@ -109,20 +109,20 @@ extension ChannelsViewController: UITableViewDelegate {
         
         let edit = UIContextualAction(style: .normal, title: "Change".localize(), handler: { (action,view,completionHandler ) in
             AlertService.updateAlert(in: self, channelsData: currentChannel) { (name, link) in
-                if link != nil && validateUrl(stringURL: link! as NSString) == true {
-                    if name != nil {
-                        currentChannel.name = name
-                    } else {
-                        currentChannel.name = "Unnamed channel".localize()
-                    }
-                    currentChannel.link = link
-                    CoreDataManager.sharedInstance.saveContext()
-                    self.tableView.reloadData()
-                } else {
+                guard link != nil && validateUrl(stringURL: link! as NSString) else {
                     self.toast = "Invalide URL"
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toast"), object: self.toast)
                     NotificationCenter.default.post(name: NSNotification.Name("showToast"), object: nil)
+                    return
                 }
+                if name != nil {
+                    currentChannel.name = name
+                } else {
+                    currentChannel.name = "Unnamed channel".localize()
+                }
+                currentChannel.link = link
+                CoreDataManager.sharedInstance.saveContext()
+                self.tableView.reloadData()
             }
             completionHandler(true)
         })
@@ -153,11 +153,10 @@ extension ChannelsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if channels.count != 0{
-            return channels.count
-        } else {
+        guard channels.count != 0 else {
             return 0
         }
+        return channels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

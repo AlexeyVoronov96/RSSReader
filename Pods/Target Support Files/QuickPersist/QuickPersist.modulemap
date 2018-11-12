@@ -1,6 +1,0 @@
-framework module QuickPersist {
-  umbrella header "QuickPersist-umbrella.h"
-
-  export *
-  module * { export * }
-}

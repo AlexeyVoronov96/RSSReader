@@ -20,17 +20,6 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
     var refreshControl: UIRefreshControl!
     var url: String?, name: String?, toast: String?
     let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
-    
-    @IBAction func openFavourites(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let fvc = storyboard.instantiateViewController(withIdentifier: "Favorites")
-        present(fvc, animated: true, completion: nil)
-    }
-    
-    @IBAction func openSlideInMenu(_ sender: Any) {
-        ContainerViewController.containerController.sideMenuOpen = false
-        NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +39,17 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
             let w = collectionView.frame.width - 16
             flowLayout.estimatedItemSize = CGSize(width: w, height: 0)
         }
+    }
+    
+    @IBAction func openFavourites(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let fvc = storyboard.instantiateViewController(withIdentifier: "Favorites")
+        present(fvc, animated: true, completion: nil)
+    }
+    
+    @IBAction func openSlideInMenu(_ sender: Any) {
+        ContainerViewController.containerController.sideMenuOpen = false
+        NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
     }
     
     func setTitle() {
@@ -160,9 +160,8 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
         if isInternetAvailable() == true {
             DispatchQueue.main.async {
                 if self.feed?.feed?.count != nil {
-                    for i in 0 ..< self.feed!.feed!.count {
-                        let messageInCell = self.feed!.messagesSorted[i]
-                        CoreDataManager.sharedInstance.managedObjectContext.delete(messageInCell)
+                    for message in self.feed!.feed! {
+                        CoreDataManager.sharedInstance.managedObjectContext.delete(message as! Feed)
                     }
                 }
             }
@@ -189,6 +188,10 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
             refreshControl.endRefreshing()
         }
     }
+    
+}
+
+extension FeedViewController {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if isInternetAvailable() == true {
@@ -219,7 +222,7 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
                 cell.newsImage.kf.setImage(with: url)
                 cell.heightConstraint.constant = cell.newsImage.frame.width / 16 * 9
             } else {
-               cell.heightConstraint.constant = 0
+                cell.heightConstraint.constant = 0
             }
         } else {
             if let messageInCell = self.feed?.messagesSorted[indexPath.row] {
@@ -238,8 +241,8 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
             currentLink = (feed?.messagesSorted[indexPath.row].link)!
         }
         let svc = SFSafariViewController(url: NSURL(string: currentLink)! as URL)
-        svc.preferredBarTintColor = Colors.color.blue
-        svc.preferredControlTintColor = Colors.color.white
+        svc.preferredBarTintColor = Colors.sharedInstance.blue
+        svc.preferredControlTintColor = Colors.sharedInstance.white
         self.present(svc, animated: true, completion: nil)
     }
     

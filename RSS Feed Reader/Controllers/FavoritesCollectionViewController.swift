@@ -10,9 +10,7 @@ import UIKit
 import SafariServices
 import Kingfisher
 
-class FavoritesCollectionViewController: UICollectionViewController, UIGestureRecognizerDelegate {
-    
-    var messages: SavedMessages?
+class FavoritesCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +19,7 @@ class FavoritesCollectionViewController: UICollectionViewController, UIGestureRe
             let w = collectionView.frame.width - 16
             flowLayout.estimatedItemSize = CGSize(width: w, height: 0)
         }
-        
+        self.extendedLayoutIncludesOpaqueBars = true
         addLongPress()
     }
     
@@ -30,7 +28,7 @@ class FavoritesCollectionViewController: UICollectionViewController, UIGestureRe
     }
     
     @IBAction func removeAllAction(_ sender: Any) {
-        if message.count > 0 {
+        if message.count != 0 {
             AlertService.clearFavouritesAlert(in: self)
         }
     }
@@ -54,12 +52,17 @@ class FavoritesCollectionViewController: UICollectionViewController, UIGestureRe
             return
         }
     }
+    
+    
 
+}
+
+extension FavoritesCollectionViewController {
+    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-
-
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if message.count != 0 {
             return message.count
@@ -67,7 +70,7 @@ class FavoritesCollectionViewController: UICollectionViewController, UIGestureRe
             return 0
         }
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! FavoritesCollectionViewCell
         let currentMessage = message[indexPath.row]
@@ -89,9 +92,9 @@ class FavoritesCollectionViewController: UICollectionViewController, UIGestureRe
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let currentItem = message[indexPath.row]
         let svc = SFSafariViewController(url: NSURL(string: currentItem.link!)! as URL)
-        svc.preferredBarTintColor = Colors.color.blue
-        svc.preferredControlTintColor = Colors.color.white
+        svc.preferredBarTintColor = Colors.sharedInstance.blue
+        svc.preferredControlTintColor = Colors.sharedInstance.white
         self.present(svc, animated: true, completion: nil)
     }
-
+    
 }

@@ -7,7 +7,7 @@
 //
 import UIKit
 
-class ChannelsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ChannelsViewController: UIViewController {
     
     static let channelsController = ChannelsViewController()
     
@@ -18,7 +18,7 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
-        tableView.backgroundColor = Colors.color.blue
+        tableView.backgroundColor = Colors.sharedInstance.blue
     }
     
     @IBAction func closeSlideMenu(_ sender: Any) {
@@ -52,31 +52,16 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
+}
+
+extension ChannelsViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if channels.count != 0{
-            return channels.count
-        } else {
-            return 0
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ChannelsTableViewCell
-        let currentChannel = channels[indexPath.row]
-        cell.configure(with: currentChannel)
-        return cell
+    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .none
-    }
-    
-    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
-        return false
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
@@ -86,7 +71,7 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
             CoreDataManager.sharedInstance.saveContext()
             self.tableView.deleteRows(at: [indexPath], with: .fade)
         }
-
+        
         let edit = UITableViewRowAction(style: .normal, title: "Change".localize()) { (action, indexPath) in
             AlertService.updateAlert(in: self, channelsData: currentChannel) { (name, link) in
                 if link != nil && validateUrl(stringURL: link! as NSString) == true {
@@ -105,8 +90,8 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
                 }
             }
         }
-        edit.backgroundColor = Colors.color.blue
-        delete.backgroundColor = Colors.color.blue
+        edit.backgroundColor = Colors.sharedInstance.blue
+        delete.backgroundColor = Colors.sharedInstance.blue
         return [delete, edit]
     }
     
@@ -142,9 +127,9 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
             completionHandler(true)
         })
         edit.image = UIImage(named: "edit")
-        edit.backgroundColor = Colors.color.blue
+        edit.backgroundColor = Colors.sharedInstance.blue
         delete.image = UIImage(named: "delete")
-        delete.backgroundColor = Colors.color.blue
+        delete.backgroundColor = Colors.sharedInstance.blue
         let confrigation = UISwipeActionsConfiguration(actions: [delete, edit])
         
         return confrigation
@@ -157,6 +142,29 @@ class ChannelsViewController: UIViewController, UITableViewDelegate, UITableView
         let dictionary = ["name": currentChannel.name!, "link": currentChannel.link!]
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "sendChannelStats"), object: nil, userInfo: dictionary)
         NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
+    }
+    
+}
+
+extension ChannelsViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if channels.count != 0{
+            return channels.count
+        } else {
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ChannelsTableViewCell
+        let currentChannel = channels[indexPath.row]
+        cell.configure(with: currentChannel)
+        return cell
     }
     
 }

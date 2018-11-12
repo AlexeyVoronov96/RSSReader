@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB13EF692199AABB00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.22.11_iphonexspacegrey_portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = AB13EF632199AABA00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.22.11_iphonexspacegrey_portrait.png */; };
+		AB13EF6A2199AABB00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.23.18_iphonexspacegrey_portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = AB13EF642199AABA00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.23.18_iphonexspacegrey_portrait.png */; };
+		AB13EF6B2199AABB00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.26.56_iphonexspacegrey_portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = AB13EF652199AABA00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.26.56_iphonexspacegrey_portrait.png */; };
+		AB13EF6C2199AABB00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.27.11_iphonexspacegrey_portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = AB13EF662199AABA00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.27.11_iphonexspacegrey_portrait.png */; };
+		AB13EF6D2199AABB00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.23.34_iphonexspacegrey_portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = AB13EF672199AABA00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.23.34_iphonexspacegrey_portrait.png */; };
+		AB13EF6E2199AABB00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.31.39_iphonexspacegrey_portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = AB13EF682199AABA00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.31.39_iphonexspacegrey_portrait.png */; };
+		AB13EF7D2199AAD900143A85 /* Feed.png in Resources */ = {isa = PBXBuildFile; fileRef = AB13EF772199AAD900143A85 /* Feed.png */; };
+		AB13EF7E2199AAD900143A85 /* ChannelsList.png in Resources */ = {isa = PBXBuildFile; fileRef = AB13EF782199AAD900143A85 /* ChannelsList.png */; };
+		AB13EF7F2199AAD900143A85 /* Favourites.png in Resources */ = {isa = PBXBuildFile; fileRef = AB13EF792199AAD900143A85 /* Favourites.png */; };
+		AB13EF802199AAD900143A85 /* WebView.png in Resources */ = {isa = PBXBuildFile; fileRef = AB13EF7A2199AAD900143A85 /* WebView.png */; };
+		AB13EF812199AAD900143A85 /* FeedAlert.png in Resources */ = {isa = PBXBuildFile; fileRef = AB13EF7B2199AAD900143A85 /* FeedAlert.png */; };
+		AB13EF822199AAD900143A85 /* LaunchScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = AB13EF7C2199AAD900143A85 /* LaunchScreen.png */; };
 		AB1ACE13215384130070E578 /* ChannelsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1ACE12215384130070E578 /* ChannelsTableViewCell.swift */; };
 		AB42C9A92151A67300C3C367 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB42C9A82151A67300C3C367 /* AppDelegate.swift */; };
 		AB42C9AE2151A67300C3C367 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB42C9AC2151A67300C3C367 /* Main.storyboard */; };
@@ -49,7 +61,20 @@
 
 /* Begin PBXFileReference section */
 		97C7BAAEAC8024DFED4CCBA0 /* Pods-RSS Feed Reader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSS Feed Reader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RSS Feed Reader/Pods-RSS Feed Reader.debug.xcconfig"; sourceTree = "<group>"; };
+		AB13EF632199AABA00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.22.11_iphonexspacegrey_portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Simulator Screen Shot - iPhone X - 2018-11-12 at 17.22.11_iphonexspacegrey_portrait.png"; sourceTree = "<group>"; };
+		AB13EF642199AABA00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.23.18_iphonexspacegrey_portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Simulator Screen Shot - iPhone X - 2018-11-12 at 17.23.18_iphonexspacegrey_portrait.png"; sourceTree = "<group>"; };
+		AB13EF652199AABA00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.26.56_iphonexspacegrey_portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Simulator Screen Shot - iPhone X - 2018-11-12 at 17.26.56_iphonexspacegrey_portrait.png"; sourceTree = "<group>"; };
+		AB13EF662199AABA00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.27.11_iphonexspacegrey_portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Simulator Screen Shot - iPhone X - 2018-11-12 at 17.27.11_iphonexspacegrey_portrait.png"; sourceTree = "<group>"; };
+		AB13EF672199AABA00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.23.34_iphonexspacegrey_portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Simulator Screen Shot - iPhone X - 2018-11-12 at 17.23.34_iphonexspacegrey_portrait.png"; sourceTree = "<group>"; };
+		AB13EF682199AABA00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.31.39_iphonexspacegrey_portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Simulator Screen Shot - iPhone X - 2018-11-12 at 17.31.39_iphonexspacegrey_portrait.png"; sourceTree = "<group>"; };
+		AB13EF772199AAD900143A85 /* Feed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Feed.png; sourceTree = "<group>"; };
+		AB13EF782199AAD900143A85 /* ChannelsList.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChannelsList.png; sourceTree = "<group>"; };
+		AB13EF792199AAD900143A85 /* Favourites.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Favourites.png; sourceTree = "<group>"; };
+		AB13EF7A2199AAD900143A85 /* WebView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WebView.png; sourceTree = "<group>"; };
+		AB13EF7B2199AAD900143A85 /* FeedAlert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FeedAlert.png; sourceTree = "<group>"; };
+		AB13EF7C2199AAD900143A85 /* LaunchScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchScreen.png; sourceTree = "<group>"; };
 		AB1ACE12215384130070E578 /* ChannelsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelsTableViewCell.swift; sourceTree = "<group>"; };
+		AB1C9572218BB411007CC968 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		AB42C9A52151A67300C3C367 /* RSS Feed Reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RSS Feed Reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB42C9A82151A67300C3C367 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AB42C9AD2151A67300C3C367 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -104,10 +129,38 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		AB13EF622199AABA00143A85 /* ScreeenShots */ = {
+			isa = PBXGroup;
+			children = (
+				AB13EF632199AABA00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.22.11_iphonexspacegrey_portrait.png */,
+				AB13EF642199AABA00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.23.18_iphonexspacegrey_portrait.png */,
+				AB13EF652199AABA00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.26.56_iphonexspacegrey_portrait.png */,
+				AB13EF662199AABA00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.27.11_iphonexspacegrey_portrait.png */,
+				AB13EF672199AABA00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.23.34_iphonexspacegrey_portrait.png */,
+				AB13EF682199AABA00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.31.39_iphonexspacegrey_portrait.png */,
+			);
+			path = ScreeenShots;
+			sourceTree = "<group>";
+		};
+		AB13EF762199AAD900143A85 /* ScreeenShots */ = {
+			isa = PBXGroup;
+			children = (
+				AB13EF772199AAD900143A85 /* Feed.png */,
+				AB13EF782199AAD900143A85 /* ChannelsList.png */,
+				AB13EF792199AAD900143A85 /* Favourites.png */,
+				AB13EF7A2199AAD900143A85 /* WebView.png */,
+				AB13EF7B2199AAD900143A85 /* FeedAlert.png */,
+				AB13EF7C2199AAD900143A85 /* LaunchScreen.png */,
+			);
+			path = ScreeenShots;
+			sourceTree = "<group>";
+		};
 		AB42C99C2151A67300C3C367 = {
 			isa = PBXGroup;
 			children = (
+				AB13EF622199AABA00143A85 /* ScreeenShots */,
 				AB42C9A72151A67300C3C367 /* RSS Feed Reader */,
+				AB13EF762199AAD900143A85 /* ScreeenShots */,
 				AB42C9A62151A67300C3C367 /* Products */,
 				226C5F1CD003DC2F7B157B32 /* Pods */,
 				D0E09B4DE9559AA796997520 /* Frameworks */,
@@ -267,9 +320,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB5336372183BEE400247ED2 /* Localizable.strings in Resources */,
+				AB13EF822199AAD900143A85 /* LaunchScreen.png in Resources */,
+				AB13EF692199AABB00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.22.11_iphonexspacegrey_portrait.png in Resources */,
 				AB42C9B32151A67400C3C367 /* LaunchScreen.storyboard in Resources */,
+				AB13EF7E2199AAD900143A85 /* ChannelsList.png in Resources */,
+				AB13EF6A2199AABB00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.23.18_iphonexspacegrey_portrait.png in Resources */,
+				AB13EF6C2199AABB00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.27.11_iphonexspacegrey_portrait.png in Resources */,
+				AB13EF6B2199AABB00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.26.56_iphonexspacegrey_portrait.png in Resources */,
 				AB42C9B02151A67400C3C367 /* Assets.xcassets in Resources */,
+				AB13EF802199AAD900143A85 /* WebView.png in Resources */,
+				AB13EF7F2199AAD900143A85 /* Favourites.png in Resources */,
+				AB13EF6D2199AABB00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.23.34_iphonexspacegrey_portrait.png in Resources */,
+				AB13EF7D2199AAD900143A85 /* Feed.png in Resources */,
 				AB42C9AE2151A67300C3C367 /* Main.storyboard in Resources */,
+				AB13EF812199AAD900143A85 /* FeedAlert.png in Resources */,
+				AB13EF6E2199AABB00143A85 /* Simulator Screen Shot - iPhone X - 2018-11-12 at 17.31.39_iphonexspacegrey_portrait.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,6 +426,7 @@
 			children = (
 				AB42C9AD2151A67300C3C367 /* Base */,
 				AB5336332183BCFE00247ED2 /* ru */,
+				AB1C9572218BB411007CC968 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

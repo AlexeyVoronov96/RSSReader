@@ -11,7 +11,7 @@ import UIKit
 
 class Colors {
     
-    static let color = Colors()
+    static let sharedInstance = Colors()
 
     let blue = UIColor.init(red: 66/255, green: 139/255, blue: 202/255, alpha: 1)
     let white = UIColor.white

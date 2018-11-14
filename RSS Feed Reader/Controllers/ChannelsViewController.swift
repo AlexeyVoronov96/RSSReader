@@ -69,6 +69,9 @@ extension ChannelsViewController: UITableViewDelegate {
         let delete = UITableViewRowAction(style: .destructive, title: "Delete".localize()) { (action, indexPath) in
             CoreDataManager.sharedInstance.managedObjectContext.delete(currentChannel)
             CoreDataManager.sharedInstance.saveContext()
+            if FeedViewController.shared.url == currentChannel.link {
+                NotificationCenter.default.post(name: NSNotification.Name("deleteChannel"), object: nil)
+            }
             self.tableView.deleteRows(at: [indexPath], with: .fade)
         }
         
@@ -103,7 +106,9 @@ extension ChannelsViewController: UITableViewDelegate {
             CoreDataManager.sharedInstance.managedObjectContext.delete(currentChannel)
             CoreDataManager.sharedInstance.saveContext()
             self.tableView.deleteRows(at: [indexPath], with: .fade)
-            NotificationCenter.default.post(name: NSNotification.Name("deleteChannel"), object: nil)
+            if FeedViewController.shared.url == currentChannel.link {
+                NotificationCenter.default.post(name: NSNotification.Name("deleteChannel"), object: nil)
+            }
             completionHandler(true)
         })
         

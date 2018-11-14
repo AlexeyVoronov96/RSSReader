@@ -14,7 +14,7 @@
         <scene sceneID="gVy-My-8HG">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ht7-B6-tdm" userLabel="Main Screen Nav Controller" colorLabel="IBBuiltInLabel-Blue" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" largeTitles="YES" id="Ycd-S1-yde">
+                    <navigationBar key="navigationBar" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" largeTitles="YES" id="Ycd-S1-yde">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.25882352939999997" green="0.5450980392" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -122,7 +122,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kpZ-kL-KQx">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="774"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="separatorColor" red="0.25882352941176467" green="0.27843137254901962" blue="0.792156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="16" minY="0.0" maxX="17" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="Cell" rowHeight="66" id="Wui-BB-272" customClass="ChannelsTableViewCell" customModule="RSS_Feed_Reader" customModuleProvider="target">
@@ -160,7 +159,8 @@
                                                 <constraint firstItem="EsQ-Kq-kRf" firstAttribute="leading" secondItem="9Xp-F1-wHz" secondAttribute="leading" constant="16" id="yvs-hQ-Cg8"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.25850743059999998" green="0.54374879600000003" blue="0.79247683290000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.25882352939999997" green="0.5450980392" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="separatorInset" minX="16" minY="0.0" maxX="17" maxY="0.0"/>
                                         <connections>
                                             <outlet property="labelLink" destination="SN8-Es-2cm" id="XOH-c4-QeS"/>
@@ -212,7 +212,7 @@
         <scene sceneID="t6v-bJ-TdA">
             <objects>
                 <collectionViewController title="Лента" automaticallyAdjustsScrollViewInsets="NO" id="yPA-vb-dqs" customClass="FeedViewController" customModule="RSS_Feed_Reader" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" springLoaded="YES" id="D6r-YU-R3K">
+                    <collectionView key="view" autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" prefetchingEnabled="NO" id="D6r-YU-R3K">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="756"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.25882352939999997" green="0.5450980392" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -291,18 +291,12 @@
                                 </connections>
                             </collectionViewCell>
                         </cells>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="3"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="yPA-vb-dqs" id="7xL-43-o5z"/>
                             <outlet property="delegate" destination="yPA-vb-dqs" id="ZBb-i6-MGZ"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Feed List" id="WLg-cg-4bG">
+                    <navigationItem key="navigationItem" title="Feed List" leftItemsSupplementBackButton="YES" id="WLg-cg-4bG">
                         <barButtonItem key="leftBarButtonItem" systemItem="bookmarks" id="Zx2-uc-clZ">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
@@ -324,7 +318,7 @@
         <scene sceneID="rWI-oK-ap2">
             <objects>
                 <collectionViewController title="Лента" id="gCc-vQ-wKF" userLabel="Избранное" customClass="FavoritesCollectionViewController" customModule="RSS_Feed_Reader" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" springLoaded="YES" id="lLc-gj-CR8">
+                    <collectionView key="view" autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="center" semanticContentAttribute="forceLeftToRight" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="prototypes" prefetchingEnabled="NO" id="lLc-gj-CR8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="756"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.25882352939999997" green="0.5450980392" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -404,7 +398,7 @@
                             </collectionViewCell>
                         </cells>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Favourites" id="Unw-7i-Rlt">
+                    <navigationItem key="navigationItem" title="Favourites" leftItemsSupplementBackButton="YES" id="Unw-7i-Rlt">
                         <barButtonItem key="backBarButtonItem" title="Feed List" id="48Q-If-QoE"/>
                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="WIN-Wm-S05">
                             <connections>
@@ -427,7 +421,7 @@
             <objects>
                 <navigationController storyboardIdentifier="Favorites" automaticallyAdjustsScrollViewInsets="NO" id="0oG-Cg-qqO" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" largeTitles="YES" id="5fq-Nb-eYj">
+                    <navigationBar key="navigationBar" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" largeTitles="YES" id="5fq-Nb-eYj">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.25850743059999998" green="0.54374879600000003" blue="0.79247683290000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

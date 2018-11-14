@@ -17,7 +17,7 @@ struct RSSItem {
 
 class FeedParser: NSObject, XMLParserDelegate {
     
-    static let parse = FeedParser()
+    static let shared = FeedParser()
     
     var i: Int = 0
     
@@ -48,26 +48,24 @@ class FeedParser: NSObject, XMLParserDelegate {
         }
     }
     
-    private var parserCompletionHandler: (([RSSItem]) -> Void)?
+    private var parserCompletionHandler: (([RSSItem], [String]) -> Void)?
     
-    func parseFeed(url: String, completionHandler: (([RSSItem]) -> Void)?) {
-        DispatchQueue.global().async {
-            self.parserCompletionHandler = completionHandler
-            let request = URLRequest(url: URL(string: url)!)
-            let urlSession = URLSession.shared
-            let task = urlSession.dataTask(with: request){  (data, response, error) in
-                guard let data = data else {
-                    if let error = error{
-                        print(error.localizedDescription)
-                    }
-                    return
+    func parseFeed(url: String, completionHandler: (([RSSItem], [String]) -> Void)?) {
+        self.parserCompletionHandler = completionHandler
+        let request = URLRequest(url: URL(string: url)!)
+        let urlSession = URLSession.shared
+        let task = urlSession.dataTask(with: request){  (data, response, error) in
+            guard let data = data else {
+                if let error = error{
+                    print(error.localizedDescription)
                 }
-                let parser = XMLParser(data: data)
-                parser.delegate = self
-                parser.parse()
+                return
             }
-            task.resume()
+            let parser = XMLParser(data: data)
+            parser.delegate = self
+            parser.parse()
         }
+        task.resume()
     }
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
@@ -110,7 +108,7 @@ class FeedParser: NSObject, XMLParserDelegate {
     }
     
     func parserDidEndDocument(_ parser: XMLParser) {
-        parserCompletionHandler?(rssItems)
+        parserCompletionHandler?(rssItems, imgs)
     }
     
     func parser(_ parser: XMLParser,

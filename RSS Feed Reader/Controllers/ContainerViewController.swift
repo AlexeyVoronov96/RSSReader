@@ -12,21 +12,24 @@ import Toast_Swift
 class ContainerViewController: UIViewController {
     
     static let containerController = ContainerViewController()
-
+    
+    var sideMenuOpen = false
+    var tapGesture = UITapGestureRecognizer()
+    var toast: String = ""
+    
     @IBOutlet var slideInView: UIView!
     @IBOutlet var mainView: UIView!
     @IBOutlet weak var sideMenuConstraint: NSLayoutConstraint!
     @IBOutlet var mainViewConstraintRight: NSLayoutConstraint!
     @IBOutlet var mainViewConstraintLeft: NSLayoutConstraint!
-    var sideMenuOpen = false
-    var tapGesture = UITapGestureRecognizer()
-    var toast: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(toggleSideMenu), name: NSNotification.Name("ToggleSideMenu"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(toastText(_:)), name: NSNotification.Name(rawValue: "toast"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showToast), name: NSNotification.Name("showToast"), object: nil)
+        
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
         swipeLeft.direction = .left
         self.view.addGestureRecognizer(swipeLeft)

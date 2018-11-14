@@ -22,7 +22,7 @@ class ChannelsViewController: UIViewController {
     }
     
     @IBAction func closeSlideMenu(_ sender: Any) {
-        ContainerViewController.containerController.sideMenuOpen = true
+        ContainerViewController.shared.sideMenuOpen = true
         NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
     }
     

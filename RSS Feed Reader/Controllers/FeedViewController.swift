@@ -17,7 +17,7 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
     var feed: FeedsList?
     var imgs: [String] = []
     var refreshControl: UIRefreshControl!
-    var url: String?, name: String?, toast: String?
+    var url: String?, name: String?
     let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
     
     func setTitle() {
@@ -63,7 +63,7 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
     }
     
     @IBAction func openSlideInMenu(_ sender: Any) {
-        ContainerViewController.containerController.sideMenuOpen = false
+        ContainerViewController.shared.sideMenuOpen = false
         NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
     }
     
@@ -138,8 +138,8 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
     }
     
     func addSavedData() {
-        toast = "Connection error".localize()
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toast"), object: self.toast)
+        let toast = "Connection error".localize()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toast"), object: toast)
         NotificationCenter.default.post(name: NSNotification.Name("showToast"), object: nil)
         DispatchQueue.main.async {
             self.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)

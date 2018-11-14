@@ -57,7 +57,14 @@ class FeedParser: NSObject, XMLParserDelegate {
         let task = urlSession.dataTask(with: request){  (data, response, error) in
             guard let data = data else {
                 if let error = error{
+                    let toast = error.localizedDescription
                     print(error.localizedDescription)
+                    DispatchQueue.main.async {
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toast"), object: toast)
+                        NotificationCenter.default.post(name: NSNotification.Name("showToast"), object: nil)
+                        ContainerViewController.shared.sideMenuOpen = false
+                        NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
+                    }
                 }
                 return
             }

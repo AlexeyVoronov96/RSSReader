@@ -11,7 +11,7 @@ import Toast_Swift
 
 class ContainerViewController: UIViewController {
     
-    static let containerController = ContainerViewController()
+    static let shared = ContainerViewController()
     
     var sideMenuOpen = false
     var tapGesture = UITapGestureRecognizer()

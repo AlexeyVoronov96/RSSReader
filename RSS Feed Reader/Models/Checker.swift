@@ -27,11 +27,3 @@ func isInternetAvailable() -> Bool {
     let needsConnection = flags.contains(.connectionRequired)
     return (isReachable && !needsConnection)
 }
-
-func validateUrl (stringURL : NSString) -> Bool {
-    let urlRegEx = "(http|https)://((\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*)+)+(/)?(\\?.*)?"
-    let predicate = NSPredicate(format:"SELF MATCHES %@",
-                                argumentArray:[urlRegEx])
-    _ = NSPredicate.withSubstitutionVariables(predicate)
-    return predicate.evaluate(with: stringURL)
-}

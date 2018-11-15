@@ -29,7 +29,7 @@ class ChannelsViewController: UIViewController {
     @IBAction func pushAddAction(_ sender: Any) {
         AlertService.addAlert(in: self) { (name, link) in
             DispatchQueue.main.async {
-                guard link != nil && validateUrl(stringURL: link! as NSString) else {
+                guard link != nil else {
                     self.toast = "Invalide URL".localize()
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toast"), object: self.toast)
                     NotificationCenter.default.post(name: NSNotification.Name("showToast"), object: nil)
@@ -77,7 +77,7 @@ extension ChannelsViewController: UITableViewDelegate {
         
         let edit = UITableViewRowAction(style: .normal, title: "Change".localize()) { (action, indexPath) in
             AlertService.updateAlert(in: self, channelsData: currentChannel) { (name, link) in
-                guard link != nil && validateUrl(stringURL: link! as NSString) else {
+                guard link != nil else {
                     self.toast = "Invalide URL".localize()
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toast"), object: self.toast)
                     NotificationCenter.default.post(name: NSNotification.Name("showToast"), object: nil)
@@ -114,7 +114,7 @@ extension ChannelsViewController: UITableViewDelegate {
         
         let edit = UIContextualAction(style: .normal, title: "Change".localize(), handler: { (action,view,completionHandler ) in
             AlertService.updateAlert(in: self, channelsData: currentChannel) { (name, link) in
-                guard link != nil && validateUrl(stringURL: link! as NSString) else {
+                guard link != nil else {
                     self.toast = "Invalide URL"
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toast"), object: self.toast)
                     NotificationCenter.default.post(name: NSNotification.Name("showToast"), object: nil)

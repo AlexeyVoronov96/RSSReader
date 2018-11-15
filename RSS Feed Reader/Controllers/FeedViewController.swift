@@ -207,9 +207,12 @@ extension FeedViewController {
         if let item = rssItems?[indexPath.item] {
             cell.item = item
         }
-        cell.heightConstraint.constant = (imgs[indexPath.row] == "") ? 0 : cell.newsImage.frame.width / 16 * 9
         if imgs[indexPath.row] != "" {
             cell.image = imgs[indexPath.row]
+            cell.heightConstraint.constant = cell.newsImage.frame.width / 16 * 9
+        } else {
+            cell.newsImage.image = nil
+            cell.heightConstraint.constant = 0
         }
         
         return cell

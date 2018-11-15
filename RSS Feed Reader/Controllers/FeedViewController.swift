@@ -209,7 +209,7 @@ extension FeedViewController {
         }
         if imgs[indexPath.row] != "" {
             cell.image = imgs[indexPath.row]
-            cell.heightConstraint.constant = cell.newsImage.frame.width / 16 * 9
+            cell.heightConstraint.constant = cell.newsImage.frame.width / 4 * 3
         } else {
             cell.newsImage.image = nil
             cell.heightConstraint.constant = 0

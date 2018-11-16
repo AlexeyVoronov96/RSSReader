@@ -9,22 +9,14 @@
 import UIKit
 import SafariServices
 
-class FavoritesCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate {
-    
-    func addLongPress() {
-        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(gestureRecognizer: )))
-        lpgr.minimumPressDuration = 0.5
-        lpgr.delaysTouchesBegan = true
-        lpgr.delegate = self
-        self.collectionView.addGestureRecognizer(lpgr)
-    }
+class FavoritesCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         if let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout,
             let collectionView = collectionView {
             let w = collectionView.frame.width - 16
-            flowLayout.estimatedItemSize = CGSize(width: w, height: 0)
+            flowLayout.estimatedItemSize = CGSize(width: w, height: 100)
         }
         addLongPress()
     }
@@ -37,22 +29,6 @@ class FavoritesCollectionViewController: UICollectionViewController, UICollectio
         guard message.count != 0 else { return }
         AlertService.clearFavouritesAlert(in: self)
     }
-    
-    @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
-        let p = gestureRecognizer.location(in: collectionView)
-        let indexPath = collectionView.indexPathForItem(at: p)
-        if gestureRecognizer.state == UIGestureRecognizer.State.began {
-            if let index = indexPath {
-                let currentMessage = message[index.row]
-                AlertService.favoritesShareAlert(in: self, channelsData: currentMessage, indexPath: index)
-            }
-            return
-        }
-    }
-    
-}
-
-extension FavoritesCollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard message.count != 0 else { return 0 }
@@ -72,6 +48,30 @@ extension FavoritesCollectionViewController {
         svc.preferredBarTintColor = Colors.sharedInstance.blue
         svc.preferredControlTintColor = Colors.sharedInstance.white
         self.present(svc, animated: true, completion: nil)
+    }
+    
+}
+
+extension FavoritesCollectionViewController: UIGestureRecognizerDelegate {
+    
+    func addLongPress() {
+        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(gestureRecognizer: )))
+        lpgr.minimumPressDuration = 0.5
+        lpgr.delaysTouchesBegan = true
+        lpgr.delegate = self
+        self.collectionView.addGestureRecognizer(lpgr)
+    }
+    
+    @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        let p = gestureRecognizer.location(in: collectionView)
+        let indexPath = collectionView.indexPathForItem(at: p)
+        if gestureRecognizer.state == UIGestureRecognizer.State.began {
+            if let index = indexPath {
+                let currentMessage = message[index.row]
+                AlertService.favoritesShareAlert(in: self, channelsData: currentMessage, indexPath: index)
+            }
+            return
+        }
     }
     
 }

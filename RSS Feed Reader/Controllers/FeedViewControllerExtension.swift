@@ -9,21 +9,7 @@
 import Foundation
 import UIKit
 
-extension FeedViewController {
-    
-    func setTitle() {
-        guard name == nil else {
-            self.navigationItem.title = name
-            return
-        }
-        navigationItem.title = "Feed list".localize()
-    }
-    
-    func addObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(self.addFeed(_:)), name: NSNotification.Name(rawValue: "currentChannel"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.changeFeed(_:)), name: NSNotification.Name(rawValue: "sendChannelStats"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.deleteChannel(_:)), name: NSNotification.Name(rawValue: "deleteChannel"), object: nil)
-    }
+extension FeedViewController: UIGestureRecognizerDelegate {
     
     func addLongPress() {
         let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(gestureRecognizer: )))
@@ -42,6 +28,38 @@ extension FeedViewController {
             }
             return
         }
+    }
+    
+}
+
+extension FeedViewController {
+    
+    func configureCellSize() {
+        if let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout,
+            let collectionView = collectionView {
+            let w = collectionView.frame.width - 16
+            flowLayout.estimatedItemSize = CGSize(width: w, height: 100)
+        }
+    }
+    
+    func completingImageLinks() {
+        if imgs.count != rssItems?.count {
+            imgs.append("")
+        }
+    }
+    
+    func setTitle() {
+        guard name == nil else {
+            self.navigationItem.title = name
+            return
+        }
+        navigationItem.title = "Feed list".localize()
+    }
+    
+    func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.addFeed(_:)), name: NSNotification.Name(rawValue: "currentChannel"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.changeFeed(_:)), name: NSNotification.Name(rawValue: "sendChannelStats"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.deleteChannel(_:)), name: NSNotification.Name(rawValue: "deleteChannel"), object: nil)
     }
     
     func setActivityIndicator() {

@@ -9,7 +9,7 @@
 import UIKit
 import SafariServices
 
-class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegate {
+class FeedViewController: UICollectionViewController {
     
     static let shared = FeedViewController()
     
@@ -22,19 +22,13 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
-        
         extendedLayoutIncludesOpaqueBars = true
         addObservers()
         setTitle()
         addLongPress()
-        
-        if let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout,
-            let collectionView = collectionView {
-            let w = collectionView.frame.width - 16
-            flowLayout.estimatedItemSize = CGSize(width: w, height: 0)
-        }
+        configureCellSize()
+        completingImageLinks()
     }
     
     @IBAction func openFavourites(_ sender: Any) {
@@ -47,8 +41,6 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
         ContainerViewController.shared.sideMenuOpen = false
         NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
     }
-    
-    
     
     final func addSavedData() {
         ChannelsViewController.shared.makeToast(toast: "Connection error")
@@ -105,9 +97,6 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
             }
             cell.heightConstraint.constant = 0
             return cell
-        }
-        if imgs.count != rssItems?.count {
-            imgs.append("")
         }
         if let item = rssItems?[indexPath.item] {
             cell.item = item

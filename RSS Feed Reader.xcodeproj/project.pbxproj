@@ -172,8 +172,10 @@
 			children = (
 				ABD4B3CF216AA5E300D58DC9 /* ContainerViewController.swift */,
 				AB95780D215F97C900E3E1E6 /* ChannelsViewController.swift */,
+				ABB0FB89219E365000F3037E /* ChannelsViewControllerExtension.swift */,
 				AB1ACE12215384130070E578 /* ChannelsTableViewCell.swift */,
 				ABF34906215F70DC00FFF76B /* FeedViewController.swift */,
+				ABB18E39219E0EB600AB404E /* FeedViewControllerExtension.swift */,
 				ABF34908215F71B200FFF76B /* FeedCollectionViewCell.swift */,
 				AB53363B2183D2DB00247ED2 /* FavoritesCollectionViewController.swift */,
 				AB53363D2183D6AE00247ED2 /* FavoritesCollectionViewCell.swift */,
@@ -189,8 +191,6 @@
 				ABF348FF215F45AC00FFF76B /* XMLParser.swift */,
 				ABEB48C6217D32CD003009C4 /* Colors.swift */,
 				AB5336312183A4BD00247ED2 /* Extensions.swift */,
-				ABB18E39219E0EB600AB404E /* FeedViewControllerExtension.swift */,
-				ABB0FB89219E365000F3037E /* ChannelsViewControllerExtension.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";

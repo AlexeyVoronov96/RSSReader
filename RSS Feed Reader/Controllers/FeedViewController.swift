@@ -129,7 +129,7 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
         } else {
             currentLink = (feed?.messagesSorted[indexPath.row].link)!
         }
-        let svc = SFSafariViewController(url: NSURL(string: currentLink)! as URL)
+        let svc = SFSafariViewController(url: NSURL(string: currentLink)! as URL, entersReaderIfAvailable: true)
         svc.preferredBarTintColor = Colors.sharedInstance.blue
         svc.preferredControlTintColor = Colors.sharedInstance.white
         self.present(svc, animated: true, completion: nil)

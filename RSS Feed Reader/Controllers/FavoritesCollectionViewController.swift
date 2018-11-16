@@ -68,7 +68,7 @@ extension FavoritesCollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let currentItem = message[indexPath.row]
-        let svc = SFSafariViewController(url: NSURL(string: currentItem.link!)! as URL)
+        let svc = SFSafariViewController(url: NSURL(string: currentItem.link!)! as URL, entersReaderIfAvailable: true)
         svc.preferredBarTintColor = Colors.sharedInstance.blue
         svc.preferredControlTintColor = Colors.sharedInstance.white
         self.present(svc, animated: true, completion: nil)

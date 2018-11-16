@@ -9,7 +9,7 @@ import UIKit
 
 class ChannelsViewController: UIViewController {
     
-    static let channelsController = ChannelsViewController()
+    static let shared = ChannelsViewController()
     
     @IBOutlet weak var tableView: UITableView!
     var feed: FeedsList?
@@ -30,9 +30,11 @@ class ChannelsViewController: UIViewController {
         AlertService.addAlert(in: self) { (name, link) in
             DispatchQueue.main.async {
                 guard link != nil else {
-                    self.toast = "Invalide URL".localize()
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toast"), object: self.toast)
-                    NotificationCenter.default.post(name: NSNotification.Name("showToast"), object: nil)
+                    self.makeToast(toast: "URL field is empty")
+                    return
+                }
+                guard  validateUrl(stringURL: link! as NSString) else {
+                    self.makeToast(toast: "Invalide URL")
                     return
                 }
                 guard channels.index(where: { ($0.link! == link) }) == nil else {
@@ -78,9 +80,11 @@ extension ChannelsViewController: UITableViewDelegate {
         let edit = UITableViewRowAction(style: .normal, title: "Change".localize()) { (action, indexPath) in
             AlertService.updateAlert(in: self, channelsData: currentChannel) { (name, link) in
                 guard link != nil else {
-                    self.toast = "Invalide URL".localize()
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toast"), object: self.toast)
-                    NotificationCenter.default.post(name: NSNotification.Name("showToast"), object: nil)
+                    self.makeToast(toast: "URL field is empty")
+                    return
+                }
+                guard  validateUrl(stringURL: link! as NSString) else {
+                    self.makeToast(toast: "Invalide URL")
                     return
                 }
                 if name != nil {
@@ -115,9 +119,11 @@ extension ChannelsViewController: UITableViewDelegate {
         let edit = UIContextualAction(style: .normal, title: "Change".localize(), handler: { (action,view,completionHandler ) in
             AlertService.updateAlert(in: self, channelsData: currentChannel) { (name, link) in
                 guard link != nil else {
-                    self.toast = "Invalide URL"
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toast"), object: self.toast)
-                    NotificationCenter.default.post(name: NSNotification.Name("showToast"), object: nil)
+                    self.makeToast(toast: "URL field is empty")
+                    return
+                }
+                guard  validateUrl(stringURL: link! as NSString) else {
+                    self.makeToast(toast: "Invalide URL")
                     return
                 }
                 if name != nil {

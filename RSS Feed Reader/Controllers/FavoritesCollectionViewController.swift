@@ -26,8 +26,6 @@ class FavoritesCollectionViewController: UICollectionViewController, UICollectio
             let w = collectionView.frame.width - 16
             flowLayout.estimatedItemSize = CGSize(width: w, height: 0)
         }
-        print(message.count)
-        self.extendedLayoutIncludesOpaqueBars = true
         addLongPress()
     }
     

@@ -27,6 +27,7 @@ class FeedCollectionViewCell: UICollectionViewCell {
     
     var image: String! {
         didSet {
+            heightConstraint.constant = newsImage.frame.width / 16 * 9
             let url = URL(string: image)
             newsImage.kf.indicatorType = .activity
             newsImage.kf.setImage(with: url)

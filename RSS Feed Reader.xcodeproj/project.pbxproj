@@ -25,6 +25,8 @@
 		AB9780F321864DBB00F59270 /* FeedsList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9780ED21864DBB00F59270 /* FeedsList+CoreDataProperties.swift */; };
 		AB9780F821864E4700F59270 /* SavedMessages+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9780F621864E4700F59270 /* SavedMessages+CoreDataClass.swift */; };
 		AB9780F921864E4700F59270 /* SavedMessages+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9780F721864E4700F59270 /* SavedMessages+CoreDataProperties.swift */; };
+		ABB0FB8A219E365000F3037E /* ChannelsViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB0FB89219E365000F3037E /* ChannelsViewControllerExtension.swift */; };
+		ABB18E3A219E0EB600AB404E /* FeedViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB18E39219E0EB600AB404E /* FeedViewControllerExtension.swift */; };
 		ABBAA03E2167CC28001B765A /* AlertControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBAA03D2167CC28001B765A /* AlertControllers.swift */; };
 		ABD4B3D0216AA5E300D58DC9 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD4B3CF216AA5E300D58DC9 /* ContainerViewController.swift */; };
 		ABE38A0A2181156400DC5C34 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE38A092181156400DC5C34 /* CoreDataManager.swift */; };
@@ -72,6 +74,8 @@
 		AB9780ED21864DBB00F59270 /* FeedsList+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedsList+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		AB9780F621864E4700F59270 /* SavedMessages+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SavedMessages+CoreDataClass.swift"; sourceTree = "<group>"; };
 		AB9780F721864E4700F59270 /* SavedMessages+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SavedMessages+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		ABB0FB89219E365000F3037E /* ChannelsViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelsViewControllerExtension.swift; sourceTree = "<group>"; };
+		ABB18E39219E0EB600AB404E /* FeedViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewControllerExtension.swift; sourceTree = "<group>"; };
 		ABBAA03D2167CC28001B765A /* AlertControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControllers.swift; sourceTree = "<group>"; };
 		ABD4B3CF216AA5E300D58DC9 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		ABE38A002181143F00DC5C34 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -185,6 +189,8 @@
 				ABF348FF215F45AC00FFF76B /* XMLParser.swift */,
 				ABEB48C6217D32CD003009C4 /* Colors.swift */,
 				AB5336312183A4BD00247ED2 /* Extensions.swift */,
+				ABB18E39219E0EB600AB404E /* FeedViewControllerExtension.swift */,
+				ABB0FB89219E365000F3037E /* ChannelsViewControllerExtension.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -334,6 +340,7 @@
 				ABEB48C7217D32CD003009C4 /* Colors.swift in Sources */,
 				AB524469215BF0880024A5BD /* Checker.swift in Sources */,
 				ABF34900215F45AC00FFF76B /* XMLParser.swift in Sources */,
+				ABB18E3A219E0EB600AB404E /* FeedViewControllerExtension.swift in Sources */,
 				ABE38A0A2181156400DC5C34 /* CoreDataManager.swift in Sources */,
 				AB9780F921864E4700F59270 /* SavedMessages+CoreDataProperties.swift in Sources */,
 				AB1ACE13215384130070E578 /* ChannelsTableViewCell.swift in Sources */,
@@ -344,6 +351,7 @@
 				AB53363E2183D6AE00247ED2 /* FavoritesCollectionViewCell.swift in Sources */,
 				AB9780F121864DBB00F59270 /* Feed+CoreDataProperties.swift in Sources */,
 				AB9780F821864E4700F59270 /* SavedMessages+CoreDataClass.swift in Sources */,
+				ABB0FB8A219E365000F3037E /* ChannelsViewControllerExtension.swift in Sources */,
 				AB5336322183A4BD00247ED2 /* Extensions.swift in Sources */,
 				AB42C9A92151A67300C3C367 /* AppDelegate.swift in Sources */,
 				AB9780F021864DBB00F59270 /* Feed+CoreDataClass.swift in Sources */,

@@ -20,32 +20,13 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
     var url: String?, name: String?
     let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
     
-    func setTitle() {
-        guard name == nil else {
-            self.navigationItem.title = name
-            return
-        }
-        navigationItem.title = "Feed list".localize()
-    }
-    
-    func addLongPress() {
-        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(gestureRecognizer: )))
-        lpgr.minimumPressDuration = 0.5
-        lpgr.delaysTouchesBegan = true
-        lpgr.delegate = self
-        collectionView.addGestureRecognizer(lpgr)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.addFeed(_:)), name: NSNotification.Name(rawValue: "currentChannel"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.changeFeed(_:)), name: NSNotification.Name(rawValue: "sendChannelStats"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.deleteChannel(_:)), name: NSNotification.Name(rawValue: "deleteChannel"), object: nil)
         NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
         
         extendedLayoutIncludesOpaqueBars = true
-        
+        addObservers()
         setTitle()
         addLongPress()
         
@@ -67,87 +48,17 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
         NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
     }
     
-    @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
-        let p = gestureRecognizer.location(in: collectionView)
-        let indexPath = collectionView.indexPathForItem(at: p)
-        if gestureRecognizer.state == UIGestureRecognizer.State.began {
-            if let index = indexPath {
-                AlertService.shareAlert(in: self, indexPath: index, message: message, feed: self.feed!)
-            }
-            return
-        }
-    }
     
-    func setActivityIndicator() {
-        collectionView.addSubview(activityIndicator)
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.center = CGPoint(x: collectionView.frame.width/2, y: 20)
-        activityIndicator.startAnimating()
-    }
     
-    func addRefresh() {
-        refreshControl = UIRefreshControl()
-        collectionView.refreshControl = refreshControl
-        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        refreshControl.tintColor = UIColor.white
-    }
-    
-    @objc func refresh(_ sender: Any) {
-        guard isInternetAvailable() else {
-            self.refreshControl.endRefreshing()
-            return
-        }
-        self.collectionView.reloadData()
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-            self.fetchData()
-        })
-    }
-    
-    @objc func addFeed(_ notification: NSNotification) {
-        if let channel = notification.object {
-            self.feed = (channel as! FeedsList)
-        }
-    }
-    
-    @objc func changeFeed(_ notification: NSNotification) {
-        if let dict = notification.userInfo as NSDictionary? {
-            self.url = dict["link"] as? String
-            self.navigationItem.title = dict["name"] as? String
-            addRefresh()
-            guard isInternetAvailable() else {
-                self.addSavedData()
-                return
-            }
-            self.setActivityIndicator()
-            self.rssItems?.removeAll()
-            UIView.transition(with: self.collectionView, duration: 0.5, options: .transitionCrossDissolve, animations: {
-                self.collectionView.reloadData()
-            }, completion: nil)
-            self.fetchData()
-        }
-    }
-    
-    @objc func deleteChannel(_ notification: NSNotification) {
-        self.name = nil
-        self.url = nil
-        self.rssItems?.removeAll()
-        self.setTitle()
-        UIView.transition(with: self.collectionView, duration: 0.5, options: .transitionCrossDissolve, animations: {
-            self.collectionView.reloadData()
-        }, completion: nil)
-    }
-    
-    func addSavedData() {
-        let toast = "Connection error".localize()
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toast"), object: toast)
-        NotificationCenter.default.post(name: NSNotification.Name("showToast"), object: nil)
+    final func addSavedData() {
+        ChannelsViewController.shared.makeToast(toast: "Connection error")
         DispatchQueue.main.async {
             self.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
         self.collectionView.reloadData()
     }
     
-    public func fetchData() {
+    final func fetchData() {
         guard isInternetAvailable() else {
             refreshControl.endRefreshing()
             return
@@ -166,17 +77,11 @@ class FeedViewController: UICollectionViewController, UIGestureRecognizerDelegat
             self.imgs = imgs
             OperationQueue.main.addOperation {
                 self.refreshControl.endRefreshing()
-                UIView.transition(with: self.collectionView, duration: 0.5, options: .transitionCrossDissolve, animations: {
-                    self.collectionView.reloadData()
-                }, completion: nil)
-                self.activityIndicator.removeFromSuperview()
+                self.collectionView.reloadData()
+                self.activityIndicator.stopAnimating()
             }
         }
     }
-    
-}
-
-extension FeedViewController {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard isInternetAvailable() else {
@@ -209,7 +114,6 @@ extension FeedViewController {
         }
         if imgs[indexPath.row] != "" {
             cell.image = imgs[indexPath.row]
-            cell.heightConstraint.constant = cell.newsImage.frame.width / 4 * 3
         } else {
             cell.newsImage.image = nil
             cell.heightConstraint.constant = 0

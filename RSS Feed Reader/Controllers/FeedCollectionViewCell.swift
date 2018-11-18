@@ -17,29 +17,33 @@ class FeedCollectionViewCell: UICollectionViewCell {
     @IBOutlet var newsImage: UIImageView!
     @IBOutlet var heightConstraint: NSLayoutConstraint!
     
-    var item: RSSItem! {
-        didSet {
-            titleLabel.text = item.title
-            dateLabel.text = item.pubDate
-            descriptionLabel.text = item.description
-        }
+    func configureMessages(indexPath: IndexPath, rssItems: [RSSItem]) {
+        let currentItem = rssItems[indexPath.row]
+        titleLabel.text = currentItem.title
+        descriptionLabel.text = currentItem.description
+        dateLabel.text = currentItem.pubDate
     }
     
-    var image: String! {
-        didSet {
+    func configureImages(indexPath: IndexPath, imgs: [String]) {
+        let currentImage = imgs[indexPath.row]
+        if currentImage != "" {
             heightConstraint.constant = newsImage.frame.width / 16 * 9
-            let url = URL(string: image)
+            let url = URL(string: currentImage)
             newsImage.kf.indicatorType = .activity
             newsImage.kf.setImage(with: url)
+        } else {
+            newsImage.image = nil
+            heightConstraint.constant = 0
         }
     }
     
-    var savedItem: Feed! {
-        didSet {
-            titleLabel.text = savedItem.title
-            descriptionLabel.text = savedItem.desc
-            dateLabel.text = savedItem.pubDate
-        }
+    func configureSavedMessages(indexPath: IndexPath, feed: FeedsList) {
+        let currentItem = feed.messagesSorted[indexPath.row]
+        titleLabel.text = currentItem.title
+        descriptionLabel.text = currentItem.desc
+        dateLabel.text = currentItem.pubDate
+        newsImage.image = nil
+        heightConstraint.constant = 0
     }
     
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {

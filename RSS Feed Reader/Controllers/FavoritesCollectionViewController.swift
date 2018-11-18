@@ -37,8 +37,7 @@ class FavoritesCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! FavoritesCollectionViewCell
-        let currentMessage = message[indexPath.row]
-        cell.message = currentMessage
+        cell.configureMessage(indexPath: indexPath)
         return cell
     }
     

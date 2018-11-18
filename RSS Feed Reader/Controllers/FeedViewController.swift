@@ -43,12 +43,11 @@ class FeedViewController: UICollectionViewController {
     }
     
     final func addSavedData() {
-        ChannelsViewController.shared.makeToast(toast: "Connection error")
         DispatchQueue.main.async {
-            self.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            ChannelsViewController.shared.makeToast(toast: "Connection error")
             self.collectionView.reloadData()
+            self.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
-        
     }
     
     final func fetchData() {
@@ -92,24 +91,16 @@ class FeedViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! FeedCollectionViewCell
-        
-        guard isInternetAvailable() else {
-            if let messageInCell = self.feed?.messagesSorted[indexPath.row] {
-                cell.savedItem = messageInCell
+        if isInternetAvailable() {
+            if let rssItems = rssItems {
+                cell.configureMessages(indexPath: indexPath, rssItems: rssItems)
             }
-            cell.heightConstraint.constant = 0
-            return cell
-        }
-        if let item = rssItems?[indexPath.item] {
-            cell.item = item
-        }
-        if imgs[indexPath.row] != "" {
-            cell.image = imgs[indexPath.row]
+            cell.configureImages(indexPath: indexPath, imgs: imgs)
         } else {
-            cell.newsImage.image = nil
-            cell.heightConstraint.constant = 0
+            if let feed = feed {
+                cell.configureSavedMessages(indexPath: indexPath, feed: feed)
+            }
         }
-        
         return cell
     }
     

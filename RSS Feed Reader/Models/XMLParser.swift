@@ -115,6 +115,9 @@ class FeedParser: NSObject, XMLParserDelegate {
     }
     
     func parserDidEndDocument(_ parser: XMLParser) {
+        if imgs.count != rssItems.count {
+            imgs.append("")
+        }
         parserCompletionHandler?(rssItems, imgs)
     }
     

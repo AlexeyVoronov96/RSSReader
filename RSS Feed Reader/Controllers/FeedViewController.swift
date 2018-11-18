@@ -46,8 +46,9 @@ class FeedViewController: UICollectionViewController {
         ChannelsViewController.shared.makeToast(toast: "Connection error")
         DispatchQueue.main.async {
             self.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            self.collectionView.reloadData()
         }
-        self.collectionView.reloadData()
+        
     }
     
     final func fetchData() {
@@ -56,9 +57,10 @@ class FeedViewController: UICollectionViewController {
             return
         }
         DispatchQueue.main.async {
-            guard self.feed?.feed?.count != nil else { return }
-            for message in self.feed!.feed! {
-                CoreDataManager.sharedInstance.managedObjectContext.delete(message as! Feed)
+            if self.feed?.feed?.count != 0 {
+                for message in self.feed!.feed! {
+                    CoreDataManager.sharedInstance.managedObjectContext.delete(message as! Feed)
+                }
             }
         }
         guard self.url != nil else { return }

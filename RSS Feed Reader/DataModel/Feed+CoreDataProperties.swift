@@ -7,9 +7,7 @@
 //
 //
 
-import Foundation
 import CoreData
-
 
 extension Feed {
 

@@ -25,11 +25,17 @@ class ContainerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        addObservers()
+        configureSwipe()
+    }
+    
+    func addObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(toggleSideMenu), name: NSNotification.Name("ToggleSideMenu"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(toastText(_:)), name: NSNotification.Name(rawValue: "toast"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showToast), name: NSNotification.Name("showToast"), object: nil)
-        
+    }
+    
+    func configureSwipe() {
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
         swipeLeft.direction = .left
         self.view.addGestureRecognizer(swipeLeft)
@@ -70,7 +76,6 @@ class ContainerViewController: UIViewController {
     }
     
     @objc func toggleSideMenu() {
-        
         switch sideMenuOpen {
         case true:
             do {

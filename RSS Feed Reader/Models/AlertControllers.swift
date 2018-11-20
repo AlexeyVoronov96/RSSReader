@@ -6,7 +6,6 @@
 //  Copyright © 2018 Алексей Воронов. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import CoreData
 
@@ -62,11 +61,11 @@ class AlertService {
         
         let alertAction1 = UIAlertAction(title: "Change".localize(),
                                          style: .default) { (alert) in
-            let newItem = alertController.textFields![0].text
-            let newItem2 = alertController.textFields![1].text
-            let name = newItem == "" ? nil : newItem
-            let link = newItem2 == "" ? nil : newItem2
-            completion(name, link)
+                                            let newItem = alertController.textFields![0].text
+                                            let newItem2 = alertController.textFields![1].text
+                                            let name = newItem == "" ? nil : newItem
+                                            let link = newItem2 == "" ? nil : newItem2
+                                            completion(name, link)
         }
         let alertAction2 = UIAlertAction(title: "Cancel".localize(), style: .cancel, handler: nil)
         
@@ -96,13 +95,13 @@ class AlertService {
             }))
             if image != "" {
                 alert.addAction(UIAlertAction(title: "Save image".localize(), style: .default, handler: { action in
-                        let img = cell?.newsImage.image
-                        UIImageWriteToSavedPhotosAlbum(img!, self, nil, nil)
-                    }))
+                    let img = cell?.newsImage.image
+                    UIImageWriteToSavedPhotosAlbum(img!, self, nil, nil)
+                }))
             }
             alert.addAction(UIAlertAction(title: "Copy".localize(), style: .default, handler: { action in
-                    let copiedItem = currentItem.title + "\n\n" + currentItem.description + "\n\n" + currentItem.link
-                    UIPasteboard.general.string = copiedItem
+                let copiedItem = currentItem.title + "\n\n" + currentItem.description + "\n\n" + currentItem.link
+                UIPasteboard.general.string = copiedItem
             }))
             alert.addAction(UIAlertAction(title: "Share".localize(), style: .default, handler: { action in
                 if image != "" {
@@ -115,7 +114,7 @@ class AlertService {
                     let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
                     vc.present(activityVC, animated: true, completion: nil)
                 }
-               
+                
             }))
             alert.addAction(UIAlertAction(title: "Cancel".localize(), style: .cancel, handler: { action in
             }))
@@ -132,9 +131,9 @@ class AlertService {
                 UIPasteboard.general.string = copiedItem
             }))
             alert.addAction(UIAlertAction(title: "Share".localize(), style: .default, handler: { action in
-                    let objectsToShare = [currentItem.title, "\n", currentItem.description, "\n", currentItem.link]
+                let objectsToShare = [currentItem.title, "\n", currentItem.description, "\n", currentItem.link]
                 let activityVC = UIActivityViewController(activityItems: objectsToShare as [Any], applicationActivities: nil)
-                    vc.present(activityVC, animated: true, completion: nil)
+                vc.present(activityVC, animated: true, completion: nil)
             }))
             alert.addAction(UIAlertAction(title: "Cancel".localize(), style: .cancel, handler: { action in
             }))
@@ -154,8 +153,8 @@ class AlertService {
             UIApplication.shared.open(URL(string: channelsData.link!)!)
         }))
         alert.addAction(UIAlertAction(title: "Save message to Photos".localize(), style: .default, handler: { action in
-                let image = cell?.captureView()
-                UIImageWriteToSavedPhotosAlbum(image!, self, nil, nil)
+            let image = cell?.captureView()
+            UIImageWriteToSavedPhotosAlbum(image!, self, nil, nil)
         }))
         if channelsData.image != "" {
             alert.addAction(UIAlertAction(title: "Save image".localize(), style: .default, handler: { action in
@@ -205,9 +204,7 @@ class AlertService {
                 print("Detele all data error : \(error) \(error.userInfo)")
             }
             CoreDataManager.sharedInstance.saveContext()
-            UIView.transition(with: vc.collectionView, duration: 0.5, options: .transitionCrossDissolve, animations: {
-                vc.collectionView.reloadData()
-            }, completion: nil)
+            vc.collectionView.reloadData()
         }))
         alert.addAction(UIAlertAction(title: "Cancel".localize(), style: .cancel, handler: { action in
         }))

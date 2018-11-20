@@ -6,7 +6,6 @@
 //  Copyright © 2018 Алексей Воронов. All rights reserved.
 //
 
-import UIKit
 import CoreData
 
 var channels: [FeedsList] {

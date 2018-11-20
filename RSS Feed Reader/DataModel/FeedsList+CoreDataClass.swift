@@ -7,7 +7,6 @@
 //
 //
 
-import Foundation
 import CoreData
 
 @objc(FeedsList)
@@ -26,7 +25,7 @@ public class FeedsList: NSManagedObject {
     }
     
     var messagesSorted: [Feed] {
-        let sortDescriptor = NSSortDescriptor(key: "pubDate", ascending: false)
+        let sortDescriptor = NSSortDescriptor(key: "title", ascending: false)
         return self.feed?.sortedArray(using: [sortDescriptor]) as! [Feed]
     }
 }

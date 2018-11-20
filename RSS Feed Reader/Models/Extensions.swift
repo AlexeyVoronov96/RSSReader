@@ -6,7 +6,6 @@
 //  Copyright © 2018 Алексей Воронов. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 extension Data {
@@ -24,6 +23,7 @@ extension Data {
 }
 
 extension String {
+    
     var html2AttributedString: NSAttributedString? {
         return Data(utf8).html2AttributedString
     }
@@ -35,6 +35,7 @@ extension String {
     func localize() -> String {
         return NSLocalizedString(self, comment: "")
     }
+    
 }
 
 extension UIView {

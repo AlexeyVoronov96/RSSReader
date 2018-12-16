@@ -47,11 +47,8 @@ extension String {
         dateFormatter2.dateFormat = "E, d MMM yyyy HH:mm:ss z"
         let date2 = dateFormatter2.date(from: self)
         
-        if date != nil {
-            return date ?? Date()
-        } else {
-            return date2 ?? Date()
-        }
+        guard let dateUnwrapped = date else { return date2 ?? Date() }
+        return dateUnwrapped
     }
     
 }

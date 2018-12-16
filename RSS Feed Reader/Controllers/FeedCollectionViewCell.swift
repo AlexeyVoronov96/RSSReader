@@ -21,7 +21,7 @@ class FeedCollectionViewCell: UICollectionViewCell {
         let currentItem = rssItems[indexPath.row]
         titleLabel.text = currentItem.title
         descriptionLabel.text = currentItem.description
-        dateLabel.text = currentItem.pubDate
+        dateLabel.text = currentItem.pubDate.dateToString()
     }
     
     func configureImages(indexPath: IndexPath, imgs: [String]) {
@@ -41,7 +41,7 @@ class FeedCollectionViewCell: UICollectionViewCell {
         let currentItem = feed.messagesSorted[indexPath.row]
         titleLabel.text = currentItem.title
         descriptionLabel.text = currentItem.desc
-        dateLabel.text = currentItem.pubDate
+        dateLabel.text = currentItem.pubDate?.dateToString()
         newsImage.image = nil
         heightConstraint.constant = 0
     }

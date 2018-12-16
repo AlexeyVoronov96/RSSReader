@@ -18,7 +18,7 @@ extension Feed {
     @NSManaged public var desc: String?
     @NSManaged public var title: String?
     @NSManaged public var link: String?
-    @NSManaged public var pubDate: String?
+    @NSManaged public var pubDate: Date?
     @NSManaged public var feedsList: FeedsList?
 
 }

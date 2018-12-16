@@ -11,7 +11,7 @@ import Foundation
 struct RSSItem {
     var title: String
     var description: String
-    var pubDate: String
+    var pubDate: Date
     var link: String
 }
 
@@ -106,9 +106,9 @@ class FeedParser: NSObject, XMLParserDelegate {
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" {
             DispatchQueue.main.sync {
-                let rssItem = RSSItem(title: self.currentTitle, description: self.currentDescription, pubDate: self.currentPubDate, link: self.currentLink)
+                let rssItem = RSSItem(title: self.currentTitle, description: self.currentDescription, pubDate: self.currentPubDate.stringToDate(), link: self.currentLink)
                 self.rssItems.append(rssItem)
-                _ = Feed.addFeed(title: self.currentTitle, desc: self.currentDescription, pubDate: self.currentPubDate, link: self.currentLink, inFeed: self.feed)
+                _ = Feed.addFeed(title: self.currentTitle, desc: self.currentDescription, pubDate: self.currentPubDate.stringToDate(), link: self.currentLink, inFeed: self.feed)
                 CoreDataManager.sharedInstance.saveContext()
             }
         }

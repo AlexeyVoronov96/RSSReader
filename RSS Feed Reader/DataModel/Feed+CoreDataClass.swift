@@ -11,7 +11,7 @@ import CoreData
 
 @objc(Feed)
 public class Feed: NSManagedObject {
-    class func addFeed(title: String, desc: String, pubDate: String, link: String, inFeed: FeedsList?) -> Feed {
+    class func addFeed(title: String, desc: String, pubDate: Date, link: String, inFeed: FeedsList?) -> Feed {
         let feed = Feed(context: CoreDataManager.sharedInstance.managedObjectContext)
         feed.title = title
         feed.desc = desc

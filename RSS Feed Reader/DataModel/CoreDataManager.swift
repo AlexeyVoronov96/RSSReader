@@ -21,7 +21,7 @@ var channels: [FeedsList] {
 
 var messages: [Feed] {
     let request = NSFetchRequest<Feed>(entityName: "Feed")
-    let sd = NSSortDescriptor(key: "title", ascending: false)
+    let sd = NSSortDescriptor(key: "pubDate", ascending: true)
     request.sortDescriptors = [sd]
     let array = try? CoreDataManager.sharedInstance.managedObjectContext.fetch(request)
     if array != nil {

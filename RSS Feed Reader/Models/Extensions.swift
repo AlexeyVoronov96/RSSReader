@@ -36,6 +36,24 @@ extension String {
         return NSLocalizedString(self, comment: "")
     }
     
+    func stringToDate() -> Date {
+        let dateFormatter1 = DateFormatter()
+        dateFormatter1.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter1.dateFormat = "E, d MMM yyyy HH:mm:ss Z"
+        let date = dateFormatter1.date(from: self)
+        
+        let dateFormatter2 = DateFormatter()
+        dateFormatter2.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter2.dateFormat = "E, d MMM yyyy HH:mm:ss z"
+        let date2 = dateFormatter2.date(from: self)
+        
+        if date != nil {
+            return date ?? Date()
+        } else {
+            return date2 ?? Date()
+        }
+    }
+    
 }
 
 extension UIView {
@@ -49,4 +67,15 @@ extension UIView {
         
         return image
     }
+}
+
+extension Date {
+    
+    func dateToString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMMM, h:mm"
+        let date = dateFormatter.string(from: self)
+        return date
+    }
+    
 }

@@ -27,7 +27,7 @@ class FavoritesCollectionViewCell: UICollectionViewCell {
         }
         titleLabel.text = currentMessage.title
         descriptionLabel.text = currentMessage.desc
-        dateLabel.text = currentMessage.pubDate
+        dateLabel.text = currentMessage.pubDate?.dateToString()
     }
     
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {

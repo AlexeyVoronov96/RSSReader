@@ -83,7 +83,7 @@ class AlertService {
             if message.index(where: { ($0.title! == currentItem.title) && ($0.desc! == currentItem.description) && ($0.link! == currentItem.link) }) == nil {
                 alert.addAction(UIAlertAction(title: "Add to favourites".localize(), style: .default, handler: { action in
                     _ = SavedMessages.newMessage(title: currentItem.title, desc: currentItem.description, pubDate: currentItem.pubDate, link: currentItem.link, image: image)
-                    CoreDataManager.sharedInstance.saveContext()
+                    CoreDataManager.shared.saveContext()
                 }))
             }
             alert.addAction(UIAlertAction(title: "Open in Safari".localize(), style: .default, handler: { action in
@@ -145,8 +145,8 @@ class AlertService {
         let cell = vc.collectionView.cellForItem(at: indexPath) as? FavoritesCollectionViewCell
         let alert = UIAlertController(title: channelsData.title, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Remove from favourites".localize(), style: .destructive, handler: { action in
-            CoreDataManager.sharedInstance.managedObjectContext.delete(channelsData)
-            CoreDataManager.sharedInstance.saveContext()
+            CoreDataManager.shared.managedObjectContext.delete(channelsData)
+            CoreDataManager.shared.saveContext()
             vc.collectionView.reloadData()
         }))
         alert.addAction(UIAlertAction(title: "Open in Safari".localize(), style: .default, handler: { action in
@@ -194,16 +194,16 @@ class AlertService {
             
             do
             {
-                let results = try CoreDataManager.sharedInstance.managedObjectContext.fetch(fetchRequest as! NSFetchRequest<NSFetchRequestResult>)
+                let results = try CoreDataManager.shared.managedObjectContext.fetch(fetchRequest as! NSFetchRequest<NSFetchRequestResult>)
                 for managedObject in results
                 {
                     let managedObjectData:NSManagedObject = managedObject as! NSManagedObject
-                    CoreDataManager.sharedInstance.managedObjectContext.delete(managedObjectData)
+                    CoreDataManager.shared.managedObjectContext.delete(managedObjectData)
                 }
             } catch let error as NSError {
                 print("Detele all data error : \(error) \(error.userInfo)")
             }
-            CoreDataManager.sharedInstance.saveContext()
+            CoreDataManager.shared.saveContext()
             vc.collectionView.reloadData()
         }))
         alert.addAction(UIAlertAction(title: "Cancel".localize(), style: .cancel, handler: { action in

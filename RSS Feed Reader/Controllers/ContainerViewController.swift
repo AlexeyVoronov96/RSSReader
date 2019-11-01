@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Toast_Swift
 
 class ContainerViewController: UIViewController {
     
@@ -62,11 +61,11 @@ class ContainerViewController: UIViewController {
     }
     
     @objc func showToast() {
-        var style = ToastStyle()
-        style.messageColor = Colors.sharedInstance.blue
-        style.backgroundColor = Colors.sharedInstance.white
-        ToastManager.shared.isTapToDismissEnabled = true
-        self.view.makeToast(self.toast.localize(), duration: 3.0, position: .bottom, style: style)
+//        var style = ToastStyle()
+//        style.messageColor = Colors.sharedInstance.blue
+//        style.backgroundColor = Colors.sharedInstance.white
+//        ToastManager.shared.isTapToDismissEnabled = true
+//        self.view.makeToast(self.toast.localize(), duration: 3.0, position: .bottom, style: style)
     }
     
     @objc func toastText(_ notification: NSNotification) {

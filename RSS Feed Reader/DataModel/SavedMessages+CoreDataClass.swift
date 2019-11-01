@@ -12,7 +12,7 @@ import CoreData
 @objc(SavedMessages)
 public class SavedMessages: NSManagedObject {
     class func newMessage(title: String, desc: String, pubDate: Date, link: String, image: String) -> SavedMessages {
-        let message = SavedMessages(context: CoreDataManager.sharedInstance.managedObjectContext)
+        let message = SavedMessages(context: CoreDataManager.shared.managedObjectContext)
         message.title = title
         message.desc = desc
         message.pubDate = pubDate

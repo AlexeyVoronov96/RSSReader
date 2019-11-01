@@ -29,22 +29,22 @@ class FeedParser: NSObject, XMLParserDelegate {
     private var currentElement = ""
     private var currentTitle: String = "" {
         didSet {
-            currentTitle = currentTitle.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            currentTitle = currentTitle.trimmingCharacters(in: .whitespacesAndNewlines)
         }
     }
     private var currentDescription: String = "" {
         didSet {
-            currentDescription = currentDescription.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            currentDescription = currentDescription.trimmingCharacters(in: .whitespacesAndNewlines)
         }
     }
     private var currentPubDate: String = "" {
         didSet {
-            currentPubDate = currentPubDate.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            currentPubDate = currentPubDate.trimmingCharacters(in: .whitespacesAndNewlines)
         }
     }
     private var currentLink: String = "" {
         didSet {
-            currentLink = currentLink.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            currentLink = currentLink.trimmingCharacters(in: .whitespacesAndNewlines)
         }
     }
     
@@ -109,7 +109,7 @@ class FeedParser: NSObject, XMLParserDelegate {
                 let rssItem = RSSItem(title: self.currentTitle, description: self.currentDescription, pubDate: self.currentPubDate.stringToDate(), link: self.currentLink)
                 self.rssItems.append(rssItem)
                 _ = Feed.addFeed(title: self.currentTitle, desc: self.currentDescription, pubDate: self.currentPubDate.stringToDate(), link: self.currentLink, inFeed: self.feed)
-                CoreDataManager.sharedInstance.saveContext()
+                CoreDataManager.shared.saveContext()
             }
         }
     }

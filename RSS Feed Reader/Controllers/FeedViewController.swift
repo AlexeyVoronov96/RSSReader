@@ -44,21 +44,21 @@ class FeedViewController: UICollectionViewController {
     
     final func addSavedData() {
         DispatchQueue.main.async {
-            ChannelsViewController.shared.makeToast(toast: "Connection error")
+//            ChannelsViewController.shared.makeToast(toast: "Connection error")
             self.collectionView.reloadData()
             self.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
     }
     
     final func fetchData() {
-        guard isInternetAvailable() else {
-            refreshControl.endRefreshing()
-            return
-        }
+//        guard isInternetAvailable() else {
+//            refreshControl.endRefreshing()
+//            return
+//        }
         DispatchQueue.main.async {
             if self.feed?.feed?.count != 0 {
                 for message in self.feed!.feed! {
-                    CoreDataManager.sharedInstance.managedObjectContext.delete(message as! Feed)
+                    CoreDataManager.shared.managedObjectContext.delete(message as! Feed)
                 }
             }
         }
@@ -77,12 +77,12 @@ class FeedViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard isInternetAvailable() else {
-            guard let feed = feed?.feed else {
-                return 0
-            }
-            return feed.count
-        }
+//        guard isInternetAvailable() else {
+//            guard let feed = feed?.feed else {
+//                return 0
+//            }
+//            return feed.count
+//        }
         guard let rssItems = rssItems else {
             return 0
         }
@@ -91,16 +91,16 @@ class FeedViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! FeedCollectionViewCell
-        if isInternetAvailable() {
-            if let rssItems = rssItems {
-                cell.configureMessages(indexPath: indexPath, rssItems: rssItems)
-            }
-            cell.configureImages(indexPath: indexPath, imgs: imgs)
-        } else {
-            if let feed = feed {
-                cell.configureSavedMessages(indexPath: indexPath, feed: feed)
-            }
-        }
+//        if isInternetAvailable() {
+//            if let rssItems = rssItems {
+//                cell.configureMessages(indexPath: indexPath, rssItems: rssItems)
+//            }
+//            cell.configureImages(indexPath: indexPath, imgs: imgs)
+//        } else {
+//            if let feed = feed {
+//                cell.configureSavedMessages(indexPath: indexPath, feed: feed)
+//            }
+//        }
         return cell
     }
     

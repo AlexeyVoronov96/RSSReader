@@ -6,13 +6,14 @@
 //  Copyright © 2018 Алексей Воронов. All rights reserved.
 //
 
+import UIKit
 import CoreData
 
 var channels: [FeedsList] {
     let request = NSFetchRequest<FeedsList>(entityName: "FeedsList")
     let sd = NSSortDescriptor(key: "name", ascending: true)
     request.sortDescriptors = [sd]
-    let array = try? CoreDataManager.sharedInstance.managedObjectContext.fetch(request)
+    let array = try? CoreDataManager.shared.managedObjectContext.fetch(request)
     if array != nil {
         return array!
     }
@@ -23,7 +24,7 @@ var messages: [Feed] {
     let request = NSFetchRequest<Feed>(entityName: "Feed")
     let sd = NSSortDescriptor(key: "pubDate", ascending: true)
     request.sortDescriptors = [sd]
-    let array = try? CoreDataManager.sharedInstance.managedObjectContext.fetch(request)
+    let array = try? CoreDataManager.shared.managedObjectContext.fetch(request)
     if array != nil {
         return array!
     }
@@ -32,7 +33,7 @@ var messages: [Feed] {
 
 var message: [SavedMessages] {
     let request = NSFetchRequest<SavedMessages>(entityName: "SavedMessages")
-    let array = try? CoreDataManager.sharedInstance.managedObjectContext.fetch(request)
+    let array = try? CoreDataManager.shared.managedObjectContext.fetch(request)
     if array != nil {
         return array!.reversed()
     }
@@ -40,8 +41,8 @@ var message: [SavedMessages] {
 }
 
 class CoreDataManager {
+    static let shared = CoreDataManager()
     
-    static let sharedInstance = CoreDataManager()
     var managedObjectContext: NSManagedObjectContext {
         return persistentContainer.viewContext
     }
@@ -55,6 +56,15 @@ class CoreDataManager {
         })
         return container
     }()
+    
+    lazy var fetchedResultsController: NSFetchedResultsController<FeedsList> = {
+        let managedContext = persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<FeedsList>(entityName: "FeedsList")
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        let fetchedResultsController = NSFetchedResultsController<FeedsList>(fetchRequest: fetchRequest, managedObjectContext: managedContext, sectionNameKeyPath: nil, cacheName: nil)
+        return fetchedResultsController
+      }()
     
     func saveContext () {
         let context = persistentContainer.viewContext

@@ -77,10 +77,10 @@ extension FeedViewController {
     }
     
     @objc func refresh(_ sender: Any) {
-        guard isInternetAvailable() else {
-            self.refreshControl.endRefreshing()
-            return
-        }
+//        guard isInternetAvailable() else {
+//            self.refreshControl.endRefreshing()
+//            return
+//        }
         self.collectionView.reloadData()
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
             self.fetchData()
@@ -98,10 +98,10 @@ extension FeedViewController {
             url = dict["link"] as? String
             navigationItem.title = dict["name"] as? String
             addRefresh()
-            guard isInternetAvailable() else {
-                self.addSavedData()
-                return
-            }
+//            guard isInternetAvailable() else {
+//                self.addSavedData()
+//                return
+//            }
             setActivityIndicator()
             rssItems?.removeAll()
             collectionView.reloadData()

@@ -11,13 +11,12 @@ import CoreData
 
 @objc(SavedMessages)
 public class SavedMessages: NSManagedObject {
-    class func newMessage(title: String, desc: String, pubDate: Date, link: String, image: String) -> SavedMessages {
-        let message = SavedMessages(context: CoreDataManager.sharedInstance.managedObjectContext)
-        message.title = title
-        message.desc = desc
-        message.pubDate = pubDate
-        message.link = link
-        message.image = image
-        return message
+    class func newMessage(from feedItem: Feed?) {
+        let message = SavedMessages(context: CoreDataManager.shared.managedObjectContext)
+        message.title = feedItem?.title
+        message.desc = feedItem?.desc
+        message.pubDate = feedItem?.pubDate
+        message.image = feedItem?.image
+        message.savedDate = Date()
     }
 }

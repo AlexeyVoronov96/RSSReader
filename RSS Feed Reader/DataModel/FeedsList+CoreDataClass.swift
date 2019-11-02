@@ -11,15 +11,14 @@ import CoreData
 
 @objc(FeedsList)
 public class FeedsList: NSManagedObject {
-    class func newFeed(name: String, link: String) -> FeedsList {
-        let feed = FeedsList(context: CoreDataManager.sharedInstance.managedObjectContext)
+    class func newFeed(name: String, link: String) {
+        let feed = FeedsList(context: CoreDataManager.shared.managedObjectContext)
         feed.name = name
         feed.link = link
-        return feed
     }
     
     func addFeed() -> Feed {
-        let feed = Feed(context: CoreDataManager.sharedInstance.managedObjectContext)
+        let feed = Feed(context: CoreDataManager.shared.managedObjectContext)
         feed.feedsList = self
         return feed
     }

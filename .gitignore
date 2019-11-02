@@ -1,0 +1,11 @@
+.DS_Store
+RSS Feed Reader.xcodeproj/project.xcworkspace/xcuserdata
+Pods
+RSS Feed Reader.xcworkspace
+Podfile.lock
+RSS Feed Reader.xcodeproj/xcuserdata
+RSS Feed Reader.app.dSYM.zip
+RSS Feed Reader.ipa
+fastlane
+Gemfile.lock
+output

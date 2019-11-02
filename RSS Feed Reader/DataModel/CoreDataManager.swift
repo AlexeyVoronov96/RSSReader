@@ -6,33 +6,12 @@
 //  Copyright © 2018 Алексей Воронов. All rights reserved.
 //
 
+import UIKit
 import CoreData
 
-var channels: [FeedsList] {
-    let request = NSFetchRequest<FeedsList>(entityName: "FeedsList")
-    let sd = NSSortDescriptor(key: "name", ascending: true)
-    request.sortDescriptors = [sd]
-    let array = try? CoreDataManager.sharedInstance.managedObjectContext.fetch(request)
-    if array != nil {
-        return array!
-    }
-    return []
-}
-
-var messages: [Feed] {
-    let request = NSFetchRequest<Feed>(entityName: "Feed")
-    let sd = NSSortDescriptor(key: "pubDate", ascending: true)
-    request.sortDescriptors = [sd]
-    let array = try? CoreDataManager.sharedInstance.managedObjectContext.fetch(request)
-    if array != nil {
-        return array!
-    }
-    return []
-}
-
-var message: [SavedMessages] {
+var favorites: [SavedMessages] {
     let request = NSFetchRequest<SavedMessages>(entityName: "SavedMessages")
-    let array = try? CoreDataManager.sharedInstance.managedObjectContext.fetch(request)
+    let array = try? CoreDataManager.shared.managedObjectContext.fetch(request)
     if array != nil {
         return array!.reversed()
     }
@@ -40,8 +19,8 @@ var message: [SavedMessages] {
 }
 
 class CoreDataManager {
+    static let shared = CoreDataManager()
     
-    static let sharedInstance = CoreDataManager()
     var managedObjectContext: NSManagedObjectContext {
         return persistentContainer.viewContext
     }
@@ -56,6 +35,24 @@ class CoreDataManager {
         return container
     }()
     
+    lazy var feedsListFetchedResultsController: NSFetchedResultsController<FeedsList> = {
+        let managedContext = persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<FeedsList>(entityName: "FeedsList")
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        let fetchedResultsController = NSFetchedResultsController<FeedsList>(fetchRequest: fetchRequest, managedObjectContext: managedContext, sectionNameKeyPath: nil, cacheName: nil)
+        return fetchedResultsController
+    }()
+    
+    lazy var favoritesFetchedResultsController: NSFetchedResultsController<SavedMessages> = {
+        let managedContext = persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<SavedMessages>(entityName: "SavedMessages")
+        let sortDescriptor = NSSortDescriptor(key: "savedDate", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        let fetchedResultsController = NSFetchedResultsController<SavedMessages>(fetchRequest: fetchRequest, managedObjectContext: managedContext, sectionNameKeyPath: nil, cacheName: nil)
+        return fetchedResultsController
+    }()
+    
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
@@ -65,6 +62,28 @@ class CoreDataManager {
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
+        }
+    }
+    
+    func checkItem(with title: String, description: String) -> Bool {
+        let fetchRequest = NSFetchRequest<Feed>(entityName: "Feed")
+        fetchRequest.predicate = NSPredicate(format: "title = %@ && desc = %@", title, description)
+        do {
+            let results = try managedObjectContext.fetch(fetchRequest)
+            return !results.isEmpty
+        } catch {
+            return false
+        }
+    }
+    
+    func checkFavoriteItem(with feedItem: Feed?) -> SavedMessages? {
+        let fetchRequest = NSFetchRequest<SavedMessages>(entityName: "SavedMessages")
+        fetchRequest.predicate = NSPredicate(format: "title = %@ && desc = %@", feedItem?.title ?? "", feedItem?.desc ?? "")
+        do {
+            let results = try managedObjectContext.fetch(fetchRequest)
+            return results.first
+        } catch {
+            return nil
         }
     }
 }

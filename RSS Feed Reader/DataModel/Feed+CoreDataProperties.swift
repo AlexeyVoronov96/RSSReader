@@ -19,6 +19,7 @@ extension Feed {
     @NSManaged public var title: String?
     @NSManaged public var link: String?
     @NSManaged public var pubDate: Date?
+    @NSManaged public var image: String?
     @NSManaged public var feedsList: FeedsList?
 
 }

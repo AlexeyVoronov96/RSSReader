@@ -1,5 +1,5 @@
 //
-//  XMLParser.swift
+//  DataFetcher.swift
 //  RSS Feed Reader
 //
 //  Created by Алексей Воронов on 29/09/2018.
@@ -8,20 +8,9 @@
 
 import Foundation
 
-struct RSSItem {
-    var title: String
-    var description: String
-    var pubDate: Date
-    var link: String
-}
-
-class FeedParser: NSObject, XMLParserDelegate {
-    
-    static let shared = FeedParser()
-    
+class DataFetcher: NSObject, XMLParserDelegate {
     var i: Int = 0
     
-    private var rssItems: [RSSItem] = []
     var feed: FeedsList?
     var message: Feed?
     var imgs: [String] = []
@@ -47,25 +36,27 @@ class FeedParser: NSObject, XMLParserDelegate {
             currentLink = currentLink.trimmingCharacters(in: .whitespacesAndNewlines)
         }
     }
+    private var currentImageLink: String = "" {
+        didSet {
+            currentImageLink = currentImageLink.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+    }
     
-    private var parserCompletionHandler: (([RSSItem], [String]) -> Void)?
+    private var parserCompletionHandler: ((Error?) -> Void)?
     
-    func parseFeed(url: String, completionHandler: (([RSSItem], [String]) -> Void)?) {
-        self.parserCompletionHandler = completionHandler
+    func getFeed(with url: String, completion: ((Error?) -> Void)?) {
+        self.parserCompletionHandler = completion
         let request = URLRequest(url: URL(string: url)!)
         let urlSession = URLSession.shared
-        let task = urlSession.dataTask(with: request){  (data, response, error) in
+        let task = urlSession.dataTask(with: request){ [weak self] (data, response, error) in
+            guard let self = self else {
+                return
+            }
+            if let error = error {
+                self.parserCompletionHandler?(error)
+                return
+            }
             guard let data = data else {
-                if let error = error{
-                    let toast = error.localizedDescription
-                    print(error.localizedDescription)
-                    DispatchQueue.main.async {
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toast"), object: toast)
-                        NotificationCenter.default.post(name: NSNotification.Name("showToast"), object: nil)
-                        ContainerViewController.shared.sideMenuOpen = false
-                        NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
-                    }
-                }
                 return
             }
             let parser = XMLParser(data: data)
@@ -82,13 +73,10 @@ class FeedParser: NSObject, XMLParserDelegate {
             currentDescription = ""
             currentPubDate = ""
             currentLink = ""
-            if self.imgs.count != self.rssItems.count {
-                self.imgs.append("")
-            }
         }
         if currentElement == "enclosure" {
             if let urlString = attributeDict["url"] {
-                imgs.append(urlString as String)
+                currentImageLink = urlString
             }
         }
     }
@@ -99,31 +87,30 @@ class FeedParser: NSObject, XMLParserDelegate {
         case "description": currentDescription += string.html2String
         case "pubDate": currentPubDate += string
         case "link": currentLink += string
+        case "url": currentImageLink += string
         default: break
         }
     }
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        if elementName == "item" {
-            DispatchQueue.main.sync {
-                let rssItem = RSSItem(title: self.currentTitle, description: self.currentDescription, pubDate: self.currentPubDate.stringToDate(), link: self.currentLink)
-                self.rssItems.append(rssItem)
-                _ = Feed.addFeed(title: self.currentTitle, desc: self.currentDescription, pubDate: self.currentPubDate.stringToDate(), link: self.currentLink, inFeed: self.feed)
-                CoreDataManager.shared.saveContext()
-            }
+        if elementName == "item" || elementName == "enclosure",
+            !CoreDataManager.shared.checkItem(with: currentTitle, description: currentDescription)  {
+            Feed.addFeed(title: currentTitle,
+                         desc: currentDescription,
+                         pubDate: currentPubDate.stringToDate(),
+                         link: currentLink,
+                         image: currentImageLink,
+                         inFeed: feed)
+            CoreDataManager.shared.saveContext()
         }
     }
     
     func parserDidEndDocument(_ parser: XMLParser) {
-        if imgs.count != rssItems.count {
-            imgs.append("")
-        }
-        parserCompletionHandler?(rssItems, imgs)
+        parserCompletionHandler?(nil)
     }
     
-    func parser(_ parser: XMLParser,
-                parseErrorOccurred parseError: Error) {
-        print(parseError.localizedDescription)
+    func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
+        parserCompletionHandler?(parseError)
     }
     
 }

@@ -12,6 +12,10 @@ class AddFeedViewController: UIViewController {
     @IBOutlet private var feedNameTextField: UITextField!
     @IBOutlet private var feedLinkTextField: UITextField!
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+    
     @IBAction private func addFeedButtonAction(_ sender: UIButton) {
         guard let name = feedNameTextField.text,
             let link = feedLinkTextField.text else {

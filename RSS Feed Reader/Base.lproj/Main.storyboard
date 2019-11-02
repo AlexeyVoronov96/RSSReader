@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kl4-tF-5ri">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kl4-tF-5ri">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,33 +16,65 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" red="0.92549019610000005" green="0.18823529410000001" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="2sG-Mg-FVW" kind="relationship" relationship="viewControllers" id="HAY-uN-Bof"/>
-                        <segue destination="Wz6-6f-Yk4" kind="relationship" relationship="viewControllers" id="ciH-41-jb7"/>
+                        <segue destination="m8l-gF-f4O" kind="relationship" relationship="viewControllers" id="ciH-41-jb7"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o68-SI-cH6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1788" y="408"/>
         </scene>
-        <!--Favorite-->
+        <!--Favorites-->
         <scene sceneID="5qE-Bb-Znb">
             <objects>
-                <viewController id="Wz6-6f-Yk4" sceneMemberID="viewController">
+                <viewController id="Wz6-6f-Yk4" customClass="FavoritesViewController" customModule="RSS_Feed_Reader" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8oK-x0-Kug">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Jds-wm-0Hi">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="20" id="4hQ-7y-ecW">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="8" minY="16" maxX="8" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Wz6-6f-Yk4" id="P6N-ap-k6y"/>
+                                    <outlet property="delegate" destination="Wz6-6f-Yk4" id="mHT-Cb-HVQ"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="hUR-kq-TN3" firstAttribute="bottom" secondItem="Jds-wm-0Hi" secondAttribute="bottom" id="O23-0Y-nUx"/>
+                            <constraint firstItem="Jds-wm-0Hi" firstAttribute="top" secondItem="hUR-kq-TN3" secondAttribute="top" id="V56-dx-NcJ"/>
+                            <constraint firstItem="Jds-wm-0Hi" firstAttribute="leading" secondItem="hUR-kq-TN3" secondAttribute="leading" id="t4f-My-zp5"/>
+                            <constraint firstItem="hUR-kq-TN3" firstAttribute="trailing" secondItem="Jds-wm-0Hi" secondAttribute="trailing" id="uLp-21-q6t"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="hUR-kq-TN3"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Favorite" image="favorites" selectedImage="favorites" id="GTz-xC-NIM">
-                        <color key="badgeColor" red="0.92549019610000005" green="0.18823529410000001" blue="0.38823529410000002" alpha="1" colorSpace="calibratedRGB"/>
-                    </tabBarItem>
+                    <navigationItem key="navigationItem" title="Favorites" id="9uY-f2-cx7">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="delete" id="qey-cm-jo4">
+                            <color key="tintColor" red="0.92549019607843142" green="0.18823529411764706" blue="0.38823529411764707" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="removeAllAction:" destination="Wz6-6f-Yk4" id="Xda-zI-DSc"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="collectionView" destination="Jds-wm-0Hi" id="hBI-8e-Wul"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V34-qn-qLQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-593" y="855"/>
+            <point key="canvasLocation" x="315.94202898550725" y="854.46428571428567"/>
         </scene>
         <!--Feeds-->
         <scene sceneID="7b1-Dg-Loe">
@@ -68,7 +100,7 @@
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YI7-aL-azb">
                                                             <rect key="frame" x="0.0" y="0.0" width="382" height="53"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <color key="textColor" red="0.92549019610000005" green="0.18823529410000001" blue="0.38823529410000002" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -164,24 +196,17 @@
                                     <constraint firstAttribute="height" constant="0.5" id="MnH-67-y3x"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="3bf-yb-wCQ">
-                                <rect key="frame" x="16" y="186.33333333333334" width="382" height="50"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="3bf-yb-wCQ">
+                                <rect key="frame" x="16" y="186.33333333333334" width="382" height="100.00000000000003"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AfW-CV-dTA">
-                                        <rect key="frame" x="0.0" y="0.0" width="191" height="50"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="Cancel">
-                                            <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="cancelButtonAction:" destination="688-Jp-HpJ" eventType="touchUpInside" id="FUI-m7-uyI"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8C7-LU-EGl">
-                                        <rect key="frame" x="191" y="0.0" width="191" height="50"/>
-                                        <color key="backgroundColor" red="0.92549019607843142" green="0.18823529411764706" blue="0.38823529411764707" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
+                                        <color key="backgroundColor" red="0.92549019607843142" green="0.18823529411764706" blue="0.38823529411764707" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="NtC-vD-h1z"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="Button"/>
+                                        <state key="normal" title="Add feed"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="8"/>
@@ -192,10 +217,20 @@
                                             <action selector="addFeedButtonAction:" destination="688-Jp-HpJ" eventType="touchUpInside" id="LKd-hi-dqG"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AfW-CV-dTA">
+                                        <rect key="frame" x="0.0" y="50" width="382" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="2K1-gc-2fH"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancelButtonAction:" destination="688-Jp-HpJ" eventType="touchUpInside" id="FUI-m7-uyI"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="zUv-dn-rWQ"/>
-                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -227,21 +262,47 @@
             </objects>
             <point key="canvasLocation" x="1515.9420289855075" y="-244.41964285714283"/>
         </scene>
-        <!--View Controller-->
+        <!--Feed View Controller-->
         <scene sceneID="0Tj-ym-8QG">
             <objects>
-                <viewController id="JnU-OC-GRX" sceneMemberID="viewController">
+                <viewController id="JnU-OC-GRX" customClass="FeedViewController" customModule="RSS_Feed_Reader" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5hF-MB-bc9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="TNp-2h-ZBe">
+                                <rect key="frame" x="0.0" y="56" width="414" height="752"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="20" id="FkA-AF-hJW">
+                                    <size key="itemSize" width="338" height="323"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="8" minY="16" maxX="8" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                                <connections>
+                                    <outlet property="dataSource" destination="JnU-OC-GRX" id="Ofy-ww-Ez8"/>
+                                    <outlet property="delegate" destination="JnU-OC-GRX" id="XRV-6L-7od"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="6S6-7H-l3Y" firstAttribute="trailing" secondItem="TNp-2h-ZBe" secondAttribute="trailing" id="9uh-Cs-Lvv"/>
+                            <constraint firstItem="TNp-2h-ZBe" firstAttribute="leading" secondItem="6S6-7H-l3Y" secondAttribute="leading" id="Gsu-vE-epg"/>
+                            <constraint firstItem="6S6-7H-l3Y" firstAttribute="bottom" secondItem="TNp-2h-ZBe" secondAttribute="bottom" id="sR9-LA-i4c"/>
+                            <constraint firstItem="TNp-2h-ZBe" firstAttribute="top" secondItem="6S6-7H-l3Y" secondAttribute="top" id="ync-Dd-xzg"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6S6-7H-l3Y"/>
                     </view>
                     <navigationItem key="navigationItem" id="OfS-C2-vTR"/>
+                    <connections>
+                        <outlet property="collectionView" destination="TNp-2h-ZBe" id="244-Um-uuL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MC1-xW-vrL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2428" y="590"/>
+            <point key="canvasLocation" x="3337.68115942029" y="589.95535714285711"/>
         </scene>
         <!--Feeds-->
         <scene sceneID="VKH-Yp-a7o">
@@ -269,8 +330,8 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="d3O-Rn-rhM" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5Ea-VS-UjI">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="5Ea-VS-UjI">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="108"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -280,10 +341,32 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hWn-Ig-Dvs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1517" y="590"/>
+            <point key="canvasLocation" x="2426.0869565217395" y="589.95535714285711"/>
+        </scene>
+        <!--Favorite-->
+        <scene sceneID="PPN-rZ-mAR">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="m8l-gF-f4O" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Favorite" image="favorites" selectedImage="favorites" id="GTz-xC-NIM">
+                        <color key="badgeColor" red="0.92549019610000005" green="0.18823529410000001" blue="0.38823529410000002" alpha="1" colorSpace="calibratedRGB"/>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="XDe-dI-bje">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Wz6-6f-Yk4" kind="relationship" relationship="rootViewController" id="9QI-El-vef"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ifs-dD-dry" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-594.20289855072474" y="854.46428571428567"/>
         </scene>
     </scenes>
     <resources>
+        <image name="delete" width="27" height="27"/>
         <image name="favorites" width="27" height="27"/>
         <image name="list.dash" catalog="system" width="64" height="42"/>
     </resources>

@@ -19,10 +19,10 @@ class FeedsListViewController: UIViewController {
     }
     
     func fetchAllFeeds() {
-        CoreDataManager.shared.fetchedResultsController.delegate = self
+        CoreDataManager.shared.feedsListFetchedResultsController.delegate = self
         
         do{
-            try CoreDataManager.shared.fetchedResultsController.performFetch()
+            try CoreDataManager.shared.feedsListFetchedResultsController.performFetch()
         } catch {
             print(error)
         }
@@ -45,6 +45,12 @@ extension FeedsListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? FeedCell else {
+            return
+        }
+        FeedService.shared.selectedFeed = cell.feed
+        performSegue(withIdentifier: "OpenFeed", sender: self)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -54,7 +60,7 @@ extension FeedsListViewController: UITableViewDelegate {
 
 extension FeedsListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let sections = CoreDataManager.shared.fetchedResultsController.sections else {
+        guard let sections = CoreDataManager.shared.feedsListFetchedResultsController.sections else {
             return 0
         }
         
@@ -64,49 +70,47 @@ extension FeedsListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
-        let feed = CoreDataManager.shared.fetchedResultsController.object(at: indexPath)
+        let feed = CoreDataManager.shared.feedsListFetchedResultsController.object(at: indexPath)
         cell.feed = feed
         return cell
     }
 }
 
 extension FeedsListViewController: NSFetchedResultsControllerDelegate {
-  func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    tableView.beginUpdates()
-  }
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
     
-  func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-    switch type {
-    case .insert:
-        if let indexPath = newIndexPath {
-            tableView.insertRows(at: [indexPath], with: .fade)
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .insert:
+            if let indexPath = newIndexPath {
+                tableView.insertRows(at: [indexPath], with: .fade)
+            }
+            break
+            
+        case .delete:
+            if let indexPath = indexPath {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            break
+            
+        case .update:
+            break
+            
+        case .move:
+            if let indexPath = indexPath {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            
+            if let newIndexPath = newIndexPath {
+                tableView.insertRows(at: [newIndexPath], with: .fade)
+            }
+            break
         }
-        break
-        
-    case .delete:
-        if let indexPath = indexPath {
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
-        break
-        
-    case .update:
-        break
-        
-    case .move:
-        if let indexPath = indexPath {
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
-        
-        if let newIndexPath = newIndexPath {
-            tableView.insertRows(at: [newIndexPath], with: .fade)
-        }
-        break
-  }
-}
-  
-  /*The last delegate call*/
-  func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    /*finally balance beginUpdates with endupdates*/
-    tableView.endUpdates()
-  }
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates()
+    }
 }

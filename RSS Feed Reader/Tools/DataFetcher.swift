@@ -9,8 +9,6 @@
 import Foundation
 
 class DataFetcher: NSObject, XMLParserDelegate {
-    var i: Int = 0
-    
     var feed: FeedsList?
     var message: Feed?
     var imgs: [String] = []
@@ -112,5 +110,4 @@ class DataFetcher: NSObject, XMLParserDelegate {
     func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
         parserCompletionHandler?(parseError)
     }
-    
 }

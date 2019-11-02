@@ -37,10 +37,4 @@ class AddFeedViewController: UIViewController {
     @IBAction private func cancelButtonAction(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
-    
-    private func showError(with text: String) {
-        let alertController = UIAlertController(title: "Error".localize(), message: text.localize(), preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-        present(alertController, animated: true, completion: nil)
-    }
 }

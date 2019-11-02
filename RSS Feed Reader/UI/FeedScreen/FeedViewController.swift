@@ -38,6 +38,9 @@ class FeedViewController: UIViewController {
         dataFetcher.feed = feed
         dataFetcher.getFeed(with: url) { [weak self] (error) in
             if let error = error {
+                self?.showError(with: error.localizedDescription, completion: { [weak self] (_) in
+                    self?.dismiss(animated: true, completion: nil)
+                })
                 return
             }
             DispatchQueue.main.async { [weak self] in

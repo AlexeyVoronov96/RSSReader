@@ -15,11 +15,6 @@ class FavoritesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout,
-            let collectionView = collectionView {
-            let w = collectionView.frame.width - 16
-            flowLayout.estimatedItemSize = CGSize(width: w, height: 100)
-        }
         
         collectionView.register(UINib(nibName: "FeedItemCell", bundle: nil),
                                 forCellWithReuseIdentifier: "FeedItemCell")
@@ -139,4 +134,11 @@ extension FavoritesViewController: FeedItemCellDelegate {
         present(alertController, animated: true, completion: nil)
     }
 }
+
+extension FavoritesViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width - 16, height: 100)
+    }
+}
+
 

@@ -85,6 +85,24 @@ extension FavoritesViewController: UICollectionViewDelegate {
         let svc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
         self.present(svc, animated: true, completion: nil)
     }
+    
+    @available(iOS 13.0, *)
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? FeedItemCell else {
+            return nil
+        }
+        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
+            let action = UIAction(title: "Remove from favorites", image: #imageLiteral(resourceName: "delete")) { (_) in
+                guard let favoriteItem = cell.favoriteItem else {
+                    return
+                }
+                CoreDataManager.shared.managedObjectContext.delete(favoriteItem)
+                CoreDataManager.shared.saveContext()
+            }
+            return UIMenu(title: cell.feedItem?.title ?? "", image: #imageLiteral(resourceName: "delete"), children: [action])
+        }
+        return configuration
+    }
 }
 
 extension FavoritesViewController: NSFetchedResultsControllerDelegate {

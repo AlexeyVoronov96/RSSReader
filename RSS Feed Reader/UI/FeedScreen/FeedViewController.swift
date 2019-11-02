@@ -72,6 +72,28 @@ extension FeedViewController: UICollectionViewDelegate {
         let svc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
         self.present(svc, animated: true, completion: nil)
     }
+    
+    @available(iOS 13.0, *)
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? FeedItemCell else {
+            return nil
+        }
+        let searchedItem = CoreDataManager.shared.checkFavoriteItem(with: cell.feedItem)
+        let title = searchedItem == nil ? "Add to favorites" : "Remove from favorites"
+        let image = searchedItem == nil ? #imageLiteral(resourceName: "favorites") : #imageLiteral(resourceName: "delete")
+        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
+            let action = UIAction(title: title, image: image) { (_) in
+                if let favoriteItem = searchedItem {
+                    CoreDataManager.shared.managedObjectContext.delete(favoriteItem)
+                } else {
+                    SavedMessages.newMessage(from: cell.feedItem)
+                }
+                CoreDataManager.shared.saveContext()
+            }
+            return UIMenu(title: cell.feedItem?.title ?? "", image: #imageLiteral(resourceName: "delete"), children: [action])
+        }
+        return configuration
+    }
 }
 
 extension FeedViewController: FeedItemCellDelegate {

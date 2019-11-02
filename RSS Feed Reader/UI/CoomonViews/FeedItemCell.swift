@@ -88,40 +88,7 @@ class FeedItemCell: UICollectionViewCell {
         newsImageView.image = nil
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        transform(with: .highlighted)
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-        transform(with: .normal)
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesCancelled(touches, with: event)
-        transform(with: .normal)
-    }
-    
     @IBAction private func moreButtonAction(_ sender: UIButton) {
         delegate?.didTapOnMoreButton(self)
-    }
-    
-    private func transform(with state: LayoutState) {
-        UIView.animate(withDuration: 0.5,
-                       delay: 0,
-                       usingSpringWithDamping: 0.4,
-                       initialSpringVelocity: 0.2,
-                       options: .beginFromCurrentState,
-                       animations: { [weak self] in
-                        switch state {
-                        case .highlighted:
-                            self?.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
-                            
-                        case .normal:
-                            self?.transform = .identity
-                        }
-            },
-                       completion: nil)
     }
 }

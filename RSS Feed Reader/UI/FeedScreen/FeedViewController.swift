@@ -27,12 +27,6 @@ class FeedViewController: UIViewController {
         
         title = feed?.name
         
-        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout,
-            let collectionView = collectionView {
-            let w = collectionView.frame.width - 16
-            flowLayout.estimatedItemSize = CGSize(width: w, height: 100)
-        }
-        
         collectionView.register(UINib(nibName: "FeedItemCell", bundle: nil),
                                 forCellWithReuseIdentifier: "FeedItemCell")
     }
@@ -94,5 +88,11 @@ extension FeedViewController: FeedItemCellDelegate {
         }))
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(alertController, animated: true, completion: nil)
+    }
+}
+
+extension FeedViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width - 16, height: 100)
     }
 }

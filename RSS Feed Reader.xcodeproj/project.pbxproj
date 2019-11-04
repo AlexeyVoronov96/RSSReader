@@ -10,6 +10,7 @@
 		A813CA55938E8AD2C5765801 /* Pods_RSS_Feed_Reader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 694BB8A4553974A8B5BE1398 /* Pods_RSS_Feed_Reader.framework */; };
 		AB0C3660236CAF060074F563 /* AddFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0C365F236CAF060074F563 /* AddFeedViewController.swift */; };
 		AB1ACE13215384130070E578 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1ACE12215384130070E578 /* FeedCell.swift */; };
+		AB1C470C23701B26008A94E5 /* AddFeedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1C470B23701B26008A94E5 /* AddFeedService.swift */; };
 		AB3B73AF236D6B41002DD9B9 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3B73AE236D6B41002DD9B9 /* Data+Extension.swift */; };
 		AB3B73B1236D6B56002DD9B9 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3B73B0236D6B56002DD9B9 /* Date+Extension.swift */; };
 		AB42C9A92151A67300C3C367 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB42C9A82151A67300C3C367 /* AppDelegate.swift */; };
@@ -56,6 +57,7 @@
 		694BB8A4553974A8B5BE1398 /* Pods_RSS_Feed_Reader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RSS_Feed_Reader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB0C365F236CAF060074F563 /* AddFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFeedViewController.swift; sourceTree = "<group>"; };
 		AB1ACE12215384130070E578 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
+		AB1C470B23701B26008A94E5 /* AddFeedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFeedService.swift; sourceTree = "<group>"; };
 		AB1C9572218BB411007CC968 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		AB3B73AE236D6B41002DD9B9 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		AB3B73B0236D6B56002DD9B9 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				AB3B73B2236D6B7A002DD9B9 /* Extensions */,
 				ABF348FF215F45AC00FFF76B /* DataFetcher.swift */,
 				ABA380F1236CD0F4003B75B7 /* FeedService.swift */,
+				AB1C470B23701B26008A94E5 /* AddFeedService.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 				AB9780E921864CC000F59270 /* AppData.xcdatamodeld in Sources */,
 				AB3B73AF236D6B41002DD9B9 /* Data+Extension.swift in Sources */,
 				AB95780E215F97C900E3E1E6 /* FeedsListViewController.swift in Sources */,
+				AB1C470C23701B26008A94E5 /* AddFeedService.swift in Sources */,
 				AB9780F221864DBB00F59270 /* FeedsList+CoreDataClass.swift in Sources */,
 				AB9780F121864DBB00F59270 /* Feed+CoreDataProperties.swift in Sources */,
 				AB9780F821864E4700F59270 /* SavedMessages+CoreDataClass.swift in Sources */,
@@ -553,7 +557,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N8AX386RTP;
 				INFOPLIST_FILE = "RSS Feed Reader/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -573,7 +577,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N8AX386RTP;
 				INFOPLIST_FILE = "RSS Feed Reader/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

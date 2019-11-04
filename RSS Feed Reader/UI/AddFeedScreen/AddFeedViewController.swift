@@ -9,14 +9,55 @@
 import UIKit
 
 class AddFeedViewController: UIViewController {
-    @IBOutlet private var feedNameTextField: UITextField!
-    @IBOutlet private var feedLinkTextField: UITextField!
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
+    enum State {
+        case create
+        case update
+        
+        var title: String {
+            switch self {
+            case .create:
+                return "Add feed".localize()
+                
+            case .update:
+                return "Update feed".localize()
+            }
+        }
     }
     
-    @IBAction private func addFeedButtonAction(_ sender: UIButton) {
+    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var feedNameTextField: UITextField!
+    @IBOutlet private var feedLinkTextField: UITextField!
+    @IBOutlet private var acceptButton: UIButton!
+    
+    private let addFeedService = AddFeedService.shared
+    
+    var item: FeedsList?
+    
+    var state: State {
+        return item == nil ? .create : .update
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        item = addFeedService.feed
+        
+        titleLabel.text = state.title
+        acceptButton.setTitle(state.title, for: .normal)
+        
+        if state == .update {
+            feedNameTextField.text = item?.name
+            feedLinkTextField.text = item?.link
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        addFeedService.feed = nil
+    }
+    
+    @IBAction private func acceptButtonAction(_ sender: UIButton) {
         guard let name = feedNameTextField.text,
             let link = feedLinkTextField.text else {
                 showError(with: "All fields should be filled")
@@ -28,7 +69,15 @@ class AddFeedViewController: UIViewController {
             return
         }
         
-        FeedsList.newFeed(name: name, link: link)
+        switch state {
+        case .create:
+            FeedsList.newFeed(name: name, link: link)
+            
+        case .update:
+            item?.name = name
+            item?.link = link
+        }
+        
         CoreDataManager.shared.saveContext()
         
         dismiss(animated: true, completion: nil)

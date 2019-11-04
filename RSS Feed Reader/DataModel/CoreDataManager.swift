@@ -44,15 +44,6 @@ class CoreDataManager {
         return fetchedResultsController
     }()
     
-    lazy var favoritesFetchedResultsController: NSFetchedResultsController<SavedMessages> = {
-        let managedContext = persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<SavedMessages>(entityName: "SavedMessages")
-        let sortDescriptor = NSSortDescriptor(key: "savedDate", ascending: false)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        let fetchedResultsController = NSFetchedResultsController<SavedMessages>(fetchRequest: fetchRequest, managedObjectContext: managedContext, sectionNameKeyPath: nil, cacheName: nil)
-        return fetchedResultsController
-    }()
-    
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
@@ -85,5 +76,28 @@ class CoreDataManager {
         } catch {
             return nil
         }
+    }
+    
+    func searchForFavorites(with filter: String? = nil) -> [SavedMessages] {
+        let fetchRequest = NSFetchRequest<SavedMessages>(entityName: "SavedMessages")
+        
+        if let searchFilter = filter {
+            fetchRequest.predicate = NSPredicate(format: "title CONTAINS[cd] %@ OR desc CONTAINS[cd] %@", searchFilter, searchFilter)
+        }
+        
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
+        
+        do {
+            let results = try managedObjectContext.fetch(fetchRequest)
+            return results
+        } catch {
+            return []
+        }
+    }
+    
+    func clearFavorites() throws {
+        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "SavedMessages")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+        try managedObjectContext.execute(deleteRequest)
     }
 }

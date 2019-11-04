@@ -24,7 +24,7 @@ public class FeedsList: NSManagedObject {
     }
     
     var messagesSorted: [Feed] {
-        let sortDescriptor = NSSortDescriptor(key: "title", ascending: false)
+        let sortDescriptor = NSSortDescriptor(key: "pubDate", ascending: false)
         return self.feed?.sortedArray(using: [sortDescriptor]) as! [Feed]
     }
 }

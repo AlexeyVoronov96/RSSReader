@@ -12,6 +12,8 @@ import UIKit
 class FeedsListViewController: UIViewController {
     @IBOutlet private var tableView: UITableView!
     
+    private let addFeedService = AddFeedService.shared
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,20 +32,6 @@ class FeedsListViewController: UIViewController {
 }
 
 extension FeedsListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        guard let cell = tableView.cellForRow(at: indexPath) as? FeedCell,
-            let feed = cell.feed else {
-                return []
-        }
-        
-        let delete = UITableViewRowAction(style: .destructive, title: "Delete".localize()) { (action, indexPath) in
-            CoreDataManager.shared.managedObjectContext.delete(feed)
-            CoreDataManager.shared.saveContext()
-        }
-        
-        return [delete]
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? FeedCell else {
             return
@@ -55,6 +43,29 @@ extension FeedsListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard let cell = tableView.cellForRow(at: indexPath) as? FeedCell,
+            let feed = cell.feed else {
+            return nil
+        }
+        
+        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
+            let updateAction = UIAction(title: "Update".localize(), image: UIImage(systemName: "pencil")) { [weak self] (_) in
+                self?.addFeedService.feed = feed
+                self?.performSegue(withIdentifier: "OpenFeedEditor", sender: self)
+            }
+            
+            let deleteAction = UIAction(title: "Remove".localize(), image: UIImage(systemName: "trash.fill")) { (_) in
+                CoreDataManager.shared.managedObjectContext.delete(feed)
+                CoreDataManager.shared.saveContext()
+            }
+            
+            return UIMenu(title: feed.name ?? "", image: nil, children: [updateAction, deleteAction])
+        }
+        
+        return configuration
     }
 }
 
@@ -96,6 +107,9 @@ extension FeedsListViewController: NSFetchedResultsControllerDelegate {
             break
             
         case .update:
+            if let indexPath = indexPath {
+                tableView.reloadRows(at: [indexPath], with: .fade)
+            }
             break
             
         case .move:

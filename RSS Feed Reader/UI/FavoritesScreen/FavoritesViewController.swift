@@ -13,14 +13,32 @@ import SafariServices
 class FavoritesViewController: UIViewController {
     @IBOutlet private var collectionView: UICollectionView!
     
+    private let searchController = UISearchController(searchResultsController: nil)
+    
+    var searchFilter: String?
+    
+    var messages: [SavedMessages] {
+        if searchController.isActive, !(searchFilter ?? "").isEmpty {
+            return CoreDataManager.shared.searchForFavorites(with: searchFilter)
+        }
+        return favorites
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         collectionView.register(UINib(nibName: "FeedItemCell", bundle: nil),
                                 forCellWithReuseIdentifier: "FeedItemCell")
         
-        fetchAllFavorites()
         collectionView.alwaysBounceVertical = true
+        
+        setupSearchController()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        collectionView.reloadData()
     }
     
     @IBAction func removeAllAction(_ sender: Any) {
@@ -39,39 +57,33 @@ class FavoritesViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-    func fetchAllFavorites() {
-        CoreDataManager.shared.favoritesFetchedResultsController.delegate = self
-        
-        do{
-            try CoreDataManager.shared.favoritesFetchedResultsController.performFetch()
-        } catch {
-            print(error)
-        }
+    private func setupSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search".localize()
+        searchController.searchBar.tintColor = #colorLiteral(red: 0.9254901961, green: 0.1882352941, blue: 0.3882352941, alpha: 1)
+        navigationItem.searchController = searchController
     }
     
     func removeAllFavorites() {
-        for item in favorites {
-            CoreDataManager.shared.managedObjectContext.delete(item)
-            CoreDataManager.shared.saveContext()
+        do {
+            try CoreDataManager.shared.clearFavorites()
+            collectionView.reloadSections([0])
+        } catch {
+            showError(with: error.localizedDescription)
         }
     }
 }
 
 extension FavoritesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let sections = CoreDataManager.shared.favoritesFetchedResultsController.sections else {
-            return 0
-        }
-        
-        let sectionInfo = sections[section]
-        return sectionInfo.numberOfObjects
+        return messages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FeedItemCell", for: indexPath) as! FeedItemCell
-        let favoriteItem = CoreDataManager.shared.favoritesFetchedResultsController.object(at: indexPath)
+        let favoriteItem = messages[indexPath.row]
         cell.favoriteItem = favoriteItem
-        cell.delegate = self
         return cell
     }
 }
@@ -82,74 +94,42 @@ extension FavoritesViewController: UICollectionViewDelegate {
             let url = URL(string: cell.favoriteItem?.link ?? "") else {
             return
         }
-        let svc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
-        self.present(svc, animated: true, completion: nil)
+        let svc = SFSafariViewController(url: url)
+        present(svc, animated: true, completion: nil)
     }
     
-    @available(iOS 13.0, *)
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         guard let cell = collectionView.cellForItem(at: indexPath) as? FeedItemCell else {
             return nil
         }
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
-            let action = UIAction(title: "Remove from favorites", image: #imageLiteral(resourceName: "delete")) { (_) in
+            let favoritesAction = UIAction(title: "Remove from favorites", image: #imageLiteral(resourceName: "delete")) { [weak self] (_) in
                 guard let favoriteItem = cell.favoriteItem else {
                     return
                 }
                 CoreDataManager.shared.managedObjectContext.delete(favoriteItem)
                 CoreDataManager.shared.saveContext()
+                self?.collectionView.deleteItems(at: [indexPath])
             }
-            return UIMenu(title: cell.feedItem?.title ?? "", image: #imageLiteral(resourceName: "delete"), children: [action])
+            
+            let safariAction = UIAction(title: "Open in safari".localize(), image: UIImage(systemName: "safari")) { (_) in
+                guard let url = URL(string: cell.feedItem?.link ?? ""),
+                    UIApplication.shared.canOpenURL(url) else { return }
+                UIApplication.shared.open(url)
+            }
+            
+            let shareAction = UIAction(title: "Share".localize(), image: UIImage(systemName: "square.and.arrow.up")) { [weak self] (_) in
+                var activityItems: [Any] = [cell.feedItem?.title ?? "", cell.feedItem?.desc ?? ""]
+                if let image = cell.image {
+                    activityItems.append(image)
+                }
+                let activityController = UIActivityViewController(activityItems: activityItems, applicationActivities: [])
+                self?.present(activityController, animated: true, completion: nil)
+            }
+            
+            return UIMenu(title: cell.feedItem?.title ?? "", image: #imageLiteral(resourceName: "delete"), children: [favoritesAction, safariAction, shareAction])
         }
         return configuration
-    }
-}
-
-extension FavoritesViewController: NSFetchedResultsControllerDelegate {
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        switch type {
-        case .insert:
-            if let indexPath = newIndexPath {
-                collectionView.insertItems(at: [indexPath])
-            }
-            break
-            
-        case .delete:
-            if let indexPath = indexPath {
-                collectionView.deleteItems(at: [indexPath])
-            }
-            break
-            
-        case .update:
-            break
-            
-        case .move:
-            if let indexPath = indexPath {
-                collectionView.insertItems(at: [indexPath])
-            }
-            
-            if let newIndexPath = newIndexPath {
-                collectionView.insertItems(at: [newIndexPath])
-            }
-            break
-        }
-    }
-}
-
-extension FavoritesViewController: FeedItemCellDelegate {
-    func didTapOnMoreButton(_ cell: FeedItemCell) {
-        let alertController = UIAlertController(title: cell.favoriteItem?.title ?? "",
-                                                message: cell.favoriteItem?.desc ?? "",
-                                                preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "Remove from favorites", style: .default, handler: { (_) in
-            guard let favoriteItem = cell.favoriteItem else {
-                return
-            }
-            CoreDataManager.shared.managedObjectContext.delete(favoriteItem)
-            CoreDataManager.shared.saveContext()
-        }))
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        present(alertController, animated: true, completion: nil)
     }
 }
 
@@ -159,4 +139,9 @@ extension FavoritesViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-
+extension FavoritesViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        searchFilter = searchController.searchBar.text
+        collectionView.reloadSections([0])
+    }
+}

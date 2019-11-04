@@ -38,9 +38,7 @@ class FeedViewController: UIViewController {
         dataFetcher.feed = feed
         dataFetcher.getFeed(with: url) { [weak self] (error) in
             if let error = error {
-                self?.showError(with: error.localizedDescription, completion: { [weak self] (_) in
-                    self?.dismiss(animated: true, completion: nil)
-                })
+                self?.showError(with: error.localizedDescription)
                 return
             }
             DispatchQueue.main.async { [weak self] in
@@ -58,7 +56,6 @@ extension FeedViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FeedItemCell", for: indexPath) as! FeedItemCell
         cell.feedItem = feed?.messagesSorted[indexPath.row]
-        cell.delegate = self
         return cell
     }
 }
@@ -69,11 +66,10 @@ extension FeedViewController: UICollectionViewDelegate {
             let url = URL(string: link) else {
                 return
         }
-        let svc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
-        self.present(svc, animated: true, completion: nil)
+        let svc = SFSafariViewController(url: url)
+        present(svc, animated: true, completion: nil)
     }
     
-    @available(iOS 13.0, *)
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         guard let cell = collectionView.cellForItem(at: indexPath) as? FeedItemCell else {
             return nil
@@ -82,7 +78,7 @@ extension FeedViewController: UICollectionViewDelegate {
         let title = searchedItem == nil ? "Add to favorites" : "Remove from favorites"
         let image = searchedItem == nil ? #imageLiteral(resourceName: "favorites") : #imageLiteral(resourceName: "delete")
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
-            let action = UIAction(title: title, image: image) { (_) in
+            let favoritesAction = UIAction(title: title, image: image) { (_) in
                 if let favoriteItem = searchedItem {
                     CoreDataManager.shared.managedObjectContext.delete(favoriteItem)
                 } else {
@@ -90,29 +86,25 @@ extension FeedViewController: UICollectionViewDelegate {
                 }
                 CoreDataManager.shared.saveContext()
             }
-            return UIMenu(title: cell.feedItem?.title ?? "", image: #imageLiteral(resourceName: "delete"), children: [action])
+            
+            let safariAction = UIAction(title: "Open in safari".localize(), image: UIImage(systemName: "safari")) { (_) in
+                guard let url = URL(string: cell.feedItem?.link ?? ""),
+                    UIApplication.shared.canOpenURL(url) else { return }
+                UIApplication.shared.open(url)
+            }
+            
+            let shareAction = UIAction(title: "Share".localize(), image: UIImage(systemName: "square.and.arrow.up")) { [weak self] (_) in
+                var activityItems: [Any] = [cell.feedItem?.title ?? "", cell.feedItem?.desc ?? ""]
+                if let image = cell.image {
+                    activityItems.append(image)
+                }
+                let activityController = UIActivityViewController(activityItems: activityItems, applicationActivities: [])
+                self?.present(activityController, animated: true, completion: nil)
+            }
+            
+            return UIMenu(title: cell.feedItem?.title ?? "", image: #imageLiteral(resourceName: "delete"), children: [favoritesAction, safariAction, shareAction])
         }
         return configuration
-    }
-}
-
-extension FeedViewController: FeedItemCellDelegate {
-    func didTapOnMoreButton(_ cell: FeedItemCell) {
-        let alertController = UIAlertController(title: cell.feedItem?.title ?? "",
-                                                message: cell.feedItem?.desc ?? "",
-                                                preferredStyle: .actionSheet)
-        let searchedItem = CoreDataManager.shared.checkFavoriteItem(with: cell.feedItem)
-        let title = searchedItem == nil ? "Add to favorites" : "Remove from favorites"
-        alertController.addAction(UIAlertAction(title: title, style: .default, handler: { (_) in
-            if let favoriteItem = searchedItem {
-                CoreDataManager.shared.managedObjectContext.delete(favoriteItem)
-            } else {
-                SavedMessages.newMessage(from: cell.feedItem)
-            }
-            CoreDataManager.shared.saveContext()
-        }))
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        present(alertController, animated: true, completion: nil)
     }
 }
 

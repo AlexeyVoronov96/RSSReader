@@ -9,10 +9,6 @@
 import UIKit
 import Kingfisher
 
-protocol FeedItemCellDelegate: class {
-    func didTapOnMoreButton(_ cell: FeedItemCell)
-}
-
 class FeedItemCell: UICollectionViewCell {
     enum LayoutState {
         case highlighted
@@ -23,8 +19,6 @@ class FeedItemCell: UICollectionViewCell {
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var newsImageView: UIImageView!
-    
-    weak var delegate: FeedItemCellDelegate?
     
     var feedItem: Feed? {
         didSet {
@@ -54,6 +48,10 @@ class FeedItemCell: UICollectionViewCell {
         }
     }
     
+    var image: UIImage? {
+        return newsImageView.image
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -67,6 +65,8 @@ class FeedItemCell: UICollectionViewCell {
         layer.shadowOpacity = 0.2
         layer.shadowOffset = .zero
         layer.masksToBounds = false
+        
+        newsImageView.kf.indicatorType = .activity
     }
     
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
@@ -86,9 +86,5 @@ class FeedItemCell: UICollectionViewCell {
         descriptionLabel.text = nil
         dateLabel.text = nil
         newsImageView.image = nil
-    }
-    
-    @IBAction private func moreButtonAction(_ sender: UIButton) {
-        delegate?.didTapOnMoreButton(self)
     }
 }

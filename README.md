@@ -1,4 +1,4 @@
-# ![AppIcon](https://github.com/AlexeyVoronov96/RSSReader/blob/master/RSS%20Feed%20Reader/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20%402x.png)RSS Feed Reader
+# ![AppIcon](https://github.com/AlexeyVoronov96/RSSReader/blob/master/RSS%20Feed%20Reader/Assets.xcassets/AppIcon.appiconset/icon_20pt%402x.png)RSS Feed Reader
 ## RSS Feed
 ![Feed](https://github.com/AlexeyVoronov96/RSSReader/blob/master/ScreeenShots/FeedItems.png)
 ![FeedActions](https://github.com/AlexeyVoronov96/RSSReader/blob/master/ScreeenShots/FeedItemActions.png)

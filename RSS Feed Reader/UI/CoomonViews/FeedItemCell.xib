@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,6 +22,7 @@
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ug4-iN-YNp">
                                 <rect key="frame" x="0.0" y="0.0" width="338" height="190"/>
+                                <color key="backgroundColor" name="White"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="ug4-iN-YNp" secondAttribute="height" multiplier="16/9" id="wEc-vY-lEJ"/>
                                 </constraints>
@@ -47,7 +49,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" name="White"/>
                                 <constraints>
                                     <constraint firstItem="GNd-Mx-3rx" firstAttribute="leading" secondItem="OQF-pq-i2m" secondAttribute="leading" constant="16" id="Atj-nh-Wgc"/>
                                     <constraint firstItem="GNd-Mx-3rx" firstAttribute="top" secondItem="OQF-pq-i2m" secondAttribute="top" constant="8" id="DeG-2O-UOH"/>
@@ -62,9 +64,10 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <color key="backgroundColor" name="White"/>
                     </stackView>
                 </subviews>
-                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <color key="backgroundColor" name="White"/>
                 <constraints>
                     <constraint firstItem="4t4-qz-Ics" firstAttribute="leading" secondItem="hwo-u5-9Hq" secondAttribute="leading" id="Owf-3V-TqX"/>
                     <constraint firstAttribute="trailing" secondItem="4t4-qz-Ics" secondAttribute="trailing" id="ZMj-JA-Msk"/>
@@ -83,4 +86,9 @@
             <point key="canvasLocation" x="190" y="14"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <namedColor name="White">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

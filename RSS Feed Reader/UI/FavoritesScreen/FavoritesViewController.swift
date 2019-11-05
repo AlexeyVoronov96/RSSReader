@@ -81,7 +81,7 @@ extension FavoritesViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FeedItemCell", for: indexPath) as! FeedItemCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedItemCell.cellId, for: indexPath) as! FeedItemCell
         let favoriteItem = messages[indexPath.row]
         cell.favoriteItem = favoriteItem
         return cell
@@ -103,7 +103,7 @@ extension FavoritesViewController: UICollectionViewDelegate {
             return nil
         }
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
-            let favoritesAction = UIAction(title: "Remove from favorites", image: #imageLiteral(resourceName: "delete")) { [weak self] (_) in
+            let favoritesAction = UIAction(title: "Remove from favorites", image: UIImage(systemName: "heart.slash.fill")) { [weak self] (_) in
                 guard let favoriteItem = cell.favoriteItem else {
                     return
                 }
@@ -127,7 +127,7 @@ extension FavoritesViewController: UICollectionViewDelegate {
                 self?.present(activityController, animated: true, completion: nil)
             }
             
-            return UIMenu(title: cell.feedItem?.title ?? "", image: #imageLiteral(resourceName: "delete"), children: [favoritesAction, safariAction, shareAction])
+            return UIMenu(title: cell.feedItem?.title ?? "", image: nil, children: [favoritesAction, safariAction, shareAction])
         }
         return configuration
     }

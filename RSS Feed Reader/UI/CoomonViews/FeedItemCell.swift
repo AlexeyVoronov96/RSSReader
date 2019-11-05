@@ -15,6 +15,8 @@ class FeedItemCell: UICollectionViewCell {
         case normal
     }
     
+    static let cellId = "FeedItemCell"
+    
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
@@ -60,8 +62,8 @@ class FeedItemCell: UICollectionViewCell {
         contentView.layer.borderWidth = 1
         contentView.layer.masksToBounds = true
         
-        layer.shadowRadius = 6
-        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowRadius = 3
+        layer.shadowColor = (UIColor(named: "Black") ?? UIColor.black).cgColor
         layer.shadowOpacity = 0.2
         layer.shadowOffset = .zero
         layer.masksToBounds = false

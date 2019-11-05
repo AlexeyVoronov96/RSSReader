@@ -54,7 +54,7 @@ extension FeedViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FeedItemCell", for: indexPath) as! FeedItemCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedItemCell.cellId, for: indexPath) as! FeedItemCell
         cell.feedItem = feed?.messagesSorted[indexPath.row]
         return cell
     }
@@ -76,7 +76,7 @@ extension FeedViewController: UICollectionViewDelegate {
         }
         let searchedItem = CoreDataManager.shared.checkFavoriteItem(with: cell.feedItem)
         let title = searchedItem == nil ? "Add to favorites" : "Remove from favorites"
-        let image = searchedItem == nil ? #imageLiteral(resourceName: "favorites") : #imageLiteral(resourceName: "delete")
+        let image = searchedItem == nil ? UIImage(systemName: "heart") : UIImage(systemName: "heart.slash.fill")
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
             let favoritesAction = UIAction(title: title, image: image) { (_) in
                 if let favoriteItem = searchedItem {
@@ -102,7 +102,7 @@ extension FeedViewController: UICollectionViewDelegate {
                 self?.present(activityController, animated: true, completion: nil)
             }
             
-            return UIMenu(title: cell.feedItem?.title ?? "", image: #imageLiteral(resourceName: "delete"), children: [favoritesAction, safariAction, shareAction])
+            return UIMenu(title: cell.feedItem?.title ?? "", image: nil, children: [favoritesAction, safariAction, shareAction])
         }
         return configuration
     }

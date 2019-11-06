@@ -11,16 +11,14 @@ import CoreData
 
 @objc(Feed)
 public class Feed: NSManagedObject {
-    class func addFeed(title: String, desc: String, pubDate: Date, link: String, image: String, inFeed: FeedsList?) {
+    class func newFeed(name: String, link: String) {
         let feed = Feed(context: CoreDataManager.shared.managedObjectContext)
-        feed.title = title
-        feed.desc = desc
-        feed.pubDate = pubDate
+        feed.name = name
         feed.link = link
-        feed.image = image
-        
-        if let inFeed = inFeed {
-            feed.feedsList = inFeed
-        }
+    }
+    
+    var messagesSorted: [FeedMessage] {
+        let sortDescriptor = NSSortDescriptor(key: "pubDate", ascending: false)
+        return message?.sortedArray(using: [sortDescriptor]) as? [FeedMessage] ?? []
     }
 }

@@ -31,7 +31,7 @@ class AddFeedViewController: UIViewController {
     
     private let addFeedService = AddFeedService.shared
     
-    var item: FeedsList?
+    var item: Feed?
     
     var state: State {
         return item == nil ? .create : .update
@@ -71,7 +71,7 @@ class AddFeedViewController: UIViewController {
         
         switch state {
         case .create:
-            FeedsList.newFeed(name: name, link: link)
+            Feed.newFeed(name: name, link: link)
             
         case .update:
             item?.name = name

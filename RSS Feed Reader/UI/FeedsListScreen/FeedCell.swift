@@ -9,10 +9,11 @@
 import UIKit
 
 class FeedCell: UITableViewCell {
+    static let cellId = "FeedCell"
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var linkLabel: UILabel!
     
-    var feed: FeedsList? {
+    var feed: Feed? {
         didSet {
             nameLabel.text = feed?.name
             linkLabel.text = feed?.link

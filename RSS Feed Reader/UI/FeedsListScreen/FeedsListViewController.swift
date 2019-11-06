@@ -23,7 +23,7 @@ class FeedsListViewController: UIViewController {
     func fetchAllFeeds() {
         CoreDataManager.shared.feedsListFetchedResultsController.delegate = self
         
-        do{
+        do {
             try CoreDataManager.shared.feedsListFetchedResultsController.performFetch()
         } catch {
             print(error)
@@ -52,17 +52,18 @@ extension FeedsListViewController: UITableViewDelegate {
         }
         
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
-            let updateAction = UIAction(title: "Update".localize(), image: UIImage(systemName: "pencil")) { [weak self] (_) in
+            var actions: [UIAction] = []
+            actions.append(UIAction(title: "Update".localize(), image: UIImage(systemName: "pencil")) { [weak self] (_) in
                 self?.addFeedService.feed = feed
                 self?.performSegue(withIdentifier: "OpenFeedEditor", sender: self)
-            }
+            })
             
-            let deleteAction = UIAction(title: "Remove".localize(), image: UIImage(systemName: "trash.fill")) { (_) in
+            actions.append(UIAction(title: "Remove".localize(), image: UIImage(systemName: "trash.fill")) { (_) in
                 CoreDataManager.shared.managedObjectContext.delete(feed)
                 CoreDataManager.shared.saveContext()
-            }
+            })
             
-            return UIMenu(title: feed.name ?? "", image: nil, children: [updateAction, deleteAction])
+            return UIMenu(title: feed.name ?? "", children: actions)
         }
         
         return configuration

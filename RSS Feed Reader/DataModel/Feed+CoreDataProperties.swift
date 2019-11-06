@@ -10,16 +10,26 @@
 import CoreData
 
 extension Feed {
-
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Feed> {
         return NSFetchRequest<Feed>(entityName: "Feed")
     }
 
-    @NSManaged public var desc: String?
-    @NSManaged public var title: String?
     @NSManaged public var link: String?
-    @NSManaged public var pubDate: Date?
-    @NSManaged public var image: String?
-    @NSManaged public var feedsList: FeedsList?
+    @NSManaged public var name: String?
+    @NSManaged public var message: NSSet?
+}
 
+// MARK: Generated accessors for feed
+extension Feed {
+    @objc(addFeedObject:)
+    @NSManaged public func addToFeed(_ value: FeedMessage)
+
+    @objc(removeFeedObject:)
+    @NSManaged public func removeFromFeed(_ value: FeedMessage)
+
+    @objc(addFeed:)
+    @NSManaged public func addToFeed(_ values: NSSet)
+
+    @objc(removeFeed:)
+    @NSManaged public func removeFromFeed(_ values: NSSet)
 }

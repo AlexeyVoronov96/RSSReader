@@ -17,7 +17,7 @@ class FavoritesViewController: UIViewController {
     
     var searchFilter: String?
     
-    var messages: [SavedMessages] {
+    var messages: [FavoriteMessage] {
         if searchController.isActive, !(searchFilter ?? "").isEmpty {
             return CoreDataManager.shared.searchForFavorites(with: searchFilter)
         }
@@ -94,8 +94,9 @@ extension FavoritesViewController: UICollectionViewDelegate {
             let url = URL(string: cell.favoriteItem?.link ?? "") else {
             return
         }
-        let svc = SFSafariViewController(url: url)
-        present(svc, animated: true, completion: nil)
+        let safariViewController = SFSafariViewController(url: url)
+        safariViewController.preferredControlTintColor = #colorLiteral(red: 0.9254901961, green: 0.1882352941, blue: 0.3882352941, alpha: 1)
+        present(safariViewController, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
@@ -103,31 +104,32 @@ extension FavoritesViewController: UICollectionViewDelegate {
             return nil
         }
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
-            let favoritesAction = UIAction(title: "Remove from favorites", image: UIImage(systemName: "heart.slash.fill")) { [weak self] (_) in
-                guard let favoriteItem = cell.favoriteItem else {
-                    return
-                }
-                CoreDataManager.shared.managedObjectContext.delete(favoriteItem)
-                CoreDataManager.shared.saveContext()
-                self?.collectionView.deleteItems(at: [indexPath])
+            var actions: [UIAction] = []
+            if let favoriteItem = cell.favoriteItem {
+                actions.append(UIAction(title: "Remove from favorites", image: UIImage(systemName: "heart.slash.fill"), attributes: .destructive) { [weak self] (_) in
+                    CoreDataManager.shared.managedObjectContext.delete(favoriteItem)
+                    CoreDataManager.shared.saveContext()
+                    self?.collectionView.deleteItems(at: [indexPath])
+                })
             }
             
-            let safariAction = UIAction(title: "Open in safari".localize(), image: UIImage(systemName: "safari")) { (_) in
-                guard let url = URL(string: cell.feedItem?.link ?? ""),
-                    UIApplication.shared.canOpenURL(url) else { return }
-                UIApplication.shared.open(url)
+            if let url = URL(string: cell.favoriteItem?.link ?? ""),
+            UIApplication.shared.canOpenURL(url) {
+                actions.append(UIAction(title: "Open in safari".localize(), image: UIImage(systemName: "safari")) { (_) in
+                    UIApplication.shared.open(url)
+                })
             }
             
-            let shareAction = UIAction(title: "Share".localize(), image: UIImage(systemName: "square.and.arrow.up")) { [weak self] (_) in
+            actions.append(UIAction(title: "Share".localize(), image: UIImage(systemName: "square.and.arrow.up")) { [weak self] (_) in
                 var activityItems: [Any] = [cell.feedItem?.title ?? "", cell.feedItem?.desc ?? ""]
                 if let image = cell.image {
                     activityItems.append(image)
                 }
                 let activityController = UIActivityViewController(activityItems: activityItems, applicationActivities: [])
                 self?.present(activityController, animated: true, completion: nil)
-            }
+            })
             
-            return UIMenu(title: cell.feedItem?.title ?? "", image: nil, children: [favoritesAction, safariAction, shareAction])
+            return UIMenu(title: cell.favoriteItem?.title ?? "", children: actions)
         }
         return configuration
     }

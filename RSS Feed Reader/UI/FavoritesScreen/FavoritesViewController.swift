@@ -101,7 +101,7 @@ extension FavoritesViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         guard let cell = collectionView.cellForItem(at: indexPath) as? FeedItemCell else {
-            return nil
+            return .none
         }
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
             var actions: [UIAction] = []

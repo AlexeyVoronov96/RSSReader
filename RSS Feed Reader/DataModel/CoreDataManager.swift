@@ -9,8 +9,8 @@
 import UIKit
 import CoreData
 
-var favorites: [SavedMessages] {
-    let request = NSFetchRequest<SavedMessages>(entityName: "SavedMessages")
+var favorites: [FavoriteMessage] {
+    let request = NSFetchRequest<FavoriteMessage>(entityName: "FavoriteMessage")
     let array = try? CoreDataManager.shared.managedObjectContext.fetch(request)
     if array != nil {
         return array!.reversed()
@@ -35,12 +35,12 @@ class CoreDataManager {
         return container
     }()
     
-    lazy var feedsListFetchedResultsController: NSFetchedResultsController<FeedsList> = {
+    lazy var feedsListFetchedResultsController: NSFetchedResultsController<Feed> = {
         let managedContext = persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<FeedsList>(entityName: "FeedsList")
+        let fetchRequest = NSFetchRequest<Feed>(entityName: "Feed")
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
-        let fetchedResultsController = NSFetchedResultsController<FeedsList>(fetchRequest: fetchRequest, managedObjectContext: managedContext, sectionNameKeyPath: nil, cacheName: nil)
+        let fetchedResultsController = NSFetchedResultsController<Feed>(fetchRequest: fetchRequest, managedObjectContext: managedContext, sectionNameKeyPath: nil, cacheName: nil)
         return fetchedResultsController
     }()
     
@@ -57,7 +57,7 @@ class CoreDataManager {
     }
     
     func checkItem(with title: String, description: String) -> Bool {
-        let fetchRequest = NSFetchRequest<Feed>(entityName: "Feed")
+        let fetchRequest = NSFetchRequest<FeedMessage>(entityName: "FeedMessage")
         fetchRequest.predicate = NSPredicate(format: "title = %@ && desc = %@", title, description)
         do {
             let results = try managedObjectContext.fetch(fetchRequest)
@@ -67,8 +67,8 @@ class CoreDataManager {
         }
     }
     
-    func checkFavoriteItem(with feedItem: Feed?) -> SavedMessages? {
-        let fetchRequest = NSFetchRequest<SavedMessages>(entityName: "SavedMessages")
+    func checkFavoriteItem(with feedItem: FeedMessage?) -> FavoriteMessage? {
+        let fetchRequest = NSFetchRequest<FavoriteMessage>(entityName: "FavoriteMessage")
         fetchRequest.predicate = NSPredicate(format: "title = %@ && desc = %@", feedItem?.title ?? "", feedItem?.desc ?? "")
         do {
             let results = try managedObjectContext.fetch(fetchRequest)
@@ -78,8 +78,8 @@ class CoreDataManager {
         }
     }
     
-    func searchForFavorites(with filter: String? = nil) -> [SavedMessages] {
-        let fetchRequest = NSFetchRequest<SavedMessages>(entityName: "SavedMessages")
+    func searchForFavorites(with filter: String? = nil) -> [FavoriteMessage] {
+        let fetchRequest = NSFetchRequest<FavoriteMessage>(entityName: "FavoriteMessage")
         
         if let searchFilter = filter {
             fetchRequest.predicate = NSPredicate(format: "title CONTAINS[cd] %@ OR desc CONTAINS[cd] %@", searchFilter, searchFilter)
@@ -96,7 +96,7 @@ class CoreDataManager {
     }
     
     func clearFavorites() throws {
-        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "SavedMessages")
+        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteMessage")
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
         try managedObjectContext.execute(deleteRequest)
     }

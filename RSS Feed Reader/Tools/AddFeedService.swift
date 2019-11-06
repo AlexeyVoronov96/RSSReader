@@ -11,5 +11,5 @@ import Foundation
 class AddFeedService {
     static let shared = AddFeedService()
     
-    var feed: FeedsList?
+    var feed: Feed?
 }

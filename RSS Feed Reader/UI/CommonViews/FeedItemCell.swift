@@ -10,11 +10,6 @@ import UIKit
 import Kingfisher
 
 class FeedItemCell: UICollectionViewCell {
-    enum LayoutState {
-        case highlighted
-        case normal
-    }
-    
     static let cellId = "FeedItemCell"
     
     @IBOutlet var titleLabel: UILabel!
@@ -22,7 +17,7 @@ class FeedItemCell: UICollectionViewCell {
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var newsImageView: UIImageView!
     
-    var feedItem: Feed? {
+    var feedItem: FeedMessage? {
         didSet {
             titleLabel.text = feedItem?.title
             descriptionLabel.text = feedItem?.desc
@@ -36,7 +31,7 @@ class FeedItemCell: UICollectionViewCell {
         }
     }
     
-    var favoriteItem: SavedMessages? {
+    var favoriteItem: FavoriteMessage? {
         didSet {
             titleLabel.text = favoriteItem?.title
             descriptionLabel.text = favoriteItem?.desc

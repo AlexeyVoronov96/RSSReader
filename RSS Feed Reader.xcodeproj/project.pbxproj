@@ -24,12 +24,12 @@
 		AB9303EC236D5B5700A9A49E /* FeedItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB9303EB236D5B5700A9A49E /* FeedItemCell.xib */; };
 		AB95780E215F97C900E3E1E6 /* FeedsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB95780D215F97C900E3E1E6 /* FeedsListViewController.swift */; };
 		AB9780E921864CC000F59270 /* AppData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AB9780E721864CC000F59270 /* AppData.xcdatamodeld */; };
-		AB9780F021864DBB00F59270 /* Feed+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9780EA21864DBB00F59270 /* Feed+CoreDataClass.swift */; };
-		AB9780F121864DBB00F59270 /* Feed+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9780EB21864DBB00F59270 /* Feed+CoreDataProperties.swift */; };
-		AB9780F221864DBB00F59270 /* FeedsList+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9780EC21864DBB00F59270 /* FeedsList+CoreDataClass.swift */; };
-		AB9780F321864DBB00F59270 /* FeedsList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9780ED21864DBB00F59270 /* FeedsList+CoreDataProperties.swift */; };
-		AB9780F821864E4700F59270 /* SavedMessages+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9780F621864E4700F59270 /* SavedMessages+CoreDataClass.swift */; };
-		AB9780F921864E4700F59270 /* SavedMessages+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9780F721864E4700F59270 /* SavedMessages+CoreDataProperties.swift */; };
+		AB9780F021864DBB00F59270 /* FeedMessage+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9780EA21864DBB00F59270 /* FeedMessage+CoreDataClass.swift */; };
+		AB9780F121864DBB00F59270 /* FeedMessage+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9780EB21864DBB00F59270 /* FeedMessage+CoreDataProperties.swift */; };
+		AB9780F221864DBB00F59270 /* Feed+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9780EC21864DBB00F59270 /* Feed+CoreDataClass.swift */; };
+		AB9780F321864DBB00F59270 /* Feed+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9780ED21864DBB00F59270 /* Feed+CoreDataProperties.swift */; };
+		AB9780F821864E4700F59270 /* FavoriteMessage+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9780F621864E4700F59270 /* FavoriteMessage+CoreDataClass.swift */; };
+		AB9780F921864E4700F59270 /* FavoriteMessage+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9780F721864E4700F59270 /* FavoriteMessage+CoreDataProperties.swift */; };
 		ABA380F2236CD0F4003B75B7 /* FeedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA380F1236CD0F4003B75B7 /* FeedService.swift */; };
 		ABE38A0A2181156400DC5C34 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE38A092181156400DC5C34 /* CoreDataManager.swift */; };
 		ABF34900215F45AC00FFF76B /* DataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF348FF215F45AC00FFF76B /* DataFetcher.swift */; };
@@ -76,12 +76,12 @@
 		AB9303EB236D5B5700A9A49E /* FeedItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedItemCell.xib; sourceTree = "<group>"; };
 		AB95780D215F97C900E3E1E6 /* FeedsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedsListViewController.swift; sourceTree = "<group>"; };
 		AB9780E821864CC000F59270 /* AppData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppData.xcdatamodel; sourceTree = "<group>"; };
-		AB9780EA21864DBB00F59270 /* Feed+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Feed+CoreDataClass.swift"; sourceTree = "<group>"; };
-		AB9780EB21864DBB00F59270 /* Feed+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Feed+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		AB9780EC21864DBB00F59270 /* FeedsList+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedsList+CoreDataClass.swift"; sourceTree = "<group>"; };
-		AB9780ED21864DBB00F59270 /* FeedsList+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedsList+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		AB9780F621864E4700F59270 /* SavedMessages+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SavedMessages+CoreDataClass.swift"; sourceTree = "<group>"; };
-		AB9780F721864E4700F59270 /* SavedMessages+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SavedMessages+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AB9780EA21864DBB00F59270 /* FeedMessage+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedMessage+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AB9780EB21864DBB00F59270 /* FeedMessage+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedMessage+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AB9780EC21864DBB00F59270 /* Feed+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Feed+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AB9780ED21864DBB00F59270 /* Feed+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Feed+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AB9780F621864E4700F59270 /* FavoriteMessage+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteMessage+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AB9780F721864E4700F59270 /* FavoriteMessage+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteMessage+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		ABA380F1236CD0F4003B75B7 /* FeedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedService.swift; sourceTree = "<group>"; };
 		ABE38A002181143F00DC5C34 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		ABE38A092181156400DC5C34 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -151,7 +151,7 @@
 		AB6E696B236D5D2B006AAEE6 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				AB6E696C236D5D35006AAEE6 /* CoomonViews */,
+				AB6E696C236D5D35006AAEE6 /* CommonViews */,
 				AB6E696D236D5D4A006AAEE6 /* FeedsListScreen */,
 				AB6E6970236D5D88006AAEE6 /* AddFeedScreen */,
 				AB6E696E236D5D74006AAEE6 /* FeedScreen */,
@@ -160,13 +160,13 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
-		AB6E696C236D5D35006AAEE6 /* CoomonViews */ = {
+		AB6E696C236D5D35006AAEE6 /* CommonViews */ = {
 			isa = PBXGroup;
 			children = (
 				ABF34908215F71B200FFF76B /* FeedItemCell.swift */,
 				AB9303EB236D5B5700A9A49E /* FeedItemCell.xib */,
 			);
-			path = CoomonViews;
+			path = CommonViews;
 			sourceTree = "<group>";
 		};
 		AB6E696D236D5D4A006AAEE6 /* FeedsListScreen */ = {
@@ -207,12 +207,12 @@
 			children = (
 				AB9780E721864CC000F59270 /* AppData.xcdatamodeld */,
 				ABE38A092181156400DC5C34 /* CoreDataManager.swift */,
-				AB9780EC21864DBB00F59270 /* FeedsList+CoreDataClass.swift */,
-				AB9780ED21864DBB00F59270 /* FeedsList+CoreDataProperties.swift */,
-				AB9780EA21864DBB00F59270 /* Feed+CoreDataClass.swift */,
-				AB9780EB21864DBB00F59270 /* Feed+CoreDataProperties.swift */,
-				AB9780F621864E4700F59270 /* SavedMessages+CoreDataClass.swift */,
-				AB9780F721864E4700F59270 /* SavedMessages+CoreDataProperties.swift */,
+				AB9780EC21864DBB00F59270 /* Feed+CoreDataClass.swift */,
+				AB9780ED21864DBB00F59270 /* Feed+CoreDataProperties.swift */,
+				AB9780EA21864DBB00F59270 /* FeedMessage+CoreDataClass.swift */,
+				AB9780EB21864DBB00F59270 /* FeedMessage+CoreDataProperties.swift */,
+				AB9780F621864E4700F59270 /* FavoriteMessage+CoreDataClass.swift */,
+				AB9780F721864E4700F59270 /* FavoriteMessage+CoreDataProperties.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -377,7 +377,7 @@
 				AB3B73B1236D6B56002DD9B9 /* Date+Extension.swift in Sources */,
 				ABF34900215F45AC00FFF76B /* DataFetcher.swift in Sources */,
 				ABE38A0A2181156400DC5C34 /* CoreDataManager.swift in Sources */,
-				AB9780F921864E4700F59270 /* SavedMessages+CoreDataProperties.swift in Sources */,
+				AB9780F921864E4700F59270 /* FavoriteMessage+CoreDataProperties.swift in Sources */,
 				AB1ACE13215384130070E578 /* FeedCell.swift in Sources */,
 				AB53363C2183D2DB00247ED2 /* FavoritesViewController.swift in Sources */,
 				AB9303EA236D54D600A9A49E /* UIViewController+Extension.swift in Sources */,
@@ -385,16 +385,16 @@
 				AB3B73AF236D6B41002DD9B9 /* Data+Extension.swift in Sources */,
 				AB95780E215F97C900E3E1E6 /* FeedsListViewController.swift in Sources */,
 				AB1C470C23701B26008A94E5 /* AddFeedService.swift in Sources */,
-				AB9780F221864DBB00F59270 /* FeedsList+CoreDataClass.swift in Sources */,
-				AB9780F121864DBB00F59270 /* Feed+CoreDataProperties.swift in Sources */,
-				AB9780F821864E4700F59270 /* SavedMessages+CoreDataClass.swift in Sources */,
+				AB9780F221864DBB00F59270 /* Feed+CoreDataClass.swift in Sources */,
+				AB9780F121864DBB00F59270 /* FeedMessage+CoreDataProperties.swift in Sources */,
+				AB9780F821864E4700F59270 /* FavoriteMessage+CoreDataClass.swift in Sources */,
 				AB42C9A92151A67300C3C367 /* AppDelegate.swift in Sources */,
 				AB0C3660236CAF060074F563 /* AddFeedViewController.swift in Sources */,
-				AB9780F021864DBB00F59270 /* Feed+CoreDataClass.swift in Sources */,
+				AB9780F021864DBB00F59270 /* FeedMessage+CoreDataClass.swift in Sources */,
 				ABF34909215F71B200FFF76B /* FeedItemCell.swift in Sources */,
 				ABF34907215F70DC00FFF76B /* FeedViewController.swift in Sources */,
 				ABA380F2236CD0F4003B75B7 /* FeedService.swift in Sources */,
-				AB9780F321864DBB00F59270 /* FeedsList+CoreDataProperties.swift in Sources */,
+				AB9780F321864DBB00F59270 /* Feed+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

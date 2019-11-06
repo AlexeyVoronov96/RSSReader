@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15508" systemVersion="19B86a" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Feed" representedClassName="Feed" syncable="YES">
-        <attribute name="desc" optional="YES" attributeType="String"/>
-        <attribute name="image" optional="YES" attributeType="String"/>
-        <attribute name="link" optional="YES" attributeType="String"/>
-        <attribute name="pubDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="title" optional="YES" attributeType="String"/>
-        <relationship name="feedsList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FeedsList" inverseName="feed" inverseEntity="FeedsList"/>
-    </entity>
-    <entity name="FeedsList" representedClassName="FeedsList" syncable="YES">
-        <attribute name="link" optional="YES" attributeType="String"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="feed" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Feed" inverseName="feedsList" inverseEntity="Feed"/>
-    </entity>
-    <entity name="SavedMessages" representedClassName="SavedMessages" syncable="YES">
+    <entity name="FavoriteMessage" representedClassName="FavoriteMessage" syncable="YES">
         <attribute name="desc" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="String"/>
         <attribute name="link" optional="YES" attributeType="String"/>
@@ -21,9 +8,22 @@
         <attribute name="savedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="Feed" representedClassName="Feed" syncable="YES">
+        <attribute name="link" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="message" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FeedMessage" inverseName="feed" inverseEntity="FeedMessage"/>
+    </entity>
+    <entity name="FeedMessage" representedClassName="FeedMessage" syncable="YES">
+        <attribute name="desc" optional="YES" attributeType="String"/>
+        <attribute name="image" optional="YES" attributeType="String"/>
+        <attribute name="link" optional="YES" attributeType="String"/>
+        <attribute name="pubDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="feed" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Feed" inverseName="message" inverseEntity="Feed"/>
+    </entity>
     <elements>
-        <element name="Feed" positionX="-54" positionY="9" width="128" height="133"/>
-        <element name="FeedsList" positionX="-63" positionY="-18" width="128" height="88"/>
-        <element name="SavedMessages" positionX="-36" positionY="27" width="128" height="133"/>
+        <element name="FeedMessage" positionX="160" positionY="192" width="128" height="133"/>
+        <element name="Feed" positionX="-54" positionY="9" width="128" height="88"/>
+        <element name="FavoriteMessage" positionX="160" positionY="192" width="128" height="133"/>
     </elements>
 </model>

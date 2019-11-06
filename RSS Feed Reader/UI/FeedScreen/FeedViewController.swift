@@ -15,13 +15,15 @@ class FeedViewController: UIViewController {
     private let dataFetcher = DataFetcher()
     private let feedService = FeedService.shared
     
-    var feed: FeedsList?
-    var refreshControl: UIRefreshControl!
-    let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+    var feed: Feed?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupScreen()
+    }
+    
+    private func setupScreen() {
         feed = feedService.selectedFeed
         fetchData()
         
@@ -31,7 +33,7 @@ class FeedViewController: UIViewController {
                                 forCellWithReuseIdentifier: "FeedItemCell")
     }
     
-    func fetchData() {
+    private func fetchData() {
         guard let url = feed?.link else {
             return
         }
@@ -66,43 +68,46 @@ extension FeedViewController: UICollectionViewDelegate {
             let url = URL(string: link) else {
                 return
         }
-        let svc = SFSafariViewController(url: url)
-        present(svc, animated: true, completion: nil)
+        let safariViewController = SFSafariViewController(url: url)
+        safariViewController.preferredControlTintColor = #colorLiteral(red: 0.9254901961, green: 0.1882352941, blue: 0.3882352941, alpha: 1)
+        present(safariViewController, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         guard let cell = collectionView.cellForItem(at: indexPath) as? FeedItemCell else {
             return nil
         }
-        let searchedItem = CoreDataManager.shared.checkFavoriteItem(with: cell.feedItem)
-        let title = searchedItem == nil ? "Add to favorites" : "Remove from favorites"
-        let image = searchedItem == nil ? UIImage(systemName: "heart") : UIImage(systemName: "heart.slash.fill")
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
-            let favoritesAction = UIAction(title: title, image: image) { (_) in
-                if let favoriteItem = searchedItem {
+            var actions: [UIAction] = []
+            if let favoriteItem = CoreDataManager.shared.checkFavoriteItem(with: cell.feedItem) {
+                actions.append(UIAction(title: "Remove from favorites", image: UIImage(systemName: "heart.slash.fill"), attributes: .destructive) { (_) in
                     CoreDataManager.shared.managedObjectContext.delete(favoriteItem)
-                } else {
-                    SavedMessages.newMessage(from: cell.feedItem)
-                }
-                CoreDataManager.shared.saveContext()
+                    CoreDataManager.shared.saveContext()
+                })
+            } else {
+                actions.append(UIAction(title: "Add to favorites", image: UIImage(systemName: "heart")) { (_) in
+                    FavoriteMessage.newMessage(from: cell.feedItem)
+                    CoreDataManager.shared.saveContext()
+                })
             }
             
-            let safariAction = UIAction(title: "Open in safari".localize(), image: UIImage(systemName: "safari")) { (_) in
-                guard let url = URL(string: cell.feedItem?.link ?? ""),
-                    UIApplication.shared.canOpenURL(url) else { return }
-                UIApplication.shared.open(url)
+            if let url = URL(string: cell.feedItem?.link ?? ""),
+                UIApplication.shared.canOpenURL(url) {
+                actions.append(UIAction(title: "Open in safari".localize(), image: UIImage(systemName: "safari")) { (_) in
+                    UIApplication.shared.open(url)
+                })
             }
             
-            let shareAction = UIAction(title: "Share".localize(), image: UIImage(systemName: "square.and.arrow.up")) { [weak self] (_) in
+            actions.append(UIAction(title: "Share".localize(), image: UIImage(systemName: "square.and.arrow.up")) { [weak self] (_) in
                 var activityItems: [Any] = [cell.feedItem?.title ?? "", cell.feedItem?.desc ?? ""]
                 if let image = cell.image {
                     activityItems.append(image)
                 }
                 let activityController = UIActivityViewController(activityItems: activityItems, applicationActivities: [])
                 self?.present(activityController, animated: true, completion: nil)
-            }
+            })
             
-            return UIMenu(title: cell.feedItem?.title ?? "", image: nil, children: [favoritesAction, safariAction, shareAction])
+            return UIMenu(title: cell.feedItem?.title ?? "", children: actions)
         }
         return configuration
     }

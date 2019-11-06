@@ -1,5 +1,5 @@
 //
-//  SavedMessages+CoreDataProperties.swift
+//  FavoriteMessage+CoreDataProperties.swift
 //  RSS Feed Reader
 //
 //  Created by Алексей Воронов on 29/10/2018.
@@ -9,10 +9,9 @@
 
 import CoreData
 
-extension SavedMessages {
-
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<SavedMessages> {
-        return NSFetchRequest<SavedMessages>(entityName: "SavedMessages")
+extension FavoriteMessage {
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<FavoriteMessage> {
+        return NSFetchRequest<FavoriteMessage>(entityName: "FavoriteMessage")
     }
 
     @NSManaged public var title: String?
@@ -21,5 +20,4 @@ extension SavedMessages {
     @NSManaged public var desc: String?
     @NSManaged public var image: String?
     @NSManaged public var savedDate: Date?
-
 }

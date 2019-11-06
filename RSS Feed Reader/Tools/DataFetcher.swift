@@ -9,8 +9,8 @@
 import Foundation
 
 class DataFetcher: NSObject, XMLParserDelegate {
-    var feed: FeedsList?
-    var message: Feed?
+    var feed: Feed?
+    var message: FeedMessage?
     var imgs: [String] = []
     var url: String = ""
     private var currentElement = ""
@@ -93,12 +93,12 @@ class DataFetcher: NSObject, XMLParserDelegate {
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" || elementName == "enclosure",
             !CoreDataManager.shared.checkItem(with: currentTitle, description: currentDescription)  {
-            Feed.addFeed(title: currentTitle,
+            FeedMessage.addFeed(title: currentTitle,
                          desc: currentDescription,
                          pubDate: currentPubDate.stringToDate(),
                          link: currentLink,
                          image: currentImageLink,
-                         inFeed: feed)
+                         feed: feed)
             CoreDataManager.shared.saveContext()
         }
     }

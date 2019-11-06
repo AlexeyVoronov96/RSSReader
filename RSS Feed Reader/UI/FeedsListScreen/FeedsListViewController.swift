@@ -48,7 +48,7 @@ extension FeedsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         guard let cell = tableView.cellForRow(at: indexPath) as? FeedCell,
             let feed = cell.feed else {
-            return nil
+                return .none
         }
         
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
@@ -58,7 +58,7 @@ extension FeedsListViewController: UITableViewDelegate {
                 self?.performSegue(withIdentifier: "OpenFeedEditor", sender: self)
             })
             
-            actions.append(UIAction(title: "Remove".localize(), image: UIImage(systemName: "trash.fill")) { (_) in
+            actions.append(UIAction(title: "Remove".localize(), image: UIImage(systemName: "trash.fill"), attributes: .destructive) { (_) in
                 CoreDataManager.shared.managedObjectContext.delete(feed)
                 CoreDataManager.shared.saveContext()
             })

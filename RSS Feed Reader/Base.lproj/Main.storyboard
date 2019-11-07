@@ -166,7 +166,7 @@
         <!--Add Feed View Controller-->
         <scene sceneID="Apd-DX-6a2">
             <objects>
-                <viewController id="688-Jp-HpJ" customClass="AddFeedViewController" customModule="RSS_Feed_Reader" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddFeedViewController" id="688-Jp-HpJ" customClass="AddFeedViewController" customModule="RSS_Feed_Reader" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ptE-BP-KO2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -59,7 +59,9 @@ class AddFeedViewController: UIViewController {
     
     @IBAction private func acceptButtonAction(_ sender: UIButton) {
         guard let name = feedNameTextField.text,
-            let link = feedLinkTextField.text else {
+            let link = feedLinkTextField.text,
+            !name.isEmpty,
+            !link.isEmpty else {
                 showError(with: "All fields should be filled")
                 return
         }

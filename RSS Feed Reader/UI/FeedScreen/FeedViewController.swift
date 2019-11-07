@@ -80,12 +80,12 @@ extension FeedViewController: UICollectionViewDelegate {
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
             var actions: [UIAction] = []
             if let favoriteItem = CoreDataManager.shared.checkFavoriteItem(with: cell.feedItem) {
-                actions.append(UIAction(title: "Remove from favorites", image: UIImage(systemName: "heart.slash.fill"), attributes: .destructive) { (_) in
+                actions.append(UIAction(title: "Remove from favorites".localize(), image: UIImage(systemName: "heart.slash.fill"), attributes: .destructive) { (_) in
                     CoreDataManager.shared.managedObjectContext.delete(favoriteItem)
                     CoreDataManager.shared.saveContext()
                 })
             } else {
-                actions.append(UIAction(title: "Add to favorites", image: UIImage(systemName: "heart")) { (_) in
+                actions.append(UIAction(title: "Add to favorites".localize(), image: UIImage(systemName: "heart")) { (_) in
                     FavoriteMessage.newMessage(from: cell.feedItem)
                     CoreDataManager.shared.saveContext()
                 })
@@ -93,7 +93,7 @@ extension FeedViewController: UICollectionViewDelegate {
             
             if let url = URL(string: cell.feedItem?.link ?? ""),
                 UIApplication.shared.canOpenURL(url) {
-                actions.append(UIAction(title: "Open in safari".localize(), image: UIImage(systemName: "safari")) { (_) in
+                actions.append(UIAction(title: "Open in Safari".localize(), image: UIImage(systemName: "safari")) { (_) in
                     UIApplication.shared.open(url)
                 })
             }

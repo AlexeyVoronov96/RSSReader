@@ -6,26 +6,20 @@
   Copyright © 2018 Алексей Воронов. All rights reserved.
 */
 
-"Add new channel" = "Добавить канал";
-"Channel name" = "Название канала";
-"Channel link" = "Ссылка на канал";
-"Add" = "Добавить";
+"Add feed" = "Добавить канал";
+"Update feed" = "Изменить канал";
 "Cancel" = "Отмена";
-"Change channel" = "Изменить канал";
-"Change" = "Изменить";
-"Add to favourites" = "Добавить в избранное";
+"Add to favorites" = "Добавить в избранное";
 "Open in Safari" = "Открыть в Safari";
-"Save message to Photos" = "Сохранить новость в Фото";
-"Save image" = "Сохранить изображение";
-"Copy" = "Скопировать";
 "Share" = "Поделиться";
-"Invalide URL" = "Неверный URL";
-"Delete" = "Удалить";
-"Feed list" = "Лента новостей";
-"Unnamed channel" = "Безымянный канал";
-"Connection error" = "Подключение отсутствует";
-"Unable to download data, check your internet connection or the correct URL entered" = "Невозможно загрузить данные, проверьте подключение к интернету или правильность введенного  URL";
-"Remove from favourites" = "Удалить из избранного";
-"Clear favourites" = "Очистить избранное";
-"Channel already exists" = "Канал уже существует";
-"URL field is empty" = "Введите ссылку";
+"All fields should be filled" = "Необходимо заполнить все поля";
+"Invalid URL" = "Неверный URL";
+"Feeds" = "Каналы";
+"Update" = "Изменить";
+"Remove" = "Удалить";
+"Remove from favorites" = "Удалить из избранного";
+"Favorites" = "Избранное";
+"Are you sure?" = "Вы уверены?";
+"This will remove all favorite items" = "Это действие удалит все избранные сообщения";
+"Search" = "Поиск";
+

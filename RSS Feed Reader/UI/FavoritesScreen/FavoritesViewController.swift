@@ -46,13 +46,13 @@ class FavoritesViewController: UIViewController {
             return
         }
         
-        let alertController = UIAlertController(title: "Are you sure?", message: "This will remove all favorite items", preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: "Are you sure?".localize(), message: "This will remove all favorite items".localize(), preferredStyle: .actionSheet)
         
-        alertController.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { [weak self] (_) in
+        alertController.addAction(UIAlertAction(title: "Remove".localize(), style: .destructive, handler: { [weak self] (_) in
             self?.removeAllFavorites()
         }))
         
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Cancel".localize(), style: .cancel, handler: nil))
         
         present(alertController, animated: true, completion: nil)
     }
@@ -106,7 +106,7 @@ extension FavoritesViewController: UICollectionViewDelegate {
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
             var actions: [UIAction] = []
             if let favoriteItem = cell.favoriteItem {
-                actions.append(UIAction(title: "Remove from favorites", image: UIImage(systemName: "heart.slash.fill"), attributes: .destructive) { [weak self] (_) in
+                actions.append(UIAction(title: "Remove from favorites".localize(), image: UIImage(systemName: "heart.slash.fill"), attributes: .destructive) { [weak self] (_) in
                     CoreDataManager.shared.managedObjectContext.delete(favoriteItem)
                     CoreDataManager.shared.saveContext()
                     self?.collectionView.deleteItems(at: [indexPath])
@@ -115,7 +115,7 @@ extension FavoritesViewController: UICollectionViewDelegate {
             
             if let url = URL(string: cell.favoriteItem?.link ?? ""),
             UIApplication.shared.canOpenURL(url) {
-                actions.append(UIAction(title: "Open in safari".localize(), image: UIImage(systemName: "safari")) { (_) in
+                actions.append(UIAction(title: "Open in Safari".localize(), image: UIImage(systemName: "safari")) { (_) in
                     UIApplication.shared.open(url)
                 })
             }

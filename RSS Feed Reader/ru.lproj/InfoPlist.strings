@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  RSS Feed Reader
+
+  Created by Алексей Воронов on 07.11.2019.
+  Copyright © 2019 Алексей Воронов. All rights reserved.
+*/
+
+"Add feed" = "Добавить канал";

@@ -27,7 +27,7 @@
             </objects>
             <point key="canvasLocation" x="-1788" y="408"/>
         </scene>
-        <!--Favorites-->
+        <!--Избранное-->
         <scene sceneID="5qE-Bb-Znb">
             <objects>
                 <viewController id="Wz6-6f-Yk4" customClass="FavoritesViewController" customModule="RSS_Feed_Reader" customModuleProvider="target" sceneMemberID="viewController">
@@ -60,7 +60,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hUR-kq-TN3"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Favorites" id="9uY-f2-cx7">
+                    <navigationItem key="navigationItem" title="Избранное" id="9uY-f2-cx7">
                         <barButtonItem key="rightBarButtonItem" title="Item" image="trash.fill" catalog="system" id="qey-cm-jo4">
                             <color key="tintColor" red="0.92549019607843142" green="0.18823529411764706" blue="0.38823529411764707" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
@@ -76,7 +76,7 @@
             </objects>
             <point key="canvasLocation" x="315.94202898550725" y="854.46428571428567"/>
         </scene>
-        <!--Feeds-->
+        <!--Каналы-->
         <scene sceneID="7b1-Dg-Loe">
             <objects>
                 <viewController id="uLj-G6-cGq" customClass="FeedsListViewController" customModule="RSS_Feed_Reader" customModuleProvider="target" sceneMemberID="viewController">
@@ -146,7 +146,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="a7d-9h-5SP"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Feeds" id="QrF-aO-y4S">
+                    <navigationItem key="navigationItem" title="Каналы" id="QrF-aO-y4S">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="A9P-1u-gre">
                             <color key="tintColor" red="0.92549019610000005" green="0.18823529410000001" blue="0.38823529410000002" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
@@ -177,7 +177,7 @@
                                 <color key="textColor" name="Black"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Feed name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="EZR-tV-vCW">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Название канала" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="EZR-tV-vCW">
                                 <rect key="frame" x="32" y="81.666666666666671" width="366" height="40"/>
                                 <color key="tintColor" red="0.92549019607843142" green="0.18823529411764706" blue="0.38823529411764707" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -229,7 +229,7 @@
                                             <constraint firstAttribute="height" constant="50" id="2K1-gc-2fH"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="Cancel">
+                                        <state key="normal" title="Отмена">
                                             <color key="titleColor" red="0.92549019610000005" green="0.18823529410000001" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
@@ -312,11 +312,11 @@
             </objects>
             <point key="canvasLocation" x="2428" y="854"/>
         </scene>
-        <!--Feeds-->
+        <!--Ленты-->
         <scene sceneID="VKH-Yp-a7o">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2sG-Mg-FVW" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Feeds" image="list.dash" catalog="system" selectedImage="list.dash" id="cud-fM-7Qu">
+                    <tabBarItem key="tabBarItem" title="Ленты" image="list.dash" catalog="system" selectedImage="list.dash" id="cud-fM-7Qu">
                         <color key="badgeColor" red="0.92549019610000005" green="0.18823529410000001" blue="0.38823529410000002" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -351,11 +351,11 @@
             </objects>
             <point key="canvasLocation" x="1516" y="854"/>
         </scene>
-        <!--Favorite-->
+        <!--Избранное-->
         <scene sceneID="PPN-rZ-mAR">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="m8l-gF-f4O" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Favorite" image="heart" catalog="system" selectedImage="heart" id="GTz-xC-NIM">
+                    <tabBarItem key="tabBarItem" title="Избранное" image="heart" catalog="system" selectedImage="heart" id="GTz-xC-NIM">
                         <color key="badgeColor" red="0.92549019610000005" green="0.18823529410000001" blue="0.38823529410000002" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBarItem>
                     <toolbarItems/>

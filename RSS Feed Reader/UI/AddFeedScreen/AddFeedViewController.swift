@@ -62,12 +62,12 @@ class AddFeedViewController: UIViewController {
             let link = feedLinkTextField.text,
             !name.isEmpty,
             !link.isEmpty else {
-                showError(with: "All fields should be filled")
+                showError(with: "All fields should be filled".localize())
                 return
         }
         
         guard link.isValidURL else {
-            showError(with: "Invalid url")
+            showError(with: "Invalid URL".localize())
             return
         }
         

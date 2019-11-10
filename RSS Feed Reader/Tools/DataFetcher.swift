@@ -8,32 +8,36 @@
 
 import Foundation
 
-class DataFetcher: NSObject, XMLParserDelegate {
+class DataFetcher: NSObject {
     var feed: Feed?
-    var message: FeedMessage?
-    var imgs: [String] = []
     var url: String = ""
+    
     private var currentElement = ""
+    
     private var currentTitle: String = "" {
         didSet {
             currentTitle = currentTitle.trimmingCharacters(in: .whitespacesAndNewlines)
         }
     }
+    
     private var currentDescription: String = "" {
         didSet {
             currentDescription = currentDescription.trimmingCharacters(in: .whitespacesAndNewlines)
         }
     }
+    
     private var currentPubDate: String = "" {
         didSet {
             currentPubDate = currentPubDate.trimmingCharacters(in: .whitespacesAndNewlines)
         }
     }
+    
     private var currentLink: String = "" {
         didSet {
             currentLink = currentLink.trimmingCharacters(in: .whitespacesAndNewlines)
         }
     }
+    
     private var currentImageLink: String = "" {
         didSet {
             currentImageLink = currentImageLink.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -64,6 +68,10 @@ class DataFetcher: NSObject, XMLParserDelegate {
         task.resume()
     }
     
+    
+}
+
+extension DataFetcher: XMLParserDelegate {
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         currentElement = elementName
         if currentElement == "item" {
@@ -72,6 +80,7 @@ class DataFetcher: NSObject, XMLParserDelegate {
             currentPubDate = ""
             currentLink = ""
         }
+        
         if currentElement == "enclosure" {
             if let urlString = attributeDict["url"] {
                 currentImageLink = urlString

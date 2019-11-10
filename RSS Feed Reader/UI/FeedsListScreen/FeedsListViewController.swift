@@ -26,7 +26,7 @@ class FeedsListViewController: UIViewController {
         do {
             try CoreDataManager.shared.feedsListFetchedResultsController.performFetch()
         } catch {
-            print(error)
+            showError(with: error.localizedDescription)
         }
     }
 }
@@ -99,28 +99,18 @@ extension FeedsListViewController: NSFetchedResultsControllerDelegate {
             if let indexPath = newIndexPath {
                 tableView.insertRows(at: [indexPath], with: .fade)
             }
-            break
             
         case .delete:
             if let indexPath = indexPath {
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
-            break
             
         case .update:
             if let indexPath = indexPath {
                 tableView.reloadRows(at: [indexPath], with: .fade)
             }
-            break
             
-        case .move:
-            if let indexPath = indexPath {
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            }
-            
-            if let newIndexPath = newIndexPath {
-                tableView.insertRows(at: [newIndexPath], with: .fade)
-            }
+        default:
             break
         }
     }

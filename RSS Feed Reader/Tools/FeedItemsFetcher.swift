@@ -1,5 +1,5 @@
 //
-//  DataFetcher.swift
+//  FeedItemsFetcher.swift
 //  RSS Feed Reader
 //
 //  Created by Алексей Воронов on 29/09/2018.
@@ -8,9 +8,17 @@
 
 import Foundation
 
-class DataFetcher: NSObject {
+class FeedItemsFetcher: NSObject {
+    enum Errors: LocalizedError {
+        case internalInconsistency
+        
+        var errorDescription: String? {
+            return "Something goes wrong...".localize()
+        }
+    }
+    private let networkWorker = NetworkWorker()
+    
     var feed: Feed?
-    var url: String = ""
     
     private var currentElement = ""
     
@@ -46,32 +54,28 @@ class DataFetcher: NSObject {
     
     private var parserCompletionHandler: ((Error?) -> Void)?
     
-    func getFeed(with url: String, completion: ((Error?) -> Void)?) {
-        self.parserCompletionHandler = completion
-        let request = URLRequest(url: URL(string: url)!)
-        let urlSession = URLSession.shared
-        let task = urlSession.dataTask(with: request){ [weak self] (data, response, error) in
+    func getFeed(with urlString: String, completion: @escaping ((Error?) -> Void)) {
+        networkWorker.getData(with: URL(string: urlString)) { [weak self] (result) in
             guard let self = self else {
+                completion(Errors.internalInconsistency)
                 return
             }
-            if let error = error {
-                self.parserCompletionHandler?(error)
-                return
+            
+            switch result {
+            case let .success(data):
+                self.parserCompletionHandler = completion
+                let parser = XMLParser(data: data)
+                parser.delegate = self
+                parser.parse()
+                
+            case let .failure(error):
+                completion(error)
             }
-            guard let data = data else {
-                return
-            }
-            let parser = XMLParser(data: data)
-            parser.delegate = self
-            parser.parse()
         }
-        task.resume()
     }
-    
-    
 }
 
-extension DataFetcher: XMLParserDelegate {
+extension FeedItemsFetcher: XMLParserDelegate {
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         currentElement = elementName
         if currentElement == "item" {

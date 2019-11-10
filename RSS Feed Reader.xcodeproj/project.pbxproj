@@ -17,6 +17,7 @@
 		AB42C9AE2151A67300C3C367 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB42C9AC2151A67300C3C367 /* Main.storyboard */; };
 		AB42C9B02151A67400C3C367 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB42C9AF2151A67400C3C367 /* Assets.xcassets */; };
 		AB42C9B32151A67400C3C367 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB42C9B12151A67400C3C367 /* LaunchScreen.storyboard */; };
+		AB504F922378413500E02D75 /* NetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB504F912378413500E02D75 /* NetworkWorker.swift */; };
 		AB524469215BF0880024A5BD /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB524468215BF0880024A5BD /* String+Extension.swift */; };
 		AB5336372183BEE400247ED2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB5336392183BEE400247ED2 /* Localizable.strings */; };
 		AB53363C2183D2DB00247ED2 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB53363B2183D2DB00247ED2 /* FavoritesViewController.swift */; };
@@ -32,7 +33,7 @@
 		AB9780F921864E4700F59270 /* FavoriteMessage+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9780F721864E4700F59270 /* FavoriteMessage+CoreDataProperties.swift */; };
 		ABA380F2236CD0F4003B75B7 /* FeedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA380F1236CD0F4003B75B7 /* FeedService.swift */; };
 		ABE38A0A2181156400DC5C34 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE38A092181156400DC5C34 /* CoreDataManager.swift */; };
-		ABF34900215F45AC00FFF76B /* DataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF348FF215F45AC00FFF76B /* DataFetcher.swift */; };
+		ABF34900215F45AC00FFF76B /* FeedItemsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF348FF215F45AC00FFF76B /* FeedItemsFetcher.swift */; };
 		ABF34907215F70DC00FFF76B /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF34906215F70DC00FFF76B /* FeedViewController.swift */; };
 		ABF34909215F71B200FFF76B /* FeedItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF34908215F71B200FFF76B /* FeedItemCell.swift */; };
 		ABF5878C23747E8B00179A36 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ABF5878E23747E8B00179A36 /* InfoPlist.strings */; };
@@ -67,6 +68,7 @@
 		AB42C9AF2151A67400C3C367 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB42C9B22151A67400C3C367 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AB42C9B42151A67400C3C367 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB504F912378413500E02D75 /* NetworkWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkWorker.swift; sourceTree = "<group>"; };
 		AB524468215BF0880024A5BD /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		AB5336342183BCFE00247ED2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		AB5336382183BEE400247ED2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -84,7 +86,7 @@
 		ABA380F1236CD0F4003B75B7 /* FeedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedService.swift; sourceTree = "<group>"; };
 		ABE38A002181143F00DC5C34 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		ABE38A092181156400DC5C34 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		ABF348FF215F45AC00FFF76B /* DataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFetcher.swift; sourceTree = "<group>"; };
+		ABF348FF215F45AC00FFF76B /* FeedItemsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemsFetcher.swift; sourceTree = "<group>"; };
 		ABF34906215F70DC00FFF76B /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		ABF34908215F71B200FFF76B /* FeedItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemCell.swift; sourceTree = "<group>"; };
 		ABF5878923747CF500179A36 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ru; path = ru.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -223,9 +225,10 @@
 			isa = PBXGroup;
 			children = (
 				AB3B73B2236D6B7A002DD9B9 /* Extensions */,
-				ABF348FF215F45AC00FFF76B /* DataFetcher.swift */,
+				ABF348FF215F45AC00FFF76B /* FeedItemsFetcher.swift */,
 				ABA380F1236CD0F4003B75B7 /* FeedService.swift */,
 				AB1C470B23701B26008A94E5 /* AddFeedService.swift */,
+				AB504F912378413500E02D75 /* NetworkWorker.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -378,7 +381,7 @@
 			files = (
 				AB524469215BF0880024A5BD /* String+Extension.swift in Sources */,
 				AB3B73B1236D6B56002DD9B9 /* Date+Extension.swift in Sources */,
-				ABF34900215F45AC00FFF76B /* DataFetcher.swift in Sources */,
+				ABF34900215F45AC00FFF76B /* FeedItemsFetcher.swift in Sources */,
 				ABE38A0A2181156400DC5C34 /* CoreDataManager.swift in Sources */,
 				AB9780F921864E4700F59270 /* FavoriteMessage+CoreDataProperties.swift in Sources */,
 				AB1ACE13215384130070E578 /* FeedCell.swift in Sources */,
@@ -388,6 +391,7 @@
 				AB3B73AF236D6B41002DD9B9 /* Data+Extension.swift in Sources */,
 				AB95780E215F97C900E3E1E6 /* FeedsListViewController.swift in Sources */,
 				AB1C470C23701B26008A94E5 /* AddFeedService.swift in Sources */,
+				AB504F922378413500E02D75 /* NetworkWorker.swift in Sources */,
 				AB9780F221864DBB00F59270 /* Feed+CoreDataClass.swift in Sources */,
 				AB9780F121864DBB00F59270 /* FeedMessage+CoreDataProperties.swift in Sources */,
 				AB9780F821864E4700F59270 /* FavoriteMessage+CoreDataClass.swift in Sources */,

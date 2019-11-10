@@ -12,7 +12,7 @@ import SafariServices
 class FeedViewController: UIViewController {
     @IBOutlet private var collectionView: UICollectionView!
     
-    private let dataFetcher = DataFetcher()
+    private let feedItemsFetcher = FeedItemsFetcher()
     private let feedService = FeedService.shared
     
     var feed: Feed?
@@ -37,8 +37,8 @@ class FeedViewController: UIViewController {
         guard let url = feed?.link else {
             return
         }
-        dataFetcher.feed = feed
-        dataFetcher.getFeed(with: url) { [weak self] (error) in
+        feedItemsFetcher.feed = feed
+        feedItemsFetcher.getFeed(with: url) { [weak self] (error) in
             if let error = error {
                 self?.showError(with: error.localizedDescription)
                 return

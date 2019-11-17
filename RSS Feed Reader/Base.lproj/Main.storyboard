@@ -86,14 +86,46 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3Rt-cP-Why">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="Ixe-x5-JRj">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="66"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xIL-mL-2py" customClass="ShadowButton" customModule="RSS_Feed_Reader" customModuleProvider="target">
+                                            <rect key="frame" x="16" y="8" width="382" height="50"/>
+                                            <color key="backgroundColor" name="White"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="50" id="x6u-cU-oL1"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="tintColor" red="0.92549019610000005" green="0.18823529410000001" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="12" maxY="0.0"/>
+                                            <state key="normal" title="Add feed" image="text.badge.plus" catalog="system">
+                                                <color key="titleColor" red="0.92549019610000005" green="0.18823529410000001" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <connections>
+                                                <segue destination="688-Jp-HpJ" kind="presentation" identifier="OpenFeedEditor" id="IOl-Nd-3Rt">
+                                                    <segue key="commit" inheritsFrom="parent" id="vJl-dg-ESh"/>
+                                                    <segue key="preview" inheritsFrom="commit" id="qH4-fd-ITi"/>
+                                                </segue>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="xIL-mL-2py" secondAttribute="bottom" constant="8" id="J4O-6j-Kbu"/>
+                                        <constraint firstItem="xIL-mL-2py" firstAttribute="leading" secondItem="Ixe-x5-JRj" secondAttribute="leading" constant="16" id="Pag-hj-p3I"/>
+                                        <constraint firstAttribute="trailing" secondItem="xIL-mL-2py" secondAttribute="trailing" constant="16" id="hrh-lF-NuJ"/>
+                                        <constraint firstItem="xIL-mL-2py" firstAttribute="top" secondItem="Ixe-x5-JRj" secondAttribute="top" constant="8" id="uHR-O4-SdU"/>
+                                    </constraints>
+                                </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="hWP-22-l79">
-                                    <rect key="frame" x="0.0" y="192" width="414" height="1"/>
+                                    <rect key="frame" x="0.0" y="258" width="414" height="1"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeedCell" rowHeight="136" id="MRC-5O-Did" customClass="FeedCell" customModule="RSS_Feed_Reader" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="136"/>
+                                        <rect key="frame" x="0.0" y="94" width="414" height="136"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MRC-5O-Did" id="uXd-qi-axR">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="136"/>
@@ -146,14 +178,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="a7d-9h-5SP"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Feeds" id="QrF-aO-y4S">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="A9P-1u-gre">
-                            <color key="tintColor" red="0.92549019610000005" green="0.18823529410000001" blue="0.38823529410000002" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <segue destination="688-Jp-HpJ" kind="presentation" identifier="OpenFeedEditor" id="D6W-R8-U3j"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Feeds" id="QrF-aO-y4S"/>
                     <connections>
                         <outlet property="tableView" destination="3Rt-cP-Why" id="5An-i9-Nul"/>
                         <segue destination="d3O-Rn-rhM" kind="presentation" identifier="OpenFeed" id="Oq5-tG-fYg"/>
@@ -376,6 +401,7 @@
     <resources>
         <image name="heart" catalog="system" width="64" height="54"/>
         <image name="list.dash" catalog="system" width="64" height="42"/>
+        <image name="text.badge.plus" catalog="system" width="64" height="54"/>
         <image name="trash.fill" catalog="system" width="60" height="64"/>
         <namedColor name="Black">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -383,6 +409,12 @@
         <namedColor name="Grey">
             <color red="0.77600002288818359" green="0.77600002288818359" blue="0.7839999794960022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="White">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="IOl-Nd-3Rt"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

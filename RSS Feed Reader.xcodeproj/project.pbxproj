@@ -11,6 +11,7 @@
 		AB0C3660236CAF060074F563 /* AddFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0C365F236CAF060074F563 /* AddFeedViewController.swift */; };
 		AB1ACE13215384130070E578 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1ACE12215384130070E578 /* FeedCell.swift */; };
 		AB1C470C23701B26008A94E5 /* AddFeedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1C470B23701B26008A94E5 /* AddFeedService.swift */; };
+		AB2ED553238158C400291606 /* ShadowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2ED552238158C400291606 /* ShadowButton.swift */; };
 		AB3B73AF236D6B41002DD9B9 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3B73AE236D6B41002DD9B9 /* Data+Extension.swift */; };
 		AB3B73B1236D6B56002DD9B9 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3B73B0236D6B56002DD9B9 /* Date+Extension.swift */; };
 		AB42C9A92151A67300C3C367 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB42C9A82151A67300C3C367 /* AppDelegate.swift */; };
@@ -60,6 +61,7 @@
 		AB0C365F236CAF060074F563 /* AddFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFeedViewController.swift; sourceTree = "<group>"; };
 		AB1ACE12215384130070E578 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		AB1C470B23701B26008A94E5 /* AddFeedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFeedService.swift; sourceTree = "<group>"; };
+		AB2ED552238158C400291606 /* ShadowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowButton.swift; sourceTree = "<group>"; };
 		AB3B73AE236D6B41002DD9B9 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		AB3B73B0236D6B56002DD9B9 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		AB42C9A52151A67300C3C367 /* RSS Feed Reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RSS Feed Reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,6 +169,7 @@
 		AB6E696C236D5D35006AAEE6 /* CommonViews */ = {
 			isa = PBXGroup;
 			children = (
+				AB2ED552238158C400291606 /* ShadowButton.swift */,
 				ABF34908215F71B200FFF76B /* FeedItemCell.swift */,
 				AB9303EB236D5B5700A9A49E /* FeedItemCell.xib */,
 			);
@@ -387,6 +390,7 @@
 				AB9780F921864E4700F59270 /* FavoriteMessage+CoreDataProperties.swift in Sources */,
 				AB1ACE13215384130070E578 /* FeedCell.swift in Sources */,
 				AB53363C2183D2DB00247ED2 /* FavoritesViewController.swift in Sources */,
+				AB2ED553238158C400291606 /* ShadowButton.swift in Sources */,
 				AB9303EA236D54D600A9A49E /* UIViewController+Extension.swift in Sources */,
 				AB9780E921864CC000F59270 /* AppData.xcdatamodeld in Sources */,
 				AB3B73AF236D6B41002DD9B9 /* Data+Extension.swift in Sources */,
